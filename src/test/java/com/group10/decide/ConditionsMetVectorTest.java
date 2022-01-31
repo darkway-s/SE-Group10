@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test for Decide App.
+ * Unit test for ConditionsMetVector.
  */
-public class AppTest {
+public class ConditionsMetVectorTest {
 
     /**
      * Sample test to verify that the app is running.
