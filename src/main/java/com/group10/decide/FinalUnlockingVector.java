@@ -3,16 +3,18 @@ package com.group10.decide;
 public class FinalUnlockingVector {
     ParameterManager pm;
     int length;
-    Matrix<boolean> preliminaryUnlockingMatrix;
-    Vector<boolean> finalUnlockingVector;
+    Matrix<Boolean> preliminaryUnlockingMatrix;
+    Vector<Boolean> finalUnlockingVector;
 
-    public FinalUnlockingVector(ParameterManager pm, int length, Matrix<boolean> preliminaryUnlockingMatrix) {}
+    public FinalUnlockingVector(ParameterManager pm, int length, Matrix<Boolean> preliminaryUnlockingMatrix) {}
 
     public void setFUV() {}
     
-    public Vector<boolean> getFUV() {
+    public Vector<Boolean> getFUV() {
         return this.finalUnlockingVector;
     }
 
-    public boolean hasAllTrueValues() {}
+    public boolean hasAllTrueValues() {
+        return false;
+    }
 }

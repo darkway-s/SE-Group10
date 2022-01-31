@@ -5,5 +5,5 @@ public class ParameterManager {
     Point[] points;
     LICParameter licParameter;
     Matrix<Connector> logicalConnectorMatrix;
-    Vector<boolean> preliminaryUnlockingVector;
+    Vector<Boolean> preliminaryUnlockingVector;
 }
