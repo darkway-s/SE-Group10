@@ -3,7 +3,7 @@ package com.group10.decide;
 public class ConditionsMetVector {
     ParameterManager pm;
     int length;
-    Vector<boolean> conditionsMetVector;
+    Vector<Boolean> conditionsMetVector;
 
     public ConditionsMetVector(int length, ParameterManager pm) {
 
@@ -13,37 +13,67 @@ public class ConditionsMetVector {
 
     }
 
-    public boolean LIC0() {}
+    public Boolean LIC0() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC1() {}
+    public Boolean LIC1() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC2() {}
+    public Boolean LIC2() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC3() {}
+    public Boolean LIC3() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC4() {}
+    public Boolean LIC4() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC5() {}
+    public Boolean LIC5() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC6() {}
+    public Boolean LIC6() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC7() {}
+    public Boolean LIC7() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC8() {}
+    public Boolean LIC8() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC9() {}
+    public Boolean LIC9() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC10() {}
+    public Boolean LIC10() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC11() {}
+    public Boolean LIC11() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC12() {}
+    public Boolean LIC12() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC13() {}
+    public Boolean LIC13() {
+        return Boolean.FALSE;
+    }
 
-    public boolean LIC14() {}
+    public Boolean LIC14() {
+        return Boolean.FALSE;
+    }
 
-    public Vector<boolean> getConditionsMetVector() {
+    public Vector<Boolean> getConditionsMetVector() {
         return this.conditionsMetVector;
     }
 }
