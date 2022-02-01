@@ -22,7 +22,7 @@ public class ParameterManager {
         }
     }
 
-    private void readLICParameters(Scanner scanner) {
+    private void readParameters(Scanner scanner) {
         double length1 = scanner.nextDouble();
         double radius1 = scanner.nextDouble();
         double epsilon = scanner.nextDouble();
@@ -50,24 +50,33 @@ public class ParameterManager {
 
     private Connector parseConnectorInput(int input) {
         if (input == 0) {
-            return ANDD;
+            return Connector.ANDD;
         } else if (input == 1) {
-            return ORR;
+            return Connector.ORR;
         } else {
-            return NOTUSED;
+            return Connector.NOTUSED;
         }
     }
 
-    //private void readLCM(Scanner scanner) {
-
-    //}
+    private void readLCM(Scanner scanner) {
+        int LCMRowSize = 15;
+        int LCMColSize = 15;
+        logicalConnectorMatrix = new Matrix<Connector>(LCMRowSize, LCMColSize);
+        for (int curRow = 0; curRow < LCMRowSize; ++curRow) {
+            for (int curCol = 0; curCol < LCMColSize; ++curCol) {
+                int input = scanner.nextInt();
+                logicalConnectorMatrix.setValue(curRow, curCol, parseConnectorInput(input));
+            }
+        }
+    }
 
     private void initFromFile(String inputFilePath) {
         try {
             File inputFile = new File(inputFilePath);
             Scanner inputReader = new Scanner(inputFile);
             readPoints(inputReader);
-            readLICParameters(inputReader);
+            readParameters(inputReader);
+            readLCM(inputReader);
         } catch (FileNotFoundException e) {
             System.out.println("ParameterManager.initFromFile: File not Found");
             e.printStackTrace();
