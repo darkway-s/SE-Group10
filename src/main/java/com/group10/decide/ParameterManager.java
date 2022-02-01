@@ -1,11 +1,15 @@
 package com.group10.decide;
 
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;  // Import this class to handle errors
+import java.util.Scanner; // Import the Scanner class to read text files
+
 public class ParameterManager {
-    int numPoints;
-    Point[] points;
-    LICParameter licParameter;
-    Matrix<Connector> logicalConnectorMatrix;
-    Vector<Boolean> preliminaryUnlockingVector;
+    private int numPoints;
+    private Point[] points;
+    private LICParameter licParameter;
+    private Matrix<Connector> logicalConnectorMatrix;
+    private Vector<Boolean> preliminaryUnlockingVector;
 
     /**
      * Consturctor
@@ -46,6 +50,16 @@ public class ParameterManager {
      */
     public LICParameter getLicParameter() {
         return licParameter;
+    }
+
+    private readPoints(Scanner scanner) {
+        numPoints = scanner.nextInt();
+    }
+
+    private initFromFile(String inputFilePath) {
+        File inputFile = new File(inputFilePath);
+        Scanner inputReader = new Scanner(inputFile);
+
     }
 
 }
