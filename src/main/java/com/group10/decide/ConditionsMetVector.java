@@ -158,7 +158,13 @@ public class ConditionsMetVector {
     }
 
     
-    /** 
+    /**
+     * <h3>Computes the 14th Launch Interceptor Condition</h3>
+     *
+     * <b>True</b> if there exists three points separated by EPts and FPts intervening points that form the vertices of
+     * a triangle with an area greater than area1 and three more points that are separated by the same conditions
+     * but could be the same which form the vertices of a triangle with an area less than area2. <b>False</b> otherwise.
+     *
      * @return Boolean
      */
     public Boolean LIC14() {
