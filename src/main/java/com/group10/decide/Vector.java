@@ -29,6 +29,7 @@ public class Vector<T> {
      */
     public Vector(int length, T [] values){
         this.length = length;
+        if(values.length != this.length) throw new IndexOutOfBoundsException("The specified length is not equal to the length of the intial values");
         this.vector = values;
     }
 
