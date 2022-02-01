@@ -2,6 +2,7 @@ package com.group10.decide;
 
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
+import java.util.Locale; //Used to handle dots in decimal format scanning
 import java.util.Scanner; // Import the Scanner class to read text files
 
 public class ParameterManager {
@@ -87,7 +88,7 @@ public class ParameterManager {
     private void initFromFile(String inputFilePath) {
         try {
             File inputFile = new File(inputFilePath);
-            Scanner inputReader = new Scanner(inputFile);
+            Scanner inputReader = new Scanner(inputFile).useLocale(Locale.US);;
             readPoints(inputReader);
             readParameters(inputReader);
             readLCM(inputReader);
