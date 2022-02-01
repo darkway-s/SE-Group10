@@ -33,17 +33,36 @@ public class Matrix<T> {
     }
 
     /**
+     * Get a specific row from the matrix by index.
+     * @return list of values in the row
+     */
+    public T[] getRow(int rowIndex) {
+        return matrix[rowIndex];
+    }
+    /**
+     * Get a specific column from the matrix by index.
+     * @return list of values in the column
+     */
+    public T[] getCol(int colIndex) {
+        T[] col = (T[]) new Object[rows];
+        for (int i = 0; i < rows; i++) {
+            col[i] = matrix[i][colIndex];
+        }
+        return col;
+    }
+
+    /**
      * Get number of rows.
      * @return number of rows
      */
-    public int getRows() {
+    public int getRowLength() {
         return rows;
     }
     /**
      * Get number of columns.
      * @return number of columns
      */
-    public int getCols() {
+    public int getColLength() {
         return cols;
     }
     /**
