@@ -168,6 +168,10 @@ public class ConditionsMetVector {
      * @return Boolean
      */
     public Boolean LIC14() {
+        if (pm.getNumPoints() < 5) {
+            return Boolean.FALSE;
+        }
+
         Point pointOne, pointTwo, pointThree;
         Vector<Point> points = pm.getPoints();
         LICParameter lic = pm.getLICParameter();
