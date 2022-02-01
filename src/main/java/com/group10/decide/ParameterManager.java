@@ -89,6 +89,20 @@ public class ParameterManager {
                                         c_pts, d_pts, e_pts, f_pts, g_pts);
     }
 
+    private Connector parseConnectorInput(int input) {
+        if (input == 0) {
+            return ANDD;
+        } else if (input == 1) {
+            return ORR;
+        } else {
+            return NOTUSED;
+        }
+    }
+
+    //private void readLCM(Scanner scanner) {
+
+    //}
+
     private void initFromFile(String inputFilePath) {
         try {
             File inputFile = new File(inputFilePath);
