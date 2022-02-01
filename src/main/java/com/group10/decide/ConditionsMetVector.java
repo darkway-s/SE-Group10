@@ -25,13 +25,29 @@ public class ConditionsMetVector {
         return Boolean.FALSE;
     }
 
+    /**
+     * Computes the 3rd Launch Interceptor Condition
+     * True if there exists 3 consecutive points that form the vertices of a triangle and that triangle has an area greater than pm.AREA1
+     *
+     * @return  Boolean
+     */
     public Boolean LIC3() {
+        Point pointOne, pointTwo, pointThree;
+        Vector<Point> points = pm.getPoints();
+        double area;
+        for (int i = 0; i < pm.getNumPoints() - 2; i++) {
+            pointOne = points.getValue(i);
+            pointTwo = points.getValue(i + 1);
+            pointThree = points.getValue(i + 2);
+            area = (pointOne.getX()*pointOne.getY() - pointTwo.getX()*pointOne.getY() +
+                    pointTwo.getX()*pointThree.getY() - pointThree.getX()*pointTwo.getY() +
+                    pointThree.getX()*pointOne.getY() - pointOne.getX()*pointThree.getY()) / 2;
+            if (area > pm.getLICParameter().getArea1()) { return Boolean.TRUE; }
+        }
         return Boolean.FALSE;
     }
 
-    public Boolean LIC4() {
-        return Boolean.FALSE;
-    }
+    public Boolean LIC4() { return Boolean.FALSE; }
 
     public Boolean LIC5() {
         return Boolean.FALSE;
