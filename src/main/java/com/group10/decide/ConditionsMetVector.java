@@ -6,28 +6,28 @@ public class ConditionsMetVector {
     Vector<Boolean> conditionsMetVector;
 
 
-    public ConditionsMetVector(int length, ParameterManager pm) {
-        this.length = length;
+    public ConditionsMetVector(ParameterManager pm) {
+        this.length = 15;
         this.pm = pm;
     }
 
-    public void setConditionsVector() {
-
+    public void setConditionsVector(ParameterManager pm) {
+        this.pm = pm;
     }
     
     
     /** 
      * There exists at least one set of two consecutive data points
      *  that are a distance greater than LENGTH1. (0 ≤ LENGTH1)
-     * @return Boolean. True if there exists two consecutive data points, otherwise false
+     * @return Boolean. True if there exists two consecutive data points, otherwise False
      */
     public Boolean LIC0() {
         int siz = this.pm.getNumPoints();
-        Point[] pointsArray =  this.pm.getPoints();
-        double length1 = this.pm.licParameter.getLength1();
+        Vector<Point> pointsArray =  this.pm.getPoints();
+        double length1 = this.pm.getLICParameter().getLength1();
         for(int i = 0; i < siz - 1; i++)
         {
-            if(pointsArray[i].distance(pointsArray[i+1]) > length1)
+            if(pointsArray.getValue(i).distance(pointsArray.getValue(i+1)) > length1)
                 return Boolean.TRUE;
         }
         return Boolean.FALSE;
