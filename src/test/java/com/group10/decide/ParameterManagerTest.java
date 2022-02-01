@@ -77,4 +77,54 @@ public class ParameterManagerTest {
         assertEquals(2.2333, parameters.getArea2(), "should get equal");
     }
 
+    /**
+     * Test if we get the correct LCM 
+     */
+    @Test
+    @DisplayName("Can get LCM correctly")
+    public void getLCMCorrectly() {
+        Matrix<Connector> readLCM = test_t_p_0_manager.getLogicalConnectorMatrix();
+
+        Connector[][] testMatrix = {
+                {Connector.values()[0], Connector.values()[1], Connector.values()[0], Connector.values()[2], Connector.values()[1], Connector.values()[0], Connector.values()[1], Connector.values()[2], Connector.values()[0], Connector.values()[0], Connector.values()[1], Connector.values()[2], Connector.values()[0], Connector.values()[0], Connector.values()[0]},
+                {Connector.values()[1], Connector.values()[2], Connector.values()[0], Connector.values()[1], Connector.values()[1], Connector.values()[2], Connector.values()[2], Connector.values()[0], Connector.values()[1], Connector.values()[2], Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[0], Connector.values()[0]},
+                {Connector.values()[0], Connector.values()[0], Connector.values()[0], Connector.values()[1], Connector.values()[1], Connector.values()[0], Connector.values()[1], Connector.values()[1], Connector.values()[1], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[0], Connector.values()[1]},
+                {Connector.values()[2], Connector.values()[1], Connector.values()[1], Connector.values()[1], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[2], Connector.values()[2], Connector.values()[0], Connector.values()[2], Connector.values()[1], Connector.values()[0], Connector.values()[1], Connector.values()[2]},
+                {Connector.values()[1], Connector.values()[1], Connector.values()[1], Connector.values()[2], Connector.values()[0], Connector.values()[1], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[2], Connector.values()[1], Connector.values()[0], Connector.values()[0], Connector.values()[2], Connector.values()[0]},
+                {Connector.values()[0], Connector.values()[2], Connector.values()[0], Connector.values()[2], Connector.values()[1], Connector.values()[0], Connector.values()[0], Connector.values()[1], Connector.values()[1], Connector.values()[2], Connector.values()[0], Connector.values()[2], Connector.values()[1], Connector.values()[2], Connector.values()[0]},
+                {Connector.values()[1], Connector.values()[2], Connector.values()[1], Connector.values()[1], Connector.values()[2], Connector.values()[0], Connector.values()[0], Connector.values()[0], Connector.values()[0], Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[2]},
+                {Connector.values()[2], Connector.values()[0], Connector.values()[1], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[0], Connector.values()[0], Connector.values()[1], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[0], Connector.values()[2], Connector.values()[2]},
+                {Connector.values()[0], Connector.values()[1], Connector.values()[1], Connector.values()[2], Connector.values()[1], Connector.values()[1], Connector.values()[0], Connector.values()[1], Connector.values()[0], Connector.values()[2], Connector.values()[1], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[1]},
+                {Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[0]},
+                {Connector.values()[1], Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[0], Connector.values()[2], Connector.values()[1], Connector.values()[1], Connector.values()[1], Connector.values()[2]},
+                {Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[1], Connector.values()[2], Connector.values()[1], Connector.values()[2]},
+                {Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[0], Connector.values()[0], Connector.values()[1], Connector.values()[2], Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[2]},
+                {Connector.values()[0], Connector.values()[0], Connector.values()[0], Connector.values()[1], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[1], Connector.values()[1], Connector.values()[2], Connector.values()[0], Connector.values()[1]},
+                {Connector.values()[0], Connector.values()[0], Connector.values()[1], Connector.values()[2], Connector.values()[0], Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[0], Connector.values()[2], Connector.values()[2], Connector.values()[2], Connector.values()[1], Connector.values()[0]}
+            };
+        Matrix<Connector> testLCM = new Matrix<Connector>(15, 15, testMatrix);
+
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                assertEquals(testLCM.getValue(i, j), readLCM.getValue(i, j), "should be equal " + i + " " + j);
+            }
+        }
+    }
+
+    /**
+     * Test if we get the correct PUV 
+     */
+    @Test
+    @DisplayName("Can get PUV correctly")
+    public void getPUVCorrectly() {
+        Vector<Boolean> readPUV = test_t_p_0_manager.getPreliminaryUnlockingVector();
+
+        Boolean[] testVector = {(1 == 1), (0 == 1), (0 == 1), (0 == 1), (0 == 1), (0 == 1), (0 == 1), (0 == 1), (0 == 1), (0 == 1), (0 == 1), (0 == 1), (0 == 1), (0 == 1), (0 == 1)};
+        Vector<Boolean> testPUV = new Vector<Boolean>(15, testVector);
+
+        for (int i = 0; i < 15; i++) {
+            assertEquals(testPUV.getValue(i), readPUV.getValue(i), "should be equal " + i);
+        }
+    }
+
 }
