@@ -97,4 +97,39 @@ public class ParameterManager {
     public ParameterManager(String inputFilePath) {
         initFromFile(inputFilePath);
     }
+
+    /**
+     * @return the numPoints
+     * */
+    public int getNumPoints(){
+        return this.numPoints;
+    }
+
+    /**
+     * @return the points
+     * */
+    public Point[] getPoints(){
+        return this.points;
+    }
+
+    /**
+     * @return the LIC parameters
+     * */
+    public LICParameter getLICParameter(){
+        return this.licParameter;
+    }
+
+    /**
+     * @return the LCM
+     * */
+    public Matrix<Connector> getLogicalConnectorMatrix(){
+        return this.logicalConnectorMatrix;
+    }
+
+    /**
+     * @return the PUV
+     * */
+    public Vector<Boolean> getPreliminaryUnlockingVector(){
+        return this.preliminaryUnlockingVector;
+    }
 }
