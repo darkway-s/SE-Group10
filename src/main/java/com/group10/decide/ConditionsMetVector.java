@@ -109,6 +109,10 @@ public class ConditionsMetVector {
      * @return Boolean
      */
     public Boolean LIC7() {
+        if (pm.getNumPoints() < 3) {
+            return Boolean.FALSE;
+        }
+
         Vector<Point> points = pm.getPoints();
         int KPts = pm.getLICParameter().getKPts();
         double Length1 = pm.getLICParameter().getLength1();
