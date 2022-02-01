@@ -4,25 +4,25 @@ package com.group10.decide;
  * Class for the LIC parameters
  */
 public class LICParameter {
-    public final double LENGTH_1;
-    public final double RADIUS_1;
-    public final double EPSILON;
-    public final double AREA_1;
-    public final double DIST;
-    public final double LENGTH_2;
-    public final double RADIUS_2;
-    public final double AREA_2;
-    public final int Q_PTS;
-    public final int QUADS;
-    public final int N_PTS;
-    public final int K_PTS;
-    public final int A_PTS;
-    public final int B_PTS;
-    public final int C_PTS;
-    public final int D_PTS;
-    public final int E_PTS;
-    public final int F_PTS;
-    public final int G_PTS;
+    private final double LENGTH_1;
+    private final double RADIUS_1;
+    private final double EPSILON;
+    private final double AREA_1;
+    private final double DIST;
+    private final double LENGTH_2;
+    private final double RADIUS_2;
+    private final double AREA_2;
+    private final int Q_PTS;
+    private final int QUADS;
+    private final int N_PTS;
+    private final int K_PTS;
+    private final int A_PTS;
+    private final int B_PTS;
+    private final int C_PTS;
+    private final int D_PTS;
+    private final int E_PTS;
+    private final int F_PTS;
+    private final int G_PTS;
 
     /**
      * Initializes a new instance of the LICParameter object from input.
@@ -70,4 +70,138 @@ public class LICParameter {
         this.F_PTS = fPts;
         this.G_PTS = gPts;
     }
+
+    /**
+     * @return the parameter LENGTH_1 needed in the LIC's
+     * */
+    public double getLength1(){
+        return this.LENGTH_1;
+    }
+
+    /**
+     * @return the parameter LENGTH_2 needed in the LIC's
+     * */
+    public double getLength2(){
+        return this.LENGTH_2;
+    }
+
+    /**
+     * @return the parameter RADIUS_1 needed in the LIC's
+     * */
+    public double getRadius1(){
+        return this.RADIUS_1;
+    }
+
+    /**
+     * @return the parameter RADIUS_2 needed in the LIC's
+     * */
+    public double getRadius2(){
+        return this.RADIUS_2;
+    }
+
+    /**
+     * @return the parameter AREA_1 needed in the LIC's
+     * */
+    public double getArea1(){
+        return this.AREA_1;
+    }
+
+    /**
+     * @return the parameter AREA_2 needed in the LIC's
+     * */
+    public double getArea2(){
+        return this.AREA_2;
+    }
+
+    /**
+     * @return the parameter DIST needed in the LIC's
+     * */
+    public double getDist(){
+        return this.DIST;
+    }
+
+    /**
+     * @return the parameter EPSILON needed in the LIC's
+     * */
+    public double getEpsilon(){
+        return this.EPSILON;
+    }
+
+    /**
+     * @return the parameter QUADS needed in the LIC's
+     * */
+    public int getQuads(){
+        return this.QUADS;
+    }
+
+    /**
+     * @return the parameter Q_PTS needed in the LIC's
+     * */
+    public int getQPts(){
+        return this.Q_PTS;
+    }
+
+    /**
+     * @return the parameter N_PTS needed in the LIC's
+     * */
+    public int getNPts(){
+        return this.N_PTS;
+    }
+
+    /**
+     * @return the parameter K_PTS needed in the LIC's
+     * */
+    public int getKPts(){
+        return this.K_PTS;
+    }
+
+    /**
+     * @return the parameter A_PTS needed in the LIC's
+     * */
+    public int getAPts(){
+        return this.A_PTS;
+    }
+
+    /**
+     * @return the parameter B_PTS needed in the LIC's
+     * */
+    public int getBPts(){
+        return this.B_PTS;
+    }
+
+    /**
+     * @return the parameter C_PTS needed in the LIC's
+     * */
+    public int getCPts(){
+        return this.C_PTS;
+    }
+
+    /**
+     * @return the parameter D_PTS needed in the LIC's
+     * */
+    public int getDPts(){
+        return this.D_PTS;
+    }
+
+    /**
+     * @return the parameter E_PTS needed in the LIC's
+     * */
+    public int getEPts(){
+        return this.E_PTS;
+    }
+
+    /**
+     * @return the parameter F_PTS needed in the LIC's
+     * */
+    public int getFPts(){
+        return this.F_PTS;
+    }
+
+    /**
+     * @return the parameter G_PTS needed in the LIC's
+     * */
+    public int getGPts(){
+        return this.G_PTS;
+    }
+
 }

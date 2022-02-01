@@ -26,7 +26,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter LENGTH 1")
     public void getParameterLength1() {
-        assertEquals(1.0, licParameter.LENGTH_1, "should get 1.0");
+        assertEquals(1.0, licParameter.getLength1(), "should get 1.0");
     }
 
     /**
@@ -35,7 +35,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter RADIUS_1")
     public void getParameterRadius1() {
-        assertEquals(9.3, licParameter.RADIUS_1, "should get 9.3");
+        assertEquals(9.3, licParameter.getRadius1(), "should get 9.3");
     }
 
     /**
@@ -44,7 +44,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter EPSILON")
     public void getParameterEpsilon() {
-        assertEquals(0.092, licParameter.EPSILON, "should get 0.092");
+        assertEquals(0.092, licParameter.getEpsilon(), "should get 0.092");
     }
 
     /**
@@ -53,7 +53,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter AREA_1")
     public void getParameterArea1() {
-        assertEquals(24.4, licParameter.AREA_1, "should get  24.4");
+        assertEquals(24.4, licParameter.getArea1(), "should get  24.4");
     }
 
     /**
@@ -62,7 +62,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter DIST")
     public void getParameterDist() {
-        assertEquals(4.0, licParameter.DIST, "should get 4.0");
+        assertEquals(4.0, licParameter.getDist(), "should get 4.0");
     }
 
     /**
@@ -71,7 +71,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter LENGTH 2")
     public void getParameterLength2() {
-        assertEquals(3.4, licParameter.LENGTH_2, "should get 3.4");
+        assertEquals(3.4, licParameter.getLength2(), "should get 3.4");
     }
 
     /**
@@ -80,7 +80,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter RADIUS_2")
     public void getParameterRadius2() {
-        assertEquals(6.6, licParameter.RADIUS_2, "should get 6.6");
+        assertEquals(6.6, licParameter.getRadius2(), "should get 6.6");
     }
 
     /**
@@ -89,7 +89,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter AREA_2")
     public void getParameterArea2() {
-        assertEquals(7.0, licParameter.AREA_2, "should get 7.0");
+        assertEquals(7.0, licParameter.getArea2(), "should get 7.0");
     }
 
     /**
@@ -98,7 +98,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter Q_PTS")
     public void getParameterQPts() {
-        assertEquals(1, licParameter.Q_PTS, "should get 1");
+        assertEquals(1, licParameter.getQPts(), "should get 1");
     }
 
     /**
@@ -107,7 +107,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter QUADS")
     public void getParameterQuads() {
-        assertEquals(3, licParameter.QUADS, "should get 3");
+        assertEquals(3, licParameter.getQuads(), "should get 3");
     }
 
     /**
@@ -116,7 +116,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter N_PTS")
     public void getParameterNPts() {
-        assertEquals(79, licParameter.N_PTS, "should get 79");
+        assertEquals(79, licParameter.getNPts(), "should get 79");
     }
 
     /**
@@ -125,7 +125,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter K_PTS")
     public void getParameterKPts() {
-        assertEquals(4, licParameter.K_PTS, "should get 4");
+        assertEquals(4, licParameter.getKPts(), "should get 4");
     }
 
     /**
@@ -134,7 +134,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter A_PTS")
     public void getParameterAPts() {
-        assertEquals(8, licParameter.A_PTS, "should get 8");
+        assertEquals(8, licParameter.getAPts(), "should get 8");
     }
 
     /**
@@ -143,7 +143,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter B_PTS")
     public void getParameterBPts() {
-        assertEquals(56, licParameter.B_PTS, "should get 56");
+        assertEquals(56, licParameter.getBPts(), "should get 56");
     }
 
     /**
@@ -152,7 +152,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter C_PTS")
     public void getParameterCPts() {
-        assertEquals(9, licParameter.C_PTS, "should get 9");
+        assertEquals(9, licParameter.getCPts(), "should get 9");
     }
 
     /**
@@ -161,7 +161,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter D_PTS")
     public void getParameterDPts() {
-        assertEquals(11, licParameter.D_PTS, "should get 11");
+        assertEquals(11, licParameter.getDPts(), "should get 11");
     }
 
     /**
@@ -170,7 +170,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter E_PTS")
     public void getParameterEPts() {
-        assertEquals(10, licParameter.E_PTS, "should get 10");
+        assertEquals(10, licParameter.getEPts(), "should get 10");
     }
 
     /**
@@ -179,7 +179,7 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter F_PTS")
     public void getParameterFPts() {
-        assertEquals(3, licParameter.F_PTS, "should get 3");
+        assertEquals(3, licParameter.getFPts(), "should get 3");
     }
 
     /**
@@ -188,6 +188,6 @@ public class LICParameterTest {
     @Test
     @DisplayName("Can get LIC parameter G_PTS")
     public void getParameterGPts() {
-        assertEquals(9, licParameter.G_PTS, "should get 9");
+        assertEquals(9, licParameter.getGPts(), "should get 9");
     }
 }
