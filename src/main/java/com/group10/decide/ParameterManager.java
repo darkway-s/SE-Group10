@@ -118,6 +118,10 @@ public class ParameterManager {
         }
     }
 
+    public ParameterManager() {
+
+    }
+
     public ParameterManager(String inputFilePath) {
         initFromFile(inputFilePath);
     }
@@ -129,11 +133,19 @@ public class ParameterManager {
         return this.numPoints;
     }
 
+    public void setNumPoints(int value) {
+        this.numPoints = value;
+    }
+
     /**
      * @return the points
      * */
     public Vector<Point> getPoints(){
         return this.points;
+    }
+
+    public void getPoints(Vector<Point> value) {
+        this.points = value;
     }
 
     /**
@@ -143,6 +155,10 @@ public class ParameterManager {
         return this.licParameter;
     }
 
+    public void setLICParameter(LICParameter value) {
+        this.licParameter = value;
+    }
+
     /**
      * @return the LCM
      */
@@ -150,10 +166,18 @@ public class ParameterManager {
         return this.logicalConnectorMatrix;
     }
 
+    public void setLogicalConnectorMatrix(Matrix<Connector> value) {
+        this.logicalConnectorMatrix = value;
+    }
+
     /**
      * @return the PUV
      */
     public Vector<Boolean> getPreliminaryUnlockingVector() {
         return this.preliminaryUnlockingVector;
+    }
+
+    public void SetPreliminaryUnlockingVector(Vector<Boolean> value) {
+        this.preliminaryUnlockingVector = value;
     }
 }
