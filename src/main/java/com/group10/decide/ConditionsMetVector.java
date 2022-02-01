@@ -6,7 +6,8 @@ public class ConditionsMetVector {
     Vector<Boolean> conditionsMetVector;
 
     public ConditionsMetVector(int length, ParameterManager pm) {
-
+        this.length = length;
+        this.pm = pm;
     }
 
     public void setConditionsVector() {
@@ -39,9 +40,10 @@ public class ConditionsMetVector {
             pointOne = points.getValue(i);
             pointTwo = points.getValue(i + 1);
             pointThree = points.getValue(i + 2);
-            area = (pointOne.getX()*pointOne.getY() - pointTwo.getX()*pointOne.getY() +
-                    pointTwo.getX()*pointThree.getY() - pointThree.getX()*pointTwo.getY() +
-                    pointThree.getX()*pointOne.getY() - pointOne.getX()*pointThree.getY()) / 2;
+            area = Math.abs((pointOne.getX()*(pointTwo.getY() - pointThree.getY()) +
+                    pointTwo.getX()*(pointThree.getY() - pointOne.getY()) +
+                    pointThree.getX()*(pointOne.getY() - pointTwo.getY())) / 2);
+            System.out.println(area);
             if (area > pm.getLICParameter().getArea1()) { return Boolean.TRUE; }
         }
         return Boolean.FALSE;
