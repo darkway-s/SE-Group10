@@ -11,6 +11,11 @@ public class ConditionsMetVector {
         this.pm = pm;
     }
 
+    public ConditionsMetVector(int length, ParameterManager pm) {
+        this.length = length;
+        this.pm = pm;
+    }
+
     public void setConditionsVector(ParameterManager pm) {
         this.pm = pm;
     }
