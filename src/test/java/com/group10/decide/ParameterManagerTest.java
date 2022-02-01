@@ -49,4 +49,32 @@ public class ParameterManagerTest {
         }
     }
 
+    /**
+     * Test if we get the correct LIC Parameters
+     */
+    @Test
+    @DisplayName("Can get LIC Parameters correctly")
+    public void getLICParametersCorrectly() {
+        LICParameter parameters = test_t_p_0_manager.getLICParameter();
+        assertEquals(0.4470, parameters.getLength1(), "should get equal");
+        assertEquals(1.9120, parameters.getRadius1(), "should get equal");
+        assertEquals(0.1966, parameters.getEpsilon(), "should get equal");
+        assertEquals(3.3428, parameters.getArea1(), "should get equal");
+        assertEquals(2, parameters.getQPts(), "should get equal");
+        assertEquals(1, parameters.getQuads(), "should get equal");
+        assertEquals(2.1458, parameters.getDist(), "should get equal");
+        assertEquals(-1, parameters.getNPts(), "should get equal");
+        assertEquals(-1, parameters.getKPts(), "should get equal");
+        assertEquals(-1, parameters.getAPts(), "should get equal");
+        assertEquals(-1, parameters.getBPts(), "should get equal");
+        assertEquals(-1, parameters.getCPts(), "should get equal");
+        assertEquals(-1, parameters.getDPts(), "should get equal");
+        assertEquals(-1, parameters.getEPts(), "should get equal");
+        assertEquals(-1, parameters.getFPts(), "should get equal");
+        assertEquals(-1, parameters.getGPts(), "should get equal");
+        assertEquals(0.2198, parameters.getLength2(), "should get equal");
+        assertEquals(0.9714, parameters.getRadius2(), "should get equal");
+        assertEquals(2.2333, parameters.getArea2(), "should get equal");
+    }
+
 }
