@@ -91,6 +91,22 @@ public class VectorTest {
     }
 
     /**
+     * Test if initializing a Vector with more values than vector
+     * length throws an IndexOutOfBounds exception.
+     * */
+    @Test
+    @DisplayName("Initialize vector with values.length != vector.length")
+    public void testSetVectorWithMoreValuesThanLength() {
+        Boolean[] vectorValues = new Boolean[] { true, true, false, false, true };
+
+        IndexOutOfBoundsException exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+            new Vector<Boolean>(4, vectorValues);
+        });
+        assertEquals("The specified length is not equal to the length of the intial values", exception.getMessage());
+    }
+
+
+    /**
      * Test if Vector object is string formatted correctly.
      * */
     @Test
