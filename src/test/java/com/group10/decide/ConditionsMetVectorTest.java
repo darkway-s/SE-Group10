@@ -39,4 +39,20 @@ public class ConditionsMetVectorTest {
         assertEquals(Boolean.FALSE, cmv.LIC3(), "LIC3 should be false when the triangle's area is less than Area1");
     }
 
+    @Test
+    @DisplayName("LIC7 true case")
+    public void LIC7True() {
+        pm = new ParameterManager(pathToTestFiles + "test-10p-LIC7true.txt");
+        cmv = new ConditionsMetVector(pm);
+        assertEquals(Boolean.TRUE, cmv.LIC7(), "LIC7 should be true when the distance is greater than length1");
+    }
+
+    @Test
+    @DisplayName("LIC7 false case")
+    public void LIC7False() {
+        pm = new ParameterManager(pathToTestFiles + "test-10p-LIC7false.txt");
+        cmv = new ConditionsMetVector(pm);
+        assertEquals(Boolean.FALSE, cmv.LIC7(), "LIC7 should be true when the distance is less than length1");
+    }
+
 }
