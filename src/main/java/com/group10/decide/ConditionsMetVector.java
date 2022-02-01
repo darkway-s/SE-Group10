@@ -5,15 +5,8 @@ public class ConditionsMetVector {
     int length;
     Vector<Boolean> conditionsMetVector;
 
-    <<<<<<<HEAD
-
     public ConditionsMetVector(ParameterManager pm) {
         this.length = 15;
-=======
-
-    public ConditionsMetVector(int length, ParameterManager pm) {
-        this.length = length;
->>>>>>> 4867173... Implemented LIC3 function, feat #5
         this.pm = pm;
     }
 
