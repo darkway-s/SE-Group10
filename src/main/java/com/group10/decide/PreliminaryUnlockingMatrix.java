@@ -5,7 +5,7 @@ public class PreliminaryUnlockingMatrix {
     int rows, cols;
     Matrix<Boolean> preliminaryUnlockingMatrix;
 
-    public PreliminaryUnlockingMatrix(ParameterManager pm, int rows, int cols) {
+    public PreliminaryUnlockingMatrix(ParameterManager pm, int rows, int cols, Vector<Boolean> conditionsMetVector) {
 
     }
 
