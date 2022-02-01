@@ -6,10 +6,6 @@ public class ConditionsMetVector {
     Vector<Boolean> conditionsMetVector;
 
 
-    public ConditionsMetVector(int length, ParameterManager pm) {
-        this.length = length;
-
-
     public ConditionsMetVector(ParameterManager pm) {
         this.length = 15;
         this.pm = pm;
