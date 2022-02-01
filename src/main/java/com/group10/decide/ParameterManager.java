@@ -93,4 +93,8 @@ public class ParameterManager {
             e.printStackTrace();
         }
     }
+
+    public ParameterManager(String inputFilePath) {
+        initFromFile(inputFilePath);
+    }
 }
