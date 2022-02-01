@@ -11,6 +11,10 @@ public class ParameterManager {
     private Matrix<Connector> logicalConnectorMatrix;
     private Vector<Boolean> preliminaryUnlockingVector;
 
+    
+    /** 
+     * @param scanner
+     */
     private void readPoints(Scanner scanner) {
         // Get the number of points in this input
         numPoints = scanner.nextInt();
@@ -22,6 +26,10 @@ public class ParameterManager {
         }
     }
 
+    
+    /** 
+     * @param inputFilePath
+     */
     private void initFromFile(String inputFilePath) {
         try {
             File inputFile = new File(inputFilePath);
@@ -34,5 +42,46 @@ public class ParameterManager {
 
     }
 
+    
+
+    /** 
+     * Accessor method
+     * @return the number of points
+     */
+    public int getNumPoints() {
+        return numPoints;
+    }
+
+    
+    /** 
+     * @return the points array
+     */
+    public Point[] getPoints() {
+        return points;
+    }
+
+    /** 
+     * @return LIC Parameter struct
+     */
+    public LICParameter getLicParameter(){
+        return licParameter;
+    }
+
+    
+    /** 
+     * @return LCM matrix
+     */
+    public Matrix<Connector> getLCM(){
+        return logicalConnectorMatrix;
+    }
+
+    
+    /** 
+     * @return PUV vector
+     */
+    public Vector<Boolean> getPUV() {
+        return preliminaryUnlockingVector;
+    }
+    
 
 }
