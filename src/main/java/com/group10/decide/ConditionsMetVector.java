@@ -168,6 +168,29 @@ public class ConditionsMetVector {
      * @return Boolean
      */
     public Boolean LIC14() {
+        Point pointOne, pointTwo, pointThree;
+        Vector<Point> points = pm.getPoints();
+        LICParameter lic = pm.getLICParameter();
+        double  area,
+                area1 = lic.getArea1(),
+                area2 = lic.getArea2();
+        int     EPts = lic.getEPts(),
+                FPts = lic.getFPts();
+        boolean greaterThanArea1 = false,
+                lesserThanArea2 = false;
+        for (int i = 0; i < pm.getNumPoints() - EPts - FPts - 2; i++) {
+            pointOne = points.getValue(i);
+            pointTwo = points.getValue(i + EPts + 1);
+            pointThree = points.getValue(i + EPts + FPts + 2);
+            area = Math.abs((pointOne.getX()*(pointTwo.getY() - pointThree.getY()) +
+                    pointTwo.getX()*(pointThree.getY() - pointOne.getY()) +
+                    pointThree.getX()*(pointOne.getY() - pointTwo.getY())) / 2);
+            if (area > area1) { greaterThanArea1 = true; }
+            if (area < area2) { lesserThanArea2 = true; }
+            if (greaterThanArea1 && lesserThanArea2) {
+                return Boolean.TRUE;
+            }
+        }
         return Boolean.FALSE;
     }
 
