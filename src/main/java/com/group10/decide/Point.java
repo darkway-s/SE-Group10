@@ -1,14 +1,14 @@
 package com.group10.decide;
 
 public class Point {
-    int x, y;
+    double x, y;
 
     /**
      * Constructor for Point setting the coordinates.
      * @param x The x coordinate.
      * @param y The y coordinate.
      */
-    public Point(int x, int y) {
+    public Point(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -17,14 +17,14 @@ public class Point {
      * Get method for x coordinate.
      * @return The x coordinate.
      */
-    public int getX() {
+    public double getX() {
         return x;
     }
     /**
      * Get method for y coordinate.
      * @return The y coordinate.
      */
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -32,14 +32,14 @@ public class Point {
      * Set method for x coordinate.
      * @param x The x coordinate.
      */
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
     /**
      * Set method for y coordinate.
      * @param y The y coordinate.
      */
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
