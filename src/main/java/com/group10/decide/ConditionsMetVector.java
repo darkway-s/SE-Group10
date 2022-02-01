@@ -69,7 +69,6 @@ public class ConditionsMetVector {
             area = Math.abs((pointOne.getX() * (pointTwo.getY() - pointThree.getY()) +
                     pointTwo.getX() * (pointThree.getY() - pointOne.getY()) +
                     pointThree.getX() * (pointOne.getY() - pointTwo.getY())) / 2);
-            System.out.println(area);
             if (area > pm.getLICParameter().getArea1()) {
                 return Boolean.TRUE;
             }
