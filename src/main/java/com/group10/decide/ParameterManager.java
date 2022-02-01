@@ -11,10 +11,6 @@ public class ParameterManager {
     private Matrix<Connector> logicalConnectorMatrix;
     private Vector<Boolean> preliminaryUnlockingVector;
 
-    
-    /** 
-     * @param scanner
-     */
     private void readPoints(Scanner scanner) {
         // Get the number of points in this input
         numPoints = scanner.nextInt();
@@ -26,7 +22,7 @@ public class ParameterManager {
         }
     }
 
-    private void readLICParameters(Scanner scanner) {
+    private void readParameters(Scanner scanner) {
         double length1 = scanner.nextDouble();
         double radius1 = scanner.nextDouble();
         double epsilon = scanner.nextDouble();
@@ -52,59 +48,53 @@ public class ParameterManager {
                                         c_pts, d_pts, e_pts, f_pts, g_pts);
     }
 
+    private Connector parseConnectorInput(int input) {
+        if (input == 0) {
+            return Connector.ANDD;
+        } else if (input == 1) {
+            return Connector.ORR;
+        } else {
+            return Connector.NOTUSED;
+        }
+    }
+
+    private void readLCM(Scanner scanner) {
+        int LCMRowSize = 15;
+        int LCMColSize = 15;
+        logicalConnectorMatrix = new Matrix<Connector>(LCMRowSize, LCMColSize);
+        for (int curRow = 0; curRow < LCMRowSize; ++curRow) {
+            for (int curCol = 0; curCol < LCMColSize; ++curCol) {
+                int input = scanner.nextInt();
+                logicalConnectorMatrix.setValue(curRow, curCol, parseConnectorInput(input));
+            }
+        }
+    }
+
+    private void readPUV(Scanner scanner) {
+        int PUVSize = 15;
+        preliminaryUnlockingVector = new Vector<Boolean>(PUVSize);
+        for (int curPUV = 0; curPUV < PUVSize; ++curPUV) {
+            // input is true if it is equal to 1, false if it is false
+            Boolean parsedInput = (scanner.nextInt() == 1);
+            preliminaryUnlockingVector.setValue(curPUV, parsedInput);
+        }
+    }
+
     private void initFromFile(String inputFilePath) {
         try {
             File inputFile = new File(inputFilePath);
             Scanner inputReader = new Scanner(inputFile);
             readPoints(inputReader);
-            readLICParameters(inputReader);
+            readParameters(inputReader);
+            readLCM(inputReader);
+            readPUV(inputReader);
         } catch (FileNotFoundException e) {
             System.out.println("ParameterManager.initFromFile: File not Found");
             e.printStackTrace();
         }
-
     }
 
-    
-
-    /** 
-     * Accessor method
-     * @return the number of points
-     */
-    public int getNumPoints() {
-        return numPoints;
+    public ParameterManager(String inputFilePath) {
+        initFromFile(inputFilePath);
     }
-
-    
-    /** 
-     * @return the points array
-     */
-    public Point[] getPoints() {
-        return points;
-    }
-
-    /** 
-     * @return LIC Parameter struct
-     */
-    public LICParameter getLicParameter(){
-        return licParameter;
-    }
-
-    
-    /** 
-     * @return LCM matrix
-     */
-    public Matrix<Connector> getLCM(){
-        return logicalConnectorMatrix;
-    }
-
-    
-    /** 
-     * @return PUV vector
-     */
-    public Vector<Boolean> getPUV() {
-        return preliminaryUnlockingVector;
-    }
-    
-
 }
