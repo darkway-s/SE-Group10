@@ -6,19 +6,23 @@ import java.util.Scanner; // Import the Scanner class to read text files
 
 public class ParameterManager {
     private int numPoints;
-    private Point[] points;
+    private Vector<Point> points;
     private LICParameter licParameter;
     private Matrix<Connector> logicalConnectorMatrix;
     private Vector<Boolean> preliminaryUnlockingVector;
 
     private void readPoints(Scanner scanner) {
         // Get the number of points in this input
-        numPoints = scanner.nextInt();
-        points = new Point[numPoints];
+        this.numPoints = scanner.nextInt();
+        System.out.println("TESTTT" + numPoints);
+        this.points = new Vector<Point>(numPoints);
         // Get the points data
-        for (int i = 0; i < numPoints; ++i) {
-            points[i].setX(scanner.nextInt());
-            points[i].setY(scanner.nextInt());
+        //System.out.println("TESTTT" + this.points.getValue(0).getX());
+        for (int i = 0; i < this.numPoints; i++) {
+            double X = scanner.nextDouble();
+            double Y = scanner.nextDouble();
+            Point newPoint = new Point(X, Y);
+            this.points.setValue(i, newPoint);
         }
     }
 
@@ -42,7 +46,7 @@ public class ParameterManager {
         double length2 = scanner.nextDouble();
         double radius2 = scanner.nextDouble();
         double area2 = scanner.nextDouble();
-        licParameter = new LICParameter(length1, radius1, epsilon, area1, 
+        this.licParameter = new LICParameter(length1, radius1, epsilon, area1, 
                                         dist, length2, radius2, area2, q_pts, 
                                         quads, n_pts, k_pts, a_pts, b_pts, 
                                         c_pts, d_pts, e_pts, f_pts, g_pts);
@@ -61,11 +65,11 @@ public class ParameterManager {
     private void readLCM(Scanner scanner) {
         int LCMRowSize = 15;
         int LCMColSize = 15;
-        logicalConnectorMatrix = new Matrix<Connector>(LCMRowSize, LCMColSize);
+        this.logicalConnectorMatrix = new Matrix<Connector>(LCMRowSize, LCMColSize);
         for (int curRow = 0; curRow < LCMRowSize; ++curRow) {
             for (int curCol = 0; curCol < LCMColSize; ++curCol) {
                 int input = scanner.nextInt();
-                logicalConnectorMatrix.setValue(curRow, curCol, parseConnectorInput(input));
+                this.logicalConnectorMatrix.setValue(curRow, curCol, parseConnectorInput(input));
             }
         }
     }
@@ -108,7 +112,7 @@ public class ParameterManager {
     /**
      * @return the points
      * */
-    public Point[] getPoints(){
+    public Vector<Point> getPoints(){
         return this.points;
     }
 
