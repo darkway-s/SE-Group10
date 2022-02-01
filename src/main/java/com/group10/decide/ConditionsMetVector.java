@@ -5,8 +5,15 @@ public class ConditionsMetVector {
     int length;
     Vector<Boolean> conditionsMetVector;
 
+    <<<<<<<HEAD
+
     public ConditionsMetVector(ParameterManager pm) {
         this.length = 15;
+=======
+
+    public ConditionsMetVector(int length, ParameterManager pm) {
+        this.length = length;
+>>>>>>> 4867173... Implemented LIC3 function, feat #5
         this.pm = pm;
     }
 
@@ -66,9 +73,10 @@ public class ConditionsMetVector {
             pointOne = points.getValue(i);
             pointTwo = points.getValue(i + 1);
             pointThree = points.getValue(i + 2);
-            area = (pointOne.getX() * pointOne.getY() - pointTwo.getX() * pointOne.getY() +
-                    pointTwo.getX() * pointThree.getY() - pointThree.getX() * pointTwo.getY() +
-                    pointThree.getX() * pointOne.getY() - pointOne.getX() * pointThree.getY()) / 2;
+            area = Math.abs((pointOne.getX() * (pointTwo.getY() - pointThree.getY()) +
+                    pointTwo.getX() * (pointThree.getY() - pointOne.getY()) +
+                    pointThree.getX() * (pointOne.getY() - pointTwo.getY())) / 2);
+            System.out.println(area);
             if (area > pm.getLICParameter().getArea1()) {
                 return Boolean.TRUE;
             }
