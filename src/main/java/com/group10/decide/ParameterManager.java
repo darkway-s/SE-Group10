@@ -70,6 +70,16 @@ public class ParameterManager {
         }
     }
 
+    private void readPUV(Scanner scanner) {
+        int PUVSize = 15;
+        preliminaryUnlockingVector = new Vector<Boolean>(PUVSize);
+        for (int curPUV = 0; curPUV < PUVSize; ++curPUV) {
+            // input is true if it is equal to 1, false if it is false
+            Boolean parsedInput = (scanner.nextInt() == 1);
+            preliminaryUnlockingVector.setValue(curPUV, parsedInput);
+        }
+    }
+
     private void initFromFile(String inputFilePath) {
         try {
             File inputFile = new File(inputFilePath);
@@ -77,12 +87,10 @@ public class ParameterManager {
             readPoints(inputReader);
             readParameters(inputReader);
             readLCM(inputReader);
+            readPUV(inputReader);
         } catch (FileNotFoundException e) {
             System.out.println("ParameterManager.initFromFile: File not Found");
             e.printStackTrace();
         }
-
     }
-
-
 }
