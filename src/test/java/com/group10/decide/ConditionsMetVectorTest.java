@@ -39,13 +39,6 @@ public class ConditionsMetVectorTest {
             assertEquals(Boolean.TRUE, cmv.LIC0(), "LIC0 should be true, length1 larger than one distance between adjacent points");
         }
 
-        @Test
-        @DisplayName("LIC0 false case")
-        public void LIC1true() {
-            pm = new ParameterManager(pathToTestFiles + "test-3p-LIC0false.txt");
-            cmv = new ConditionsMetVector(15, pm);
-            assertEquals(Boolean.FALSE, cmv.LIC0(), "LIC0 should be false, length1 smaller than any distance between adjacent points");
-        }
     }
     /**
      * All test cases for LIC1.
@@ -53,20 +46,64 @@ public class ConditionsMetVectorTest {
     @Nested
     @DisplayName("Negative and positive cases for LIC1.")
     class TestLICI1{
+
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector(15);
+        }
+
+        /**
+         * Test if these 3 points require a bigger circle than radius 4
+         */
+        @Test
+        @DisplayName("LIC0 false case")
+        public void LIC1true() {
+            // these points are on to of a circle of radius 5
+            Point p1 = new Point(0, -5);
+            Point p2 = new Point(-3, 4);
+            Point p3 = new Point(3, 4);
+            // 
+            double radius1 = 4.0;
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(Boolean.TRUE, cmv.LIC1(radius1, p), "There exists 3 consecutive points where the smallest circle's radius is greater than 4.0");
+        }
+
+        /**
+         * Test if these 3 points require a strictly bigger circle than radius 5
+         */
         @Test
         @DisplayName("LIC1 edge false case")
         public void LIC1EdgeFalse() {
-            pm = new ParameterManager(pathToTestFiles + "test-3p-LIC1edgefalse.txt");
-            cmv = new ConditionsMetVector(15, pm);
-            assertEquals(Boolean.FALSE, cmv.LIC1(), "LIC1 should be false, radius: 5, points: {{0, -5}, {-3, 4}, {3, 4}} minimal radius is 5, points are ON the circle");
+            // these points are on to of a circle of radius 5
+            Point p1 = new Point(0, -5);
+            Point p2 = new Point(-3, 4);
+            Point p3 = new Point(3, 4);
+            // 
+            double radius1 = 5.0;
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(Boolean.FALSE, cmv.LIC1(radius1, p), "LIC1 should be false, radius: 5, points: {{0, -5}, {-3, 4}, {3, 4}} minimal radius is 5, points are ON the circle");
         }
     
+        /**
+         * Test if these 3 points require a strictly bigger circle than radius 6
+         */
         @Test
         @DisplayName("LIC1 false case")
         public void LIC1false() {
-            pm = new ParameterManager(pathToTestFiles + "test-3p-LIC1false.txt");
-            cmv = new ConditionsMetVector(15, pm);
-            assertEquals(Boolean.FALSE, cmv.LIC1(), "LIC1 should be false, radius: 6, points: {{0, -5}, {-3, 4}, {3, 4}} minimal radius is 5");
+            // these points are on to of a circle of radius 5
+            Point p1 = new Point(0, -5);
+            Point p2 = new Point(-3, 4);
+            Point p3 = new Point(3, 4);
+            // 
+            double radius1 = 6.0;
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(Boolean.FALSE, cmv.LIC1(radius1, p), "LIC1 should be false, radius: 6, points: {{0, -5}, {-3, 4}, {3, 4}} minimal radius is 5");
         }
     }
 
