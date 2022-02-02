@@ -100,9 +100,7 @@ public class ConditionsMetVector {
             pointOne = points.getValue(i);
             pointTwo = points.getValue(i + 1);
             pointThree = points.getValue(i + 2);
-            area = Math.abs((pointOne.getX()*(pointTwo.getY() - pointThree.getY()) +
-                    pointTwo.getX()*(pointThree.getY() - pointOne.getY()) +
-                    pointThree.getX()*(pointOne.getY() - pointTwo.getY())) / 2);
+            area = pointOne.triangleArea(pointTwo, pointThree);
             if (area > pm.getLICParameter().getArea1()) { return Boolean.TRUE; }
         }
         return Boolean.FALSE;
@@ -258,9 +256,7 @@ public class ConditionsMetVector {
             pointOne = points.getValue(i);
             pointTwo = points.getValue(i + EPts + 1);
             pointThree = points.getValue(i + EPts + FPts + 2);
-            area = Math.abs((pointOne.getX()*(pointTwo.getY() - pointThree.getY()) +
-                    pointTwo.getX()*(pointThree.getY() - pointOne.getY()) +
-                    pointThree.getX()*(pointOne.getY() - pointTwo.getY())) / 2);
+            area = pointOne.triangleArea(pointTwo, pointThree);
             if (area > area1) { greaterThanArea1 = true; }
             if (area < area2) { lesserThanArea2 = true; }
             if (greaterThanArea1 && lesserThanArea2) {
