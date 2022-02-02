@@ -43,7 +43,7 @@ public class ConditionsMetVector {
      * @return Boolean
      */
     public Boolean LIC1() {
-        int size - this.pm.getNumPoints();
+        int size = this.pm.getNumPoints();
         // We need to compare 3 consecutive points, so if we have 2, return FALSE
         if (size < 3) {
             return Boolean.FALSE;
@@ -70,7 +70,7 @@ public class ConditionsMetVector {
             }
         }
 
-        return Boolean.False;
+        return Boolean.FALSE;
     }
 
     
