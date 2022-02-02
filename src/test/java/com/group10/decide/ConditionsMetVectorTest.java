@@ -38,6 +38,20 @@ public class ConditionsMetVectorTest {
         cmv = new ConditionsMetVector(15, pm);
         assertEquals(Boolean.FALSE, cmv.LIC3(), "LIC3 should be false when the triangle's area is less than Area1");
     }
+    @Test
+    @DisplayName("LIC4 true case")
+    public void LIC4True() {
+        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC4true.txt");
+        cmv = new ConditionsMetVector(15, pm);
+        assertEquals(Boolean.TRUE, cmv.LIC4(), "LIC4 should be true when there exist qPts nr of consecutive points in more than quads quadrants");
+    }
+    @Test
+    @DisplayName("LIC4 false case")
+    public void LIC4False() {
+        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC4false.txt");
+        cmv = new ConditionsMetVector(15, pm);
+        assertEquals(Boolean.FALSE, cmv.LIC4(), "LIC4 should be false when there does not exist qPts nr of consecutive points in more than quads quadrants");
+    }
   
     @Test
     @DisplayName("LIC7 true case")
