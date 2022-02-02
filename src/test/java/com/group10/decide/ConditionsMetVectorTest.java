@@ -25,12 +25,23 @@ public class ConditionsMetVectorTest {
         pathToTestFiles = "test-inputs/";
     }
 
+
     @Test
-    @DisplayName("LIC1 true case")
-    public void LIC1true() {
-        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC1true.txt");
+    @DisplayName("LIC0 true case")
+    public void LIC0true() {
+        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC0true.txt");
         cmv = new ConditionsMetVector(15, pm);
-        assertEquals(Boolean.TRUE, cmv.LIC1(), "LIC1 should be true, radius: 4, points: {{0, -5}, {-3, 4}, {3, 4}} minimal radius is 5");
+        assertEquals(Boolean.TRUE, cmv.LIC0(), "LIC0 should be true, length1 larger than one distance between adjacent points");
+    }
+
+
+
+    @Test
+    @DisplayName("LIC0 false case")
+    public void LIC1true() {
+        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC0false.txt");
+        cmv = new ConditionsMetVector(15, pm);
+        assertEquals(Boolean.FALSE, cmv.LIC0(), "LIC0 should be false, length1 smaller than any distance between adjacent points");
     }
 
     @Test
@@ -148,6 +159,20 @@ public class ConditionsMetVectorTest {
         pm = new ParameterManager(pathToTestFiles + "test-3p-LIC3false.txt");
         cmv = new ConditionsMetVector(15, pm);
         assertEquals(Boolean.FALSE, cmv.LIC3(), "LIC3 should be false when the triangle's area is less than Area1");
+    }
+    @Test
+    @DisplayName("LIC4 true case")
+    public void LIC4True() {
+        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC4true.txt");
+        cmv = new ConditionsMetVector(15, pm);
+        assertEquals(Boolean.TRUE, cmv.LIC4(), "LIC4 should be true when there exist qPts nr of consecutive points in more than quads quadrants");
+    }
+    @Test
+    @DisplayName("LIC4 false case")
+    public void LIC4False() {
+        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC4false.txt");
+        cmv = new ConditionsMetVector(15, pm);
+        assertEquals(Boolean.FALSE, cmv.LIC4(), "LIC4 should be false when there does not exist qPts nr of consecutive points in more than quads quadrants");
     }
   
     @Test
