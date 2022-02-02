@@ -78,8 +78,9 @@ public class ConditionsMetVector {
     }
 
 
-    /** 
-     * @return Boolean
+    /** Checking that at least one set of qPts number of consecutive points lies
+     *  in more than quads number of quadrants.
+     * @return Boolean True if there exist at least one set. False if not.
      */
     public Boolean LIC4() {
         return Boolean.FALSE;
