@@ -30,7 +30,7 @@ public class Decider {
         PreliminaryUnlockingMatrix pum = new PreliminaryUnlockingMatrix(pm.getLogicalConnectorMatrix(),
         cmv.getConditionsMetVector());
 
-        FinalUnlockingVector fuv = new FinalUnlockingVector(pm, 15, pum.getPUM());
+        FinalUnlockingVector fuv = new FinalUnlockingVector(pm, pum);
         return fuv.hasAllTrueValues();
     }
 }
