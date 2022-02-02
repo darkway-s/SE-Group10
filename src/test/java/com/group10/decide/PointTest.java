@@ -79,4 +79,15 @@ public class PointTest {
         assertEquals(Math.sqrt(0.5), p1.distanceToLine(p2, p3), delta, "Expected sqrt(2)");
     }
 
+    @Test
+    @DisplayName("Minimal radius created by three points")
+    public void testMinimalRadius() {
+        Point p1 = new Point(1, -6);
+        Point p2 = new Point(2, 1);
+        Point p3 = new Point(5, 2);
+
+        // Maximum accepted difference between actual and expected value. Difference is due to floating-point error when using Math.PI
+        double delta = 0.00000001;
+        assertEquals(5, p1.minimalRadiusFromThreePoints(p2, p3), delta, "Expected 5");
+    }
 }
