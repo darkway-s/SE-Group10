@@ -20,7 +20,7 @@ public class Decider {
      * @return A boolean signal that indicates the LAUNCH decision
      */
     public boolean decide() {
-        ConditionsMetVector cmv = new ConditionsMetVector(15, pm);
+        ConditionsMetVector cmv = new ConditionsMetVector(pm);
         PreliminaryUnlockingMatrix pum = new PreliminaryUnlockingMatrix(pm, 15, 15, cmv.getConditionsMetVector());
         FinalUnlockingVector fuv = new FinalUnlockingVector(pm, 15, pum.getPUM());
         return fuv.hasAllTrueValues();
