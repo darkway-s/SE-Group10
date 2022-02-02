@@ -270,8 +270,8 @@ public class ConditionsMetVector {
         //Checking for the three points
         for (int i = 0; i < nrPoints - aPts - bPts - 2; i++) {
             Point p1 = points.getValue(i);
-            Point p2 = points.getValue(i + aPts);
-            Point p3 = points.getValue(i + aPts + bPts);
+            Point p2 = points.getValue(i + aPts + 1);
+            Point p3 = points.getValue(i + aPts + bPts + 2);
             //Checking if the points are on the same circle
             if (p1.distance(p2) <= radius1 && p2.distance(p3) <= radius1 && p1.distance(p3) <= radius1) {
                 result = false;
