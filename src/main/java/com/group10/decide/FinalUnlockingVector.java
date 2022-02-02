@@ -8,6 +8,7 @@ public class FinalUnlockingVector {
     public FinalUnlockingVector(ParameterManager pm, Matrix<Boolean> preliminaryUnlockingMatrix) {
         this.pm = pm;
         this.preliminaryUnlockingMatrix = preliminaryUnlockingMatrix;
+        this.finalUnlockingVector = new Vector<Boolean>(15);
     }
 
     public void setFUV() {}
