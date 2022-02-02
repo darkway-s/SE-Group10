@@ -1,8 +1,10 @@
 package com.group10.decide;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Nested;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -45,6 +47,91 @@ public class ConditionsMetVectorTest {
         pm = new ParameterManager(pathToTestFiles + "test-3p-LIC1false.txt");
         cmv = new ConditionsMetVector(15, pm);
         assertEquals(Boolean.FALSE, cmv.LIC1(), "LIC1 should be false, radius: 6, points: {{0, -5}, {-3, 4}, {3, 4}} minimal radius is 5");
+    }
+
+    /**
+     * Test for LIC 2
+     * */
+    @Nested
+    @DisplayName("Negative and positive test cases for LIC 2.")
+    class TestLIC2 {
+
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector(15);
+        }
+
+        /**
+         * Test if LIC2 returns true if angle < (pi - epsilon)
+         * */
+        @Test
+        @DisplayName("LIC2 positive case, angle < (pi - epsilon)")
+        public void LIC2positiveAngleLess() {
+
+            // 90 deg --> pi/2 rad ~ 1.6
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(2, 1);
+            // epsilon = 1 --> pi - eps = 2.14, => angle < pi - eps
+            double eps = 1.0;
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(true, cmv.LIC2(eps, p), "Expected to be true.");
+        }
+
+        /**
+         * Test if LIC2 returns true if angle > (pi + epsilon)
+         * */
+        @Test
+        @DisplayName("LIC2 positive case, angle > (pi + epsilon)")
+        public void LIC2positiveAngleGreater() {
+            // 180 deg --> 3/2*pi rad ~ 4.7
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(2, -1);
+            // epsilon = 1 --> pi + eps = 3.15, => angle > pi + eps
+            double eps = 0.01;
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(true, cmv.LIC2(eps, p), "Expected to be true.");
+        }
+
+        /**
+         * Test if LIC2 returns false if angle < (pi + epsilon)
+         * */
+        @Test
+        @DisplayName("LIC2 negative case, angle < (pi + epsilon)")
+        public void LIC2negativeLess() {
+            // 90 deg --> pi/2 rad ~ 1.6
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(2, 1);
+            // epsilon = 3, (pi - eps = 0.14, pi + eps = 6.14)
+            // => (angle > (pi + epsilon)) && (angle < (pi - epsilon)) (should return false)
+            double eps = 3;
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(false, cmv.LIC2(eps, p), "Expected to be false.");
+        }
+
+        /**
+         * Test if LIC2 returns false if nr of points < 3
+         * */
+        @Test
+        @DisplayName("LIC2 negative case, if nr of points is < 3")
+        public void LIC2negativeNoOfPoints() {
+            cmv = new ConditionsMetVector(15);
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+
+            Point[] vals = new Point[]{p1, p2};
+            Vector<Point> p = new Vector<Point>(2, vals);
+            assertEquals(false, cmv.LIC2(1, p), "Expected to be false.");
+        }
+
     }
 
     @Test
