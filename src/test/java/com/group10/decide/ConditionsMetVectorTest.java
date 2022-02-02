@@ -224,33 +224,46 @@ public class ConditionsMetVectorTest {
     /**
      * All test cases for LIC3.
      */
-    /*
+
     @Nested
     @DisplayName("Negative and positive cases for LIC3.")
     class TestLIC3 {
+        Point p1;
+        Point p2;
+        Point p3;
+        Point p4;
+
+        Point[] vals;
+        Vector<Point> p;
+
         @BeforeEach
         void setUp(){
             cmv = new ConditionsMetVector();
+            // area = 0.5
+            p1 = new Point(0, 0);
+            p2 = new Point(1, 0);
+            p3 = new Point(0, 1);
+            p4 = new Point(1, 1);
+
+            vals = new Point[]{p1, p2, p3, p4};
+            p= new Vector<Point>(4, vals);
         }
         
         @Test
         @DisplayName("LIC3 true case")
         public void LIC3True() {
-            pm = new ParameterManager(pathToTestFiles + "test-3p-LIC3true.txt");
-            cmv = new ConditionsMetVector(15, pm);
-            assertEquals(Boolean.TRUE, cmv.LIC3(), "LIC3 should be true when the triangle's area is greater than Area1");
+            double area1 = 0.4;
+            assertEquals(true, cmv.LIC3(area1, p), "LIC3 should be true when the triangle's area is greater than Area1");
         }
-    
+
         @Test
         @DisplayName("LIC3 false case")
         public void LIC3False() {
-            pm = new ParameterManager(pathToTestFiles + "test-3p-LIC3false.txt");
-            cmv = new ConditionsMetVector(15, pm);
-            assertEquals(Boolean.FALSE, cmv.LIC3(), "LIC3 should be false when the triangle's area is less than Area1");
+            double area1 = 0.6;
+            assertEquals(false, cmv.LIC3(area1, p), "LIC3 should be false when the triangle's area is less than Area1");
         }
-
     }
-    */
+
     
     /**
      * All test cases for LIC4.
