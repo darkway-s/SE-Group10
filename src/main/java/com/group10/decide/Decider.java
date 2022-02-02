@@ -28,7 +28,7 @@ public class Decider {
     public boolean decide() {
         ConditionsMetVector cmv = new ConditionsMetVector(pm);
         PreliminaryUnlockingMatrix pum = new PreliminaryUnlockingMatrix(pm.getLogicalConnectorMatrix(),
-        cmv.getConditionsMetVector());
+            cmv.getConditionsMetVector());
 
         FinalUnlockingVector fuv = new FinalUnlockingVector(pm, pum);
         return fuv.hasAllTrueValues();
