@@ -43,6 +43,34 @@ public class ConditionsMetVector {
      * @return Boolean
      */
     public Boolean LIC1() {
+        int size = this.pm.getNumPoints();
+        // We need to compare 3 consecutive points, so if we have 2, return FALSE
+        if (size < 3) {
+            return Boolean.FALSE;
+        }
+        Vector<Point> pointsArray = this.pm.getPoints();
+        double radius1 = this.pm.getLICParameter().getRadius1();
+        for (int i = 0; i < size - 2; i++) {
+            Point pointA = pointsArray.getValue(i);
+            Point pointB = pointsArray.getValue(i + 1);
+            Point pointC = pointsArray.getValue(i + 2);
+
+            double a = pointC.distance(pointB);
+            double b = pointA.distance(pointC);
+            double c = pointA.distance(pointB);
+
+            // using the formula of circumscribed circle's radius
+            double lengthProduct = a * b * c;
+            double s = (a + b + c) / 2;
+            double diffLengthProduct = s * (s - a) * (s - b) * (s - c);
+            double minimalRadius = lengthProduct / (4 * Math.sqrt(diffLengthProduct));
+
+            // if these three points cannot be contained in a circle of radius radius1,
+            if (radius1 < minimalRadius) {
+                return Boolean.TRUE;
+            }
+        }
+
         return Boolean.FALSE;
     }
 
