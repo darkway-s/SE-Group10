@@ -283,4 +283,125 @@ public class ConditionsMetVectorTest {
             assertEquals(Boolean.FALSE, cmv.LIC14(), "LIC14 should be false when at least one condition is false");
         }
     }
+
+    /**
+     * All test cases for LIC12.
+     */
+    @Nested
+    @DisplayName("Negative and positive cases for LIC12.")
+    class TestLIC12{
+
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector(15);
+        }
+
+        /**
+         * test if distance between {0, 0} and {3, 4} is higher than 4 and lesser than 6
+         */
+        @Test
+        @DisplayName("LIC12 true case")
+        public void LIC12true() {
+            // first and third points are seperated by 5 units
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(-1, -1); // unused in this example
+            Point p3 = new Point(3, 4);
+
+            // only check p1 against p2
+            int kPts = 1;
+            double length1 = 4.0;
+            double length2 = 6.0;
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(Boolean.TRUE, cmv.LIC12(kPts, length1, length2, p), "should get true. p1 and p3 are 5 units apart, which is 4 < 5 < 6");
+        }
+
+        /**
+         * test if distance between {0, 0} and {3, 4} is higher than 5 and lesser than 6
+         */
+        @Test
+        @DisplayName("LIC12 first edge false case")
+        public void LIC12EdgeFalse1() {
+            // first and third points are seperated by 5 units
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(-1, -1); // unused in this example
+            Point p3 = new Point(3, 4);
+
+            // only check p1 against p2
+            int kPts = 1;
+            double length1 = 5.0;
+            double length2 = 6.0;
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(Boolean.FALSE, cmv.LIC12(kPts, length1, length2, p), "should get false. p1 and p3 are 5 units apart, which is 5 < 5 < 6");
+        }
+    
+        /**
+         * test if distance between {0, 0} and {3, 4} is higher than 5 and lesser than 6
+         */
+        @Test
+        @DisplayName("LIC12 second edge false case")
+        public void LIC12EdgeFalse2() {
+            // first and third points are seperated by 5 units
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(-1, -1);
+            Point p3 = new Point(3, 4);
+
+            // only check p1 against p2
+            int kPts = 1;
+            double length1 = 4.0;
+            double length2 = 5.0;
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(Boolean.FALSE, cmv.LIC12(kPts, length1, length2, p), "should get false. p1 and p3 are 5 units apart, which is 4 < 5 < 5");
+        }
+
+        /**
+         * test if distance between {0, 0} and {3, 4} is higher than 6 and lesser than 4
+         */
+        @Test
+        @DisplayName("LIC12 false case")
+        public void LIC12False() {
+            // first and third points are seperated by 5 units
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(-1, -1);
+            Point p3 = new Point(3, 4);
+
+            // only check p1 against p2
+            int kPts = 1;
+            double length1 = 6.0;
+            double length2 = 4.0;
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(Boolean.FALSE, cmv.LIC12(kPts, length1, length2, p), "should get false. p1 and p3 are 5 units apart, which is 4 < 5 < 5");
+        }
+
+        /**
+         * test if at least one of the distance between {0, 0} and {3, 4} or
+         * thr distance between {0, 1} and {3, 1} higher than 2 and lesser than 3.5
+         */
+        @Test
+        @DisplayName("LIC12 true case with 4 inputs")
+        public void LIC12True4Inputs() {
+            // first and third points are seperated by 5 units
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(0, 1);
+            Point p3 = new Point(3, 4);
+            Point p4 = new Point(3, 1);
+
+            // only check p1 against p2
+            int kPts = 1;
+            double length1 = 2.0;
+            double length2 = 3.5;
+
+            Point[] vals = new Point[]{p1, p2, p3, p4};
+            Vector<Point> p = new Vector<Point>(4, vals);
+            assertEquals(Boolean.TRUE, cmv.LIC12(kPts, length1, length2, p), "should get true. p1 and p3 are 5 units apart and p2 and p4 are 3 units apart, length1: 2, length2: 3.5");
+        }
+    }
+
 }
