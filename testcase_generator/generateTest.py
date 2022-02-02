@@ -1,3 +1,16 @@
+# if on unix-like os, this is how I used this:
+
+# use this to generate generic tests.
+# for i in {0..14}; do python3 generateTest.py 2 "$i" 31 > "./test-inputs/test-2p-$i.txt"; done
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+# this calls generateTest.py with 2 points, i'th PUV open, with the RNG seed 31
+# it executes 15 times to generate all 15 input files
+# "./test-inputs/test-2p-$i.txt" is just the path to which you want to store your test case file.
+
+# Also use these to generate allfalse tests and alltrue tests.
+# python3 generateTest.py 2 -2 31 > ./test-inputs/test-2p-allfalse.txt
+# python3 generateTest.py 2 -1 31 > ./test-inputs/test-2p-alltrue.txt
+
 import sys
 import numpy as np
 
