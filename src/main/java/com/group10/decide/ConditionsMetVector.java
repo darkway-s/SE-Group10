@@ -289,6 +289,7 @@ public class ConditionsMetVector {
              }
          }
 
+        // both parts should be true to get true
         return part1 && part2;
     }
 
