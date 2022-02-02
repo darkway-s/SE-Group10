@@ -6,7 +6,11 @@ import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Arrays;
 
+/**
+ * Class for the conditions met vector
+ */
 public class ConditionsMetVector {
+
     Vector<Boolean> conditionsMetVector;
 
     /**
@@ -16,7 +20,7 @@ public class ConditionsMetVector {
     }
 
     /**
-     * Constructor that only sets the parameter manager
+     * Constructor that takes a ParameterManager object as parameter
      * 
      * @param pm the parameter manager
      */
@@ -25,9 +29,10 @@ public class ConditionsMetVector {
     }
 
     /**
-     * Constructor that only sets the parameter manager
+     * Constructor that sets the
      * 
-     * @param pm the parameter manager
+     * @param points the points needed for the LICs
+     * @param licp   the LIC parameters
      */
     public ConditionsMetVector(Vector<Point> points, LICParameter licp) {
         Boolean[] cmv = { this.LIC0(licp.getLength1(), points),
@@ -50,20 +55,12 @@ public class ConditionsMetVector {
     }
 
     /**
-     * Sets the parameter manager
-     * 
-     * @param pm ParameterManager that manages all parameters
-     */
-    // public void setParameterManager(ParameterManager pm) {
-    // this.pm = pm;
-    // }
-
-    /**
      * There exists at least one set of two consecutive data points
      * that are a distance greater than LENGTH1. (0 ≤ LENGTH1)
      * 
-     * @return Boolean. True if there exists two consecutive data points, otherwise
-     *         False
+     * @param length1 the length to compare to
+     * @param points  the points
+     * @return If there exists two such consecutive data points
      */
     public Boolean LIC0(double length1, Vector<Point> points) {
         int siz = points.length();
@@ -80,7 +77,9 @@ public class ConditionsMetVector {
      * all be contained
      * within or on a circle of radius RADIUS1.
      * 
-     * @return Boolean
+     * @param radius1 the radius to compare to
+     * @param points  the points
+     * @return If such set exist.
      */
     public Boolean LIC1(double radius1, Vector<Point> points) {
         int size = points.length();
@@ -111,7 +110,9 @@ public class ConditionsMetVector {
      * If either the first point or the last point (or both) coincides with the
      * vertex, the angle is undefined
      *
-     * @return Boolean
+     * @param epsilon the epsilon used in the condition
+     * @param points  the points
+     * @return If such set of datapoints exist
      */
     public boolean LIC2(double epsilon, Vector<Point> points) {
         if (epsilon < 0 || epsilon > Math.PI || points.length() < 3)
@@ -138,10 +139,12 @@ public class ConditionsMetVector {
 
     /**
      * Computes the 3rd Launch Interceptor Condition
-     * True if there exists 3 consecutive points that form the vertices of a
-     * triangle and that triangle has an area greater than pm.AREA1
+     * True if there exists 3 consecutive points that form the vertices
+     * of a triangle and that triangle has an area greater than pm.AREA1
      *
-     * @return Boolean
+     * @param area1  the area to compare to
+     * @param points the points
+     * @return If such set exist
      */
     public Boolean LIC3(double area1, Vector<Point> points) {
         Point pointOne, pointTwo, pointThree;
@@ -162,7 +165,9 @@ public class ConditionsMetVector {
      * Checking that at least one set of qPts number of consecutive points lies
      * in more than quads number of quadrants.
      * 
-     * @return Boolean True if there exist at least one set. False if not.
+     * @param qPts   the number of consecutive points
+     * @param points the points
+     * @return If such a set exist.
      */
     public Boolean LIC4(Vector<Point> points, int qPts, int quads) {
         int length = points.length();
@@ -197,7 +202,7 @@ public class ConditionsMetVector {
      * such that X[j] - X[i] < 0. (where i = j-1)
      * 
      * @param points the points
-     * @return Boolean if such a set exists.
+     * @return if such a set exists.
      */
     public Boolean LIC5(Vector<Point> points) {
         int siz = points.length();
@@ -217,9 +222,8 @@ public class ConditionsMetVector {
      * 
      * @param dist   the distance to compare to
      * @param nPts   number of consecutive points
-     * @param numPts number of points in total
      * @param points the points
-     * @return Boolean if such a distance exists.
+     * @return if such a distance exists.
      */
     public boolean LIC6(int nPts, double dist, Vector<Point> points) {
         if (points.length() < 3)
@@ -262,8 +266,11 @@ public class ConditionsMetVector {
      * Computes the 7th Launch Interceptor Condition
      * True if there exists two points, separated by KPts intervening points, that
      * are LENGTH1 distance apart
-     *
-     * @return Boolean
+     * 
+     * @param KPts    the number of consecutive points
+     * @param length1 the length to compare to
+     * @param points  the points
+     * @return If two such points exist
      */
     public Boolean LIC7(double length1, int KPts, Vector<Point> points) {
         if (points.length() < 3) {
@@ -286,7 +293,13 @@ public class ConditionsMetVector {
      * radius RADIUS1.
      * The condition is not met when the nr of points is less than 5.
      * 
-     * @return if the conditions are met or not
+     * @param aPts    the number of consecutive points between the first and second
+     *                point in the set
+     * @param bPts    the number of consecutive points between the second and third
+     *                in the set
+     * @param radius1 the radius to compare to
+     * @param points  the points
+     * @return If such set exits
      */
     public Boolean LIC8(int aPts, int bPts, double radius1, Vector<Point> points) {
         int nrPoints = points.length();
@@ -308,7 +321,20 @@ public class ConditionsMetVector {
     }
 
     /**
-     * @return Boolean
+     * There exists at least one set of three data points separated by exactly C_PTS
+     * and D_PTS
+     * consecutive intervening points, respectively, that form an angle such that:
+     * angle < (PI − EPSILON)
+     * or
+     * angle > (PI + EPSILON)
+     *
+     * @param epsilon the epsilon
+     * @param cPts    the nr. of points between the first and second point in the
+     *                set
+     * @param dPts    the nr. of points between the second and third point in the
+     *                set
+     * @param points  the points
+     * @return if such set exist
      */
     public Boolean LIC9(double epsilon, int cPts, int dPts, Vector<Point> points) {
         if (epsilon < 0 || epsilon > Math.PI || cPts < 1 || dPts < 1 || cPts + dPts > points.length() - 3
@@ -339,8 +365,12 @@ public class ConditionsMetVector {
      * E_PTS and F_PTS consecutive intervening points, respectively, that are
      * the vertices of a triangle with area greater than AREA1. The condition
      * is not met when NUMPOINTS < 5
-     * 
-     * @return Boolean If condition is met or not.
+     *
+     * @param area1  the are to compare to
+     * @param ePts   the nr. of points between the first and second point in the set
+     * @param fPts   the nr. of points between the second and third point in the set
+     * @param points the points
+     * @return If such set exist.
      */
     public Boolean LIC10(Vector<Point> points, int ePts, int fPts, double area1) {
         if (points.length() < 5)
@@ -370,7 +400,9 @@ public class ConditionsMetVector {
      * The condition is not met when NUMPOINTS < 3.
      * 1 <= G_PTS <= NUMPOINTS - 3
      * 
-     * @return Boolean
+     * @param gPts   the nr. of points between the first and second point in the set
+     * @param points the points
+     * @return If such set exist
      */
     public Boolean LIC11(int gPts, Vector<Point> points) {
         int length = points.length();
@@ -399,8 +431,12 @@ public class ConditionsMetVector {
      * for the LIC to be true.
      * 
      * The condition is not met when NUMPOINTS < 3.
-     *
-     * @return Boolean
+     * 
+     * @param kPts    the no. of. consecutive points between point 1 and point 2
+     * @param length1 the first length to compare to
+     * @param length2 the second length to compare to
+     * @param points  the points
+     * @return if such set exist
      */
     public Boolean LIC12(int kPts, double length1, double length2, Vector<Point> points) {
         if (kPts < 1 || points.length() < kPts + 2 || points.length() < 3)
@@ -472,8 +508,13 @@ public class ConditionsMetVector {
      * separated by the same conditions
      * but could be the same which form the vertices of a triangle with an area less
      * than area2. <b>False</b> otherwise.
-     *
-     * @return Boolean
+     * 
+     * @param EPts   no. of. consecutive points between point 1 and point 2
+     * @param FPts   no. of. consecutive points between point 2 and point 3
+     * @param area1  the first are to compare to
+     * @param area2  the second are to compare to
+     * @param points the points
+     * @return If such set exist
      */
     public Boolean LIC14(double area1, double area2, int EPts, int FPts, Vector<Point> points) {
         if (points.length() < 5) {
@@ -503,7 +544,9 @@ public class ConditionsMetVector {
     }
 
     /**
-     * @return Vector<Boolean>
+     * Gets the conditions met vector
+     * 
+     * @return the conditions met vector
      */
     public Vector<Boolean> getConditionsMetVector() {
         return this.conditionsMetVector;

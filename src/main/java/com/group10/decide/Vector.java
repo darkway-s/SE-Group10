@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 /**
  * Class for a Vector
+ *
+ * @author Amanda Krohn
  * */
 public class Vector<T> {
 
