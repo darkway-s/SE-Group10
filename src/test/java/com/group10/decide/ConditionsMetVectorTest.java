@@ -614,6 +614,17 @@ public class ConditionsMetVectorTest {
             Vector<Point> p = new Vector<Point>(3, vals);
             assertEquals(false, cmv.LIC11(gPts, p), "Expected to be false.");
         }
+
+        @Test
+        @DisplayName("LIC11 condition not met, NUMPOINTS < 3")
+        public void LIC11ShortOfNum() {
+            int gPts = 1;
+            Point p1 = new Point(1, 3);
+            Point p2 = new Point(1, 0);
+            Point[] vals = new Point[]{p1, p2};
+            Vector<Point> p = new Vector<Point>(2, vals);
+            assertEquals(false, cmv.LIC11(gPts, p), "Expected to be false.");
+        }
     }
 
     /**
