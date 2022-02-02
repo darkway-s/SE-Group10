@@ -212,20 +212,33 @@ public class ConditionsMetVector {
         if (nPts < 3 || nPts > points.length() || dist < 0) throw new InputMismatchException("N_PTS must greater or equal to 3 and less or equal to NUM_POINTS. DIST cannot be less than 0.");
 
         int max = nPts == points.length() ? points.length() - nPts + 1 : points.length() - nPts;
-
+        //int max = points.length() - nPts;
         for (int i = 0; i < max; i++) {
-            Point[] nConsecutivePoints = Arrays.copyOfRange(points.getValues(), i, i + nPts);
-            for (int j = 0; j < nConsecutivePoints.length; j++) {
+            
+            //Point[] nConsecutivePoints = Arrays.copyOfRange(points.getValues(), i, i + nPts);
+            Point[] nConsecutivePoints = new Point[nPts];
+            for(int ii = 0; ii < nPts; ii++)
+            {
+                nConsecutivePoints[ii] = points.getValue(i + ii);
+            }
+
+
+            for (int j = 0; j < nPts; j++) {
                 Point first = nConsecutivePoints[0];
-                Point last = nConsecutivePoints[nConsecutivePoints.length - 1];
+                Point last = nConsecutivePoints[nPts - 1];
 
                 if (first.hasSameLocation(last)) {
-                    for (int k = j + 1; k < (i + nPts - 1); k++) if (nConsecutivePoints[k].distance(first) > dist) return true;
+                    for (int k = j + 1; k < (nPts - 1); k++) 
+                        if (nConsecutivePoints[k].distance(first) > dist) 
+                            return true;
                 } else {
-                    for (int k = j + 1; k < (i + nPts - 1); k++) if (nConsecutivePoints[k].distanceToLine(first, last) > dist) return true;
+                    for (int k = j + 1; k < (nPts - 1); k++) 
+                        if (nConsecutivePoints[k].distanceToLine(first, last) > dist)
+                            return true;
                 }
             }
         }
+
 
         return false;
     }
