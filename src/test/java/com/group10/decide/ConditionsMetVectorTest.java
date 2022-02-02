@@ -560,4 +560,72 @@ public class ConditionsMetVectorTest {
         }
     }
 
+    /**
+     * All test cases for LIC13.
+     */
+    @Nested
+    @DisplayName("Negative and positive cases for LIC13.")
+    class TestLIC13 {
+        Point p1;
+        Point p2;
+        Point p3;
+        Point p4;
+        Point p5;
+        Point p6;
+        int aPts;
+        int bPts;
+        Point[] vals;
+        Vector<Point> p;
+
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector(15);
+            p1 = new Point(0, 0);
+            p2 = new Point(0, 1);
+            p3 = new Point(3, 4);
+            p4 = new Point(3, 1);
+            p5 = new Point(3, 1);
+            p6 = new Point(2, 3);
+            aPts = 2;
+            bPts = 1;
+            vals = new Point[]{ p1, p2, p3, p4, p5, p6 };
+            p = new Vector<Point>(6, vals);
+        }
+
+        /**
+         * Tests if both subconditions are met, and thus returns true
+         */
+        @Test
+        @DisplayName("LIC13 returns true, both subcondtions are met")
+        public void testRadius1SmallRadius2Big() {
+            double radius1 = 0.25;
+            double radius2 = 50;
+
+            assertEquals(true, cmv.LIC13(aPts, bPts, radius1, radius2, p), "Expected to be true");
+        }
+
+        /**
+         * Tests if only 1 subcondition is met, and thus returns false
+         */
+        @Test
+        @DisplayName("LIC13 returns false, only subcondition (1) is met")
+        public void testRadius1SmallRadius2Small() {
+            double radius1 = 0.25;
+            double radius2 = 0.25;
+
+            assertEquals(false, cmv.LIC13(aPts, bPts, radius1, radius2, p), "Expected to be false");
+        }
+
+        /**
+         * Tests if only 1 subcondition is met, and thus returns false
+         */
+        @Test
+        @DisplayName("LIC13 returns false, only subcondition (2) is met")
+        public void testRadius1BigRadius2Big() {
+            double radius1 = 50;
+            double radius2 = 50;
+
+            assertEquals(false, cmv.LIC13(aPts, bPts, radius1, radius2, p), "Expected to be false");
+        }
+    }
 }
