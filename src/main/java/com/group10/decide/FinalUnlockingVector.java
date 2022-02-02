@@ -9,7 +9,12 @@ public class FinalUnlockingVector {
         this.pm = pm;
         this.preliminaryUnlockingMatrix = preliminaryUnlockingMatrix;
         this.finalUnlockingVector = new Vector<Boolean>(15);
+
+        setFUV();
     }
+    /** 
+     * compute the FUV values
+     */
     public void setFUV() {
         Boolean value;
         for(int i = 0; i < 15; i++)
@@ -20,10 +25,19 @@ public class FinalUnlockingVector {
         }
     }
     
+    
+    /** 
+     * @return Vector<Boolean>
+     */
     public Vector<Boolean> getFUV() {
         return this.finalUnlockingVector;
     }
 
+    
+    /** 
+     * if all the elements in FUV are true, return true. Otherwise, false
+     * @return boolean
+     */
     public boolean hasAllTrueValues() {
         for(int i = 0; i < 15; i++)
         {
