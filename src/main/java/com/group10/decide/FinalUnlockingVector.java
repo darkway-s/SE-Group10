@@ -11,13 +11,13 @@ public class FinalUnlockingVector {
         this.finalUnlockingVector = new Vector<Boolean>(15);
     }
     public void setFUV() {
-        
-        /*Boolean value;
+        Boolean value;
         for(int i = 0; i < 15; i++)
         {
-            value = (pm.getPreliminaryUnlockingVector().getValue(i) == false) || true;
+            value = (pm.getPreliminaryUnlockingVector().getValue(i) == false) ||
+                 preliminaryUnlockingMatrix.isRowAllTrue(i);
             finalUnlockingVector.setValue(i, value);
-        }*/
+        }
     }
     
     public Vector<Boolean> getFUV() {
