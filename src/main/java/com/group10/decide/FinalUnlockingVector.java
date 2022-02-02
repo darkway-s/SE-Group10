@@ -25,6 +25,11 @@ public class FinalUnlockingVector {
     }
 
     public boolean hasAllTrueValues() {
-        return false;
+        for(int i = 0; i < 15; i++)
+        {
+            if(finalUnlockingVector.getValue(i) == false)
+                return false;
+        }
+        return true;
     }
 }
