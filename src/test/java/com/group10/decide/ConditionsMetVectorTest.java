@@ -45,7 +45,7 @@ public class ConditionsMetVectorTest {
      */
     @Nested
     @DisplayName("Negative and positive cases for LIC1.")
-    class TestLICI1{
+    class TestLIC1{
 
         @BeforeEach
         void setUp(){
@@ -56,7 +56,7 @@ public class ConditionsMetVectorTest {
          * Test if these 3 points require a bigger circle than radius 4
          */
         @Test
-        @DisplayName("LIC0 false case")
+        @DisplayName("LIC1 true case")
         public void LIC1true() {
             // these points are on to of a circle of radius 5
             Point p1 = new Point(0, -5);
