@@ -288,7 +288,11 @@ public class ConditionsMetVector {
 
     
     /** 
-     * @return Boolean
+     * There exists at least one set of three data points separated by exactly
+     * E_PTS and F_PTS consecutive intervening points, respectively, that are 
+     * the vertices of a triangle with area greater than AREA1. The condition 
+     * is not met when NUMPOINTS < 5
+     * @return Boolean If condition is met or not.
      */
     public Boolean LIC10() {
         return Boolean.FALSE;
