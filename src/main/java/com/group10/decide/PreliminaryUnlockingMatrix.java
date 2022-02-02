@@ -1,55 +1,36 @@
 package com.group10.decide;
 
-
 /**
  * Represents and calculates the Preliminary Unlocking Matrix
  *
  * @author Bror Sebastian Sjövald
  */
 public class PreliminaryUnlockingMatrix {
-    private Matrix<Connector> lcm;
-    private int rows, cols;
-    private Vector<Boolean> cmv;
+    private final int N = 15;
     private Matrix<Boolean> pum;
 
     /**
-     * Constructor for PreliminaryUnlockingMatrix class with option to explicitly set rows and cols
+     * Constructor for PreliminaryUnlockingMatrix class that takes in LCM and CMV
      *
-     * @param pm                    ParameterManager containing LCM
-     * @param rows                  Rows of PUM
-     * @param cols                  Cols of PUM
-     * @param conditionsMetVector   CMV with which LICs are fulfilled
-     */
-    public PreliminaryUnlockingMatrix(ParameterManager pm, int rows, int cols, Vector<Boolean> conditionsMetVector) {
-        this.lcm = pm.getLogicalConnectorMatrix();
-        this.rows = rows;
-        this.cols = cols;
-        this.cmv = conditionsMetVector;
-        this.pum = new Matrix<>(rows, cols);
-        this.calculatePUM();
-    }
-
-    /**
-     * Constructor for PreliminaryUnlockingMatrix class with option to give LCM without a ParameterManager
-     *
-     * @param logicalConnectorMatrix    A 15x15 matrix indicating which boolean operator should be used
-     * @param conditionsMetVector       CMV with which LICs are fulfilled
+     * @param logicalConnectorMatrix A 15x15 matrix indicating which boolean
+     *                               operator should be used
+     * @param conditionsMetVector    CMV of length 15 with which LICs are fulfilled
      */
     public PreliminaryUnlockingMatrix(Matrix<Connector> logicalConnectorMatrix, Vector<Boolean> conditionsMetVector) {
-        this.lcm = logicalConnectorMatrix;
-        this.cmv = conditionsMetVector;
-        this.rows = 15;
-        this.cols = 15;
         this.pum = new Matrix<>(15, 15);
-        this.calculatePUM();
+        this.calculatePUM(logicalConnectorMatrix, conditionsMetVector);
     }
 
     /**
      * Calculates the Preliminary Unlocking Matrix with values set in the object
+     * 
+     * @param lcm A 15x15 matrix indicating which boolean
+     *            operator should be used
+     * @param cmv CMV of length 15 with which LICs are fulfilled
      */
-    public void calculatePUM() {
+    public void calculatePUM(Matrix<Connector> lcm, Vector<Boolean> cmv) {
         Boolean pumVal;
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i < N; i++) {
             for (int j = 0; j < i + 1; j++) {
                 switch (lcm.getValue(i, j)) {
                     case NOTUSED:
@@ -71,7 +52,6 @@ public class PreliminaryUnlockingMatrix {
         }
     }
 
-
     /**
      * Gets the PreliminaryUnlockingMatrix
      *
@@ -79,6 +59,20 @@ public class PreliminaryUnlockingMatrix {
      */
     public Matrix<Boolean> getPUM() {
         return this.pum;
+    }
+
+    /**
+     * checks if all elements in the given row are true or not
+     * @param row   row index
+     * @return  if all elements in the row true or not */
+    public Boolean isRowAllTrue(int row) {
+        Boolean result = Boolean.TRUE;
+        for (int i = 0; i < N; i++) {
+            if (pum.getValue(row, i) == Boolean.FALSE) {
+                result = Boolean.FALSE;
+            }
+        }
+        return result;
     }
 
 }

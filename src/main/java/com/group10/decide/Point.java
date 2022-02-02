@@ -77,6 +77,26 @@ public class Point {
     }
 
     /**
+     * Method calculating the minimal radius from the three points (this, p1, p2).
+     * @param p1 The    second point.
+     * @param p2 The    third point.
+     * @return double   The minimal radius of the circle.
+     */
+    public double minimalRadiusFromThreePoints(Point p1, Point p2){
+        double a = this.distance(p2);
+        double b = p1.distance(this);
+        double c = p1.distance(p2);
+
+        // using the formula of circumscribed circle's radius
+        double lengthProduct = a * b * c;
+        double s = (a + b + c) / 2;
+        double diffLengthProduct = s * (s - a) * (s - b) * (s - c);
+        double minimalRadius = lengthProduct / (4 * Math.sqrt(diffLengthProduct));
+
+        return minimalRadius;
+    }
+
+    /**
      * Method to return determine if two point are on the same location.
      * @param p The point to compare to.
      * @return  If they are on the same location.

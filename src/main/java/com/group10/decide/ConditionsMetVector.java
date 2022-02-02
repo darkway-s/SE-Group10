@@ -7,57 +7,65 @@ import java.util.InputMismatchException;
 import java.util.Arrays;
 
 public class ConditionsMetVector {
-    ParameterManager pm;
-    int length;
     Vector<Boolean> conditionsMetVector;
 
-    /**
-     * Constructor that sets both length of the vector and the parameter manager
-     * holding all the relevant parameters
-     * @param length    length of the vector
-     * @param pm        Parameter manager
-     * */
-    public ConditionsMetVector(int length, ParameterManager pm) {
-        this.length = length;
-        this.pm = pm;
-    }
 
     /**
-     * Constructor that only sets the length of the vector
-     * @param length    length of the vector
+     * Constructor that sets nothing
      * */
-    public ConditionsMetVector(int length) {
-        this.length = length;
+    public ConditionsMetVector() {
     }
 
     /**
      * Constructor that only sets the parameter manager
-     * @param pm    length of the vector
+     * @param pm    the parameter manager
      * */
     public ConditionsMetVector(ParameterManager pm) {
-        this.pm = pm;
+        this(pm.getPoints(), pm.getLICParameter());
+    }
+
+    /**
+     * Constructor that only sets the parameter manager
+     * @param pm    the parameter manager
+     * */
+    public ConditionsMetVector(Vector<Point> points, LICParameter licp) {
+        Boolean[] cmv = {   this.LIC0(licp.getLength1(), points), 
+                            this.LIC1(licp.getRadius1(), points),
+                            this.LIC2(licp.getEpsilon(), points),
+                            this.LIC3(licp.getArea1(), points),
+                            this.LIC4(points, licp.getQPts(), licp.getQuads()),
+                            this.LIC5(points),
+                            this.LIC6(licp.getNPts(), licp.getDist(), points),
+                            this.LIC7(licp.getLength1(), licp.getKPts(), points),
+                            this.LIC8(licp.getAPts(), licp.getBPts(), licp.getRadius1(), points),
+                            this.LIC9(licp.getEpsilon(), licp.getCPts(), licp.getDPts(), points),
+                            this.LIC10(points, licp.getEPts(), licp.getFPts(), licp.getArea1()),
+                            this.LIC11(licp.getGPts(), points),
+                            this.LIC12(licp.getKPts(), licp.getLength1(), licp.getLength2(), points),
+                            this.LIC13(licp.getAPts(), licp.getBPts(), licp.getRadius1(), licp.getRadius2(), points),
+                            this.LIC14(licp.getArea1(), licp.getArea2(), licp.getEPts(), licp.getFPts(), points)
+                        };
+        this.conditionsMetVector = new Vector<>(15, cmv);
     }
 
     /**
      * Sets the parameter manager
      * @param pm    ParameterManager that manages all parameters
      * */
-    public void setParameterManager(ParameterManager pm) {
-        this.pm = pm;
-    }
+    //public void setParameterManager(ParameterManager pm) {
+        //this.pm = pm;
+    //}
 
     /** 
      * There exists at least one set of two consecutive data points
      *  that are a distance greater than LENGTH1. (0 ≤ LENGTH1)
      * @return Boolean. True if there exists two consecutive data points, otherwise False
      */
-    public Boolean LIC0() {
-        int siz = this.pm.getNumPoints();
-        Vector<Point> pointsArray =  this.pm.getPoints();
-        double length1 = this.pm.getLICParameter().getLength1();
+    public Boolean LIC0(double length1, Vector<Point> points) {
+        int siz = points.length();
         for(int i = 0; i < siz - 1; i++)
         {
-            if(pointsArray.getValue(i).distance(pointsArray.getValue(i+1)) > length1)
+            if(points.getValue(i).distance(points.getValue(i+1)) > length1)
                 return Boolean.TRUE;
         }
         return Boolean.FALSE;
@@ -77,20 +85,7 @@ public class ConditionsMetVector {
             return Boolean.FALSE;
         }
         for (int i = 0; i < size - 2; i++) {
-            Point pointA = points.getValue(i);
-            Point pointB = points.getValue(i + 1);
-            Point pointC = points.getValue(i + 2);
-
-            double a = pointC.distance(pointB);
-            double b = pointA.distance(pointC);
-            double c = pointA.distance(pointB);
-
-            // using the formula of circumscribed circle's radius
-            double lengthProduct = a * b * c;
-            double s = (a + b + c) / 2;
-            double diffLengthProduct = s * (s - a) * (s - b) * (s - c);
-            double minimalRadius = lengthProduct / (4 * Math.sqrt(diffLengthProduct));
-
+            double minimalRadius = points.getValue(i).minimalRadiusFromThreePoints(points.getValue(i + 1), points.getValue(i + 2));
             // if these three points cannot be contained in a circle of radius radius1,
             if (radius1 < minimalRadius) {
                 return Boolean.TRUE;
@@ -140,16 +135,15 @@ public class ConditionsMetVector {
      *
      * @return  Boolean
      */
-    public Boolean LIC3() {
+    public Boolean LIC3(double area1, Vector<Point> points) {
         Point pointOne, pointTwo, pointThree;
-        Vector<Point> points = pm.getPoints();
         double area;
-        for (int i = 0; i < pm.getNumPoints() - 2; i++) {
+        for (int i = 0; i < points.length() - 2; i++) {
             pointOne = points.getValue(i);
             pointTwo = points.getValue(i + 1);
             pointThree = points.getValue(i + 2);
             area = pointOne.triangleArea(pointTwo, pointThree);
-            if (area > pm.getLICParameter().getArea1()) { return Boolean.TRUE; }
+            if (area > area1) { return Boolean.TRUE; }
         }
         return Boolean.FALSE;
     }
@@ -187,9 +181,18 @@ public class ConditionsMetVector {
 
     
     /** 
-     * @return Boolean
+     * There exists at least one set of two consecutive data points, (X[i],Y[i]) and (X[j],Y[j]), 
+     * such that X[j] - X[i] < 0. (where i = j-1)
+     * @param points    the points
+     * @return Boolean  if such a set exists.
      */
-    public Boolean LIC5() {
+    public Boolean LIC5(Vector<Point> points) {
+        int siz = points.length();
+        for(int i = 0; i < siz - 1; i++)
+        {
+            if(points.getValue(i+1).getX() - points.getValue(i).getX() < 0)
+                return Boolean.TRUE;
+        }
         return Boolean.FALSE;
     }
 
@@ -204,25 +207,38 @@ public class ConditionsMetVector {
      * @param points    the points
      * @return Boolean  if such a distance exists.
      */
-    public boolean LIC6(int nPts, int numPts, double dist, Vector<Point> points) {
-        if (numPts < 3) return false;
-        if (nPts < 3 || nPts > numPts || dist < 0) throw new InputMismatchException("N_PTS must greater or equal to 3 and less or equal to NUM_POINTS. DIST cannot be less than 0.");
+    public boolean LIC6(int nPts, double dist, Vector<Point> points) {
+        if (points.length() < 3) return false;
+        if (nPts < 3 || nPts > points.length() || dist < 0) throw new InputMismatchException("N_PTS must greater or equal to 3 and less or equal to NUM_POINTS. DIST cannot be less than 0.");
 
-        int max = nPts == numPts ? points.length() - nPts + 1 : points.length() - nPts;
-
+        int max = nPts == points.length() ? points.length() - nPts + 1 : points.length() - nPts;
+        //int max = points.length() - nPts;
         for (int i = 0; i < max; i++) {
-            Point[] nConsecutivePoints = Arrays.copyOfRange(points.getValues(), i, i + nPts);
-            for (int j = 0; j < nConsecutivePoints.length; j++) {
+            
+            //Point[] nConsecutivePoints = Arrays.copyOfRange(points.getValues(), i, i + nPts);
+            Point[] nConsecutivePoints = new Point[nPts];
+            for(int ii = 0; ii < nPts; ii++)
+            {
+                nConsecutivePoints[ii] = points.getValue(i + ii);
+            }
+
+
+            for (int j = 0; j < nPts; j++) {
                 Point first = nConsecutivePoints[0];
-                Point last = nConsecutivePoints[nConsecutivePoints.length - 1];
+                Point last = nConsecutivePoints[nPts - 1];
 
                 if (first.hasSameLocation(last)) {
-                    for (int k = j + 1; k < (i + nPts - 1); k++) if (nConsecutivePoints[k].distance(first) > dist) return true;
+                    for (int k = j + 1; k < (nPts - 1); k++) 
+                        if (nConsecutivePoints[k].distance(first) > dist) 
+                            return true;
                 } else {
-                    for (int k = j + 1; k < (i + nPts - 1); k++) if (nConsecutivePoints[k].distanceToLine(first, last) > dist) return true;
+                    for (int k = j + 1; k < (nPts - 1); k++) 
+                        if (nConsecutivePoints[k].distanceToLine(first, last) > dist)
+                            return true;
                 }
             }
         }
+
 
         return false;
     }
@@ -234,23 +250,19 @@ public class ConditionsMetVector {
      *
      * @return Boolean
      */
-    public Boolean LIC7() {
-        if (pm.getNumPoints() < 3) {
+    public Boolean LIC7(double length1, int KPts, Vector<Point> points) {
+        if (points.length() < 3) {
             return Boolean.FALSE;
         }
 
-        Vector<Point> points = pm.getPoints();
-        int KPts = pm.getLICParameter().getKPts();
-        double Length1 = pm.getLICParameter().getLength1();
-        for (int i = 0; i < pm.getNumPoints() - KPts - 1; i++) {
-            if (points.getValue(i).distance(points.getValue(i + KPts + 1)) > Length1) {
+        for (int i = 0; i < points.length() - KPts - 1; i++) {
+            if (points.getValue(i).distance(points.getValue(i + KPts + 1)) > length1) {
                 return Boolean.TRUE;
             }
         }
         return Boolean.FALSE;
     }
 
-    
     /**
      * There exists at least one set of three data points separated by exactly A_PTS and B_PTS
      * consecutive intervening points, respectively, that cannot be contained within or on a circle of
@@ -258,7 +270,7 @@ public class ConditionsMetVector {
      * The condition is not met when the nr of points is less than 5.
      * @return if the conditions are met or not
      */
-    public Boolean LIC8(Vector<Point> points, int aPts, int bPts, double radius1) {
+    public Boolean LIC8(int aPts, int bPts, double radius1, Vector<Point> points) {
         int nrPoints = points.length();
         if (nrPoints < 5) {
             return false;
@@ -330,11 +342,22 @@ public class ConditionsMetVector {
     }
 
     
-    /** 
+    /**
+     * There exists at least one set of two data points, (X[i],Y[i]) and (X[j],Y[j]), 
+     * separated by exactly G_PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j )
+     *  The condition is not met when NUMPOINTS < 3.
+     * 1 <= G_PTS <= NUMPOINTS - 3
      * @return Boolean
      */
-    public Boolean LIC11() {
-        return Boolean.FALSE;
+    public Boolean LIC11(int gPts, Vector<Point> points) {
+        int length = points.length();
+        if (length < 3) return false;
+        for(int i = 0, j = gPts + 1; j < length; i++, j++)
+        {
+            if(points.getValue(j).getX() - points.getValue(i).getX() < 0)
+                return true;
+        }
+        return false;
     }
 
     
@@ -374,11 +397,37 @@ public class ConditionsMetVector {
     }
 
     
-    /** 
-     * @return Boolean
+    /**
+     * Computes the 13th Launch Interceptor Condition
+     * This condition has two subcondition
+     *      (1) three points separated by aPts and bPts cannot be contained within or on a circle with radius radius1
+     *      (2) three points separated by aPts and bPts can be contained within or on a circle with radius2
+     * If both are true, the condition is satisfied.
+     * @param aPts      no. of. consecutive points between point 1 and point 2
+     * @param bPts      no. of. consecutive points between point 2 and point 3
+     * @param radius1   radius of the circle for the first subcondition
+     * @param radius2   radius of the circle for the second subcondition
+     * @param points    the points
+     * @return          If condition is satisfied or not.
      */
-    public Boolean LIC13() {
-        return Boolean.FALSE;
+    public boolean LIC13(int aPts, int bPts, double radius1, double radius2, Vector<Point> points) {
+        if (radius1 < 0 || radius2 < 0 || points.length() < 5 || (aPts + bPts + 2) > points.length() ) return false;
+
+        boolean conditionNotOnRadius1 = false;
+        boolean conditionOnRadius2 = false;
+
+        for (int i = 0; i < (points.length() - (aPts + bPts + 2)); i++) {
+            Point a = points.getValue(i);
+            Point b = points.getValue(i + aPts + 1);
+            Point c = points.getValue(i + aPts + bPts + 2);
+
+            double minimalRadius = a.minimalRadiusFromThreePoints(b, c);
+
+            if(minimalRadius > radius1) conditionNotOnRadius1 = true;
+            if(minimalRadius <= radius2) conditionOnRadius2 = true;
+        }
+
+        return conditionNotOnRadius1 && conditionOnRadius2;
     }
 
     
@@ -391,22 +440,16 @@ public class ConditionsMetVector {
      *
      * @return Boolean
      */
-    public Boolean LIC14() {
-        if (pm.getNumPoints() < 5) {
+    public Boolean LIC14(double area1, double area2, int EPts, int FPts, Vector<Point> points) {
+        if (points.length() < 5) {
             return Boolean.FALSE;
         }
 
         Point pointOne, pointTwo, pointThree;
-        Vector<Point> points = pm.getPoints();
-        LICParameter lic = pm.getLICParameter();
-        double  area,
-                area1 = lic.getArea1(),
-                area2 = lic.getArea2();
-        int     EPts = lic.getEPts(),
-                FPts = lic.getFPts();
+        double  area;
         boolean greaterThanArea1 = false,
                 lesserThanArea2 = false;
-        for (int i = 0; i < pm.getNumPoints() - EPts - FPts - 2; i++) {
+        for (int i = 0; i < points.length() - EPts - FPts - 2; i++) {
             pointOne = points.getValue(i);
             pointTwo = points.getValue(i + EPts + 1);
             pointThree = points.getValue(i + EPts + FPts + 2);
