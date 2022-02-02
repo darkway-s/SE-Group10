@@ -276,10 +276,38 @@ public class ConditionsMetVector {
 
     
     /** 
+     * Computes the 12th Launch Interceptor Condition
+     *
+     * There exists at least one set of two data points, separated by exactly K PTS consecutive
+     * intervening points, which are a distance greater than the length, LENGTH1, apart. In addi-
+     * tion, there exists at least one set of two data points (which can be the same or different from
+     * the two data points just mentioned), separated by exactly K PTS consecutive intervening
+     * points, that are a distance less than the length, LENGTH2, apart. Both parts must be true
+     * for the LIC to be true. 
+     
+     * The condition is not met when NUMPOINTS < 3.
+     *
      * @return Boolean
      */
-    public Boolean LIC12() {
-        return Boolean.FALSE;
+    public Boolean LIC12(int kPts, double length1, double length2, Vector<Point> points) {
+        if (kPts < 1 || points.length() < kPts + 2 || points.length() < 3) return Boolean.FALSE;
+
+        Boolean part1 = Boolean.FALSE;
+        Boolean part2 = Boolean.FALSE;
+
+        for (int i = 0; i < points.length() - (kPts + 1); i++) {
+             Point p1 = points.getValue(i);
+             Point p2 = points.getValue(i + kPts + 1);
+             if (p1.distance(p2) > length1) {
+                 part1 = Boolean.TRUE;
+             }
+             if (p1.distance(p2) < length2) {
+                 part2 = Boolean.TRUE;
+             }
+         }
+
+        // both parts should be true to get true
+        return part1 && part2;
     }
 
     
