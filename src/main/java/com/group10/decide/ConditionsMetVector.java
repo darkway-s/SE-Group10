@@ -55,14 +55,15 @@ public class ConditionsMetVector {
             Point pointB = pointsArray.getValue(i + 1);
             Point pointC = pointsArray.getValue(i + 2);
 
-            // we need sums to calculate centroid
-            double sumX = pointA.getX() + pointB.getX() + pointC.getX();
-            double sumY = pointA.getY() + pointB.getY() + pointC.getY();
+            double a = pointC.distance(pointB);
+            double b = pointA.distance(pointC);
+            double c = pointA.distance(pointB);
 
-            // centroid is the weighed sums, divide by 3
-            Point centroid = new Point(sumX / 3, sumY / 3);
-            // minimal radius is the distance from centroid to any point
-            double minimalRadius = centroid.distance(pointA);
+            // using the formula of circumscribed circle's radius
+            double lengthProduct = a * b * c;
+            double s = (a + b + c) / 2;
+            double diffLengthProduct = s * (s - a) * (s - b) * (s - c);
+            double minimalRadius = lengthProduct / (4 * Math.sqrt(diffLengthProduct));
 
             // if these three points cannot be contained in a circle of radius radius1,
             if (radius1 < minimalRadius) {
