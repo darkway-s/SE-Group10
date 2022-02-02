@@ -254,11 +254,30 @@ public class ConditionsMetVector {
     }
 
     
-    /** 
-     * @return Boolean
+    /**
+     * There exists at least one set of three data points separated by exactly A_PTS and B_PTS
+     * consecutive intervening points, respectively, that cannot be contained within or on a circle of
+     * radius RADIUS1.
+     * The condition is not met when the nr of points is less than 5.
+     * @return if the conditions are met or not
      */
-    public Boolean LIC8() {
-        return Boolean.FALSE;
+    public Boolean LIC8(Vector<Point> points, int aPts, int bPts, double radius1) {
+        int nrPoints = points.length();
+        if (nrPoints < 5) {
+            return false;
+        }
+        Boolean result = true;
+        //Checking for the three points
+        for (int i = 0; i < nrPoints - aPts - bPts - 2; i++) {
+            Point p1 = points.getValue(i);
+            Point p2 = points.getValue(i + aPts);
+            Point p3 = points.getValue(i + aPts + bPts);
+            //Checking if the points are on the same circle
+            if (p1.distance(p2) <= radius1 && p2.distance(p3) <= radius1 && p1.distance(p3) <= radius1) {
+                result = false;
+            }
+        }
+        return result;
     }
 
     
