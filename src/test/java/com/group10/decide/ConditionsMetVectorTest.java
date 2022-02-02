@@ -585,30 +585,6 @@ public class ConditionsMetVectorTest {
     }
 
     /**
-     * All test cases for LIC14.
-     */
-    /*
-    @Nested
-    @DisplayName("Negative and positive cases for LIC14.")
-    class TestLIC14 {
-        @Test
-        @DisplayName("LIC14 true case")
-        public void LIC14True() {
-            pm = new ParameterManager(pathToTestFiles + "test-10p-LIC14true.txt");
-            cmv = new ConditionsMetVector(pm);
-            assertEquals(Boolean.TRUE, cmv.LIC14(), "LIC14 should be true when both conditions are true");
-        }
-    
-        @Test
-        @DisplayName("LIC14 false case")
-        public void LIC14False() {
-            pm = new ParameterManager(pathToTestFiles + "test-10p-LIC14false.txt");
-            cmv = new ConditionsMetVector(pm);
-            assertEquals(Boolean.FALSE, cmv.LIC14(), "LIC14 should be false when at least one condition is false");
-        }
-    }
-    */
-    /**
      * All test cases for LIC12.
      */
     @Nested
@@ -725,6 +701,55 @@ public class ConditionsMetVectorTest {
             Point[] vals = new Point[]{p1, p2, p3, p4};
             Vector<Point> p = new Vector<Point>(4, vals);
             assertEquals(Boolean.TRUE, cmv.LIC12(kPts, length1, length2, p), "should get true. p1 and p3 are 5 units apart and p2 and p4 are 3 units apart, length1: 2, length2: 3.5");
+        }
+    }
+
+    /**
+     * All test cases for LIC14.
+     */
+    @Nested
+    @DisplayName("Negative and positive cases for LIC14.")
+    class TestLIC14 {
+        Point p1;
+        Point p2;
+        Point p3;
+        Point p4;
+        Point p5;
+
+        Point[] vals;
+        Vector<Point> p;
+
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector();
+            p1 = new Point(0, 0);
+            p2 = new Point(2, 0);
+            p3 = new Point(2, 2);
+            p4 = new Point(0, 2);
+            p5 = new Point(0, 2);
+
+            vals = new Point[]{p1, p2, p3, p4, p5};
+            p = new Vector<Point>(5, vals);
+        }
+
+        @Test
+        @DisplayName("LIC14 true case")
+        public void LIC14True() {
+            double area1 = 1;
+            double area2 = 5;
+            int ePts = 1;
+            int fPts = 1;
+            assertEquals(true, cmv.LIC14(area1, area2, ePts, fPts, p), "LIC14 should be true when both conditions are true");
+        }
+
+        @Test
+        @DisplayName("LIC14 false case")
+        public void LIC14False() {
+            double area1 = 10;
+            double area2 = 2;
+            int ePts = 1;
+            int fPts = 1;
+            assertEquals(false, cmv.LIC14(area1, area2, ePts, fPts, p), "LIC14 should be false when at least one condition is false");
         }
     }
 
