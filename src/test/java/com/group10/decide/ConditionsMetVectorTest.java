@@ -378,27 +378,49 @@ public class ConditionsMetVectorTest {
     /**
      * All test cases for LIC7.
      */
-    /*
     @Nested
     @DisplayName("Negative and positive cases for LIC7.")
     class TestLIC7 {
+        Point p1;
+        Point p2;
+        Point p3;
+        Point p4;
+
+        Point[] vals;
+        Vector<Point> p;
+
+        @BeforeEach
+        void setUp(){
+            p1 = new Point(0, 0);   // edge case, Q1
+            p2 = new Point(1, 0);   // edge case, Q1
+            p3 = new Point(2, 0);   // Q1
+            p4 = new Point(3, 0);  // Q2
+
+            vals = new Point[]{p1, p2, p3, p4};
+            p = new Vector<Point>(4, vals);
+
+            cmv = new ConditionsMetVector();
+        }
+
         @Test
         @DisplayName("LIC7 true case")
         public void LIC7True() {
-            pm = new ParameterManager(pathToTestFiles + "test-10p-LIC7true.txt");
-            cmv = new ConditionsMetVector(pm);
-            assertEquals(Boolean.TRUE, cmv.LIC7(), "LIC7 should be true when the distance is greater than length1");
+            double length1 = 1;
+            int kPts = 2;
+
+            assertEquals(true, cmv.LIC7(length1, kPts, p), "LIC7 should be true when the distance is greater than length1");
         }
     
         @Test
         @DisplayName("LIC7 false case")
         public void LIC7False() {
-            pm = new ParameterManager(pathToTestFiles + "test-10p-LIC7false.txt");
-            cmv = new ConditionsMetVector(pm);
-            assertEquals(Boolean.FALSE, cmv.LIC7(), "LIC7 should be true when the distance is less than length1");
+            double length1 = 10;
+            int kPts = 2;
+
+            assertEquals(false, cmv.LIC7(length1, kPts, p), "LIC7 should be true when the distance is less than length1");
         }
     }
-    */
+
     /**
      * All test cases for LIC8.
      */
