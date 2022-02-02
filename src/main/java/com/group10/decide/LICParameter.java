@@ -1,7 +1,9 @@
 package com.group10.decide;
 
 /**
- * Class for the LIC parameters
+ * Class that stores all the LIC parameters
+ *
+ * @author Amanda Krohn
  */
 public class LICParameter {
     private final double LENGTH_1;
@@ -48,8 +50,8 @@ public class LICParameter {
      */
     public LICParameter(double length1, double radius1, double epsilon, double area1,
                         double dist, double length2, double radius2, double area2, int qPts,
-                        int quads,int nPts, int kPts, int aPts, int bPts, int cPts, int dPts, int ePts, int fPts,
-                        int gPts){
+                        int quads,int nPts, int kPts, int aPts, int bPts, int cPts, int dPts,
+                        int ePts, int fPts, int gPts){
         this.LENGTH_1 = length1;
         this.LENGTH_2 = length2;
         this.RADIUS_1 = radius1;
@@ -203,5 +205,4 @@ public class LICParameter {
     public int getGPts(){
         return this.G_PTS;
     }
-
 }
