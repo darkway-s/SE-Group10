@@ -159,22 +159,19 @@ public class ConditionsMetVector {
      *  in more than quads number of quadrants.
      * @return Boolean True if there exist at least one set. False if not.
      */
-    public Boolean LIC4() {
-        int qPts = pm.getLICParameter().getQPts();
-        int quads = pm.getLICParameter().getQuads();
-        Vector<Point> points = pm.getPoints();
-        int length = pm.getNumPoints();
+    public Boolean LIC4(Vector<Point> points, int qPts, int quads) {
+        int length = points.length();
         //Going through each point and checking if the nr of unique quadrants represented by the point is more than quads
         for (int i = 0; i < length - qPts +1; i++) {
             Set<Integer> uniqeQuadrants = new HashSet<Integer>();
             for (int j = 0; j < qPts; j++) {
-                if (points.getValue(i + j).getX() > 0 && points.getValue(i + j).getY() > 0) {
+                if (points.getValue(i + j).getX() >= 0 && points.getValue(i + j).getY() >= 0) {
                     uniqeQuadrants.add(1);
                 }
-                if (points.getValue(i + j).getX() < 0 && points.getValue(i + j).getY() > 0) {
+                if (points.getValue(i + j).getX() < 0 && points.getValue(i + j).getY() >= 0) {
                     uniqeQuadrants.add(2);
                 }
-                if (points.getValue(i + j).getX() < 0 && points.getValue(i + j).getY() < 0) {
+                if (points.getValue(i + j).getX() <= 0 && points.getValue(i + j).getY() < 0) {
                     uniqeQuadrants.add(3);
                 }
                 if (points.getValue(i + j).getX() > 0 && points.getValue(i + j).getY() < 0) {
@@ -182,10 +179,10 @@ public class ConditionsMetVector {
                 }
             }
             if (uniqeQuadrants.size() > quads) {
-                return Boolean.TRUE;
+                return true;
             }
         }
-        return Boolean.FALSE;
+        return false;
     }
 
     
