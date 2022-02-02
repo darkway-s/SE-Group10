@@ -190,9 +190,18 @@ public class ConditionsMetVector {
 
     
     /** 
-     * @return Boolean
+     * There exists at least one set of two consecutive data points, (X[i],Y[i]) and (X[j],Y[j]), 
+     * such that X[j] - X[i] < 0. (where i = j-1)
+     * @param points    the points
+     * @return Boolean  if such a set exists.
      */
-    public Boolean LIC5() {
+    public Boolean LIC5(Vector<Point> points) {
+        int siz = points.length();
+        for(int i = 0; i < siz - 1; i++)
+        {
+            if(points.getValue(i+1).getX() - points.getValue(i).getX() < 0)
+                return Boolean.TRUE;
+        }
         return Boolean.FALSE;
     }
 
