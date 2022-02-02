@@ -66,4 +66,17 @@ public class PointTest {
         Point p2 = new Point(2, 3);
         assertEquals(false, p1.hasSameLocation(p2), "Expected to be false.");
     }
+
+    @Test
+    @DisplayName("Distance from 1 point to the line created by two other points")
+    public void testPointDistanceToLine() {
+        Point p1 = new Point(0, 1);
+        Point p2 = new Point(1, 1);
+        Point p3 = new Point(0, 0);
+
+        // Maximum accepted difference between actual and expected value. Difference is due to floating-point error
+        double delta = 0.00000001;
+        assertEquals(Math.sqrt(0.5), p1.distanceToLine(p2, p3), delta, "Expected sqrt(2)");
+    }
+
 }
