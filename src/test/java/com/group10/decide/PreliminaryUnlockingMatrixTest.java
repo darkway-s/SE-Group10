@@ -175,4 +175,15 @@ public class PreliminaryUnlockingMatrixTest {
             }
         }
     }
+
+    @Test
+    @DisplayName("An all true PUM, should return true from isRowAllTrue")
+    public void testIsRowAllTrue() {
+        // Initialize and compute PUMs
+        PreliminaryUnlockingMatrix pumORRWithAllTrueCMV = new PreliminaryUnlockingMatrix(allORR, cmvAllTrue);
+
+        for (int curRow = 0; curRow < 15; curRow++) {
+            assertEquals(Boolean.TRUE, pumORRWithAllTrueCMV.isRowAllTrue(curRow), "isRowAllTrue should return true");
+        }
+    }
 }
