@@ -42,6 +42,14 @@ public class PointTest {
         Point p2 = new Point(1, 1);
         assertEquals(Math.sqrt(2), p1.distance(p2), "Expected sqrt(2)");
     }
+    @Test
+    @DisplayName("Test area of triangle")
+    public void testTriangleArea() {
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(1, 1);
+        Point p3 = new Point(0, 1);
+        assertEquals(0.5, p1.triangleArea(p2, p3), "Expected 0.5");
+    }
 
     @Test
     @DisplayName("Two points have the same x and y coordinate.")

@@ -53,6 +53,18 @@ public class Point {
     }
 
     /**
+     * Method calculating the area of a triangle from three points.
+     * @param p2 The second point.
+     * @param p3 The third point.
+     * @return double The area of the triangle.
+     */
+    public double triangleArea(Point p2, Point p3) {
+        return Math.abs((this.getX()*(p2.getY() - p3.getY()) +
+                p2.getX()*(p3.getY() - this.getY()) +
+                p3.getX()*(this.getY() - p2.getY())) / 2);
+    }
+
+    /**
      * Method to return determine if two point are on the same location.
      * @param p The point to compare to.
      * @return  If they are on the same location.

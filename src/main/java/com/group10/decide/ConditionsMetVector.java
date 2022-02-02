@@ -67,20 +67,23 @@ public class ConditionsMetVector {
     }
 
     /**
+     * Computes the 1st Launch Interceptor Condition
+     * There exists at least one set of three consecutive data points that cannot
+     * all be contained
+     * within or on a circle of radius RADIUS1.
+     * 
      * @return Boolean
      */
-    public Boolean LIC1() {
-        int size = this.pm.getNumPoints();
+    public Boolean LIC1(double radius1, Vector<Point> points) {
+        int size = points.length();
         // We need to compare 3 consecutive points, so if we have 2, return FALSE
         if (size < 3) {
             return Boolean.FALSE;
         }
-        Vector<Point> pointsArray = this.pm.getPoints();
-        double radius1 = this.pm.getLICParameter().getRadius1();
         for (int i = 0; i < size - 2; i++) {
-            Point pointA = pointsArray.getValue(i);
-            Point pointB = pointsArray.getValue(i + 1);
-            Point pointC = pointsArray.getValue(i + 2);
+            Point pointA = points.getValue(i);
+            Point pointB = points.getValue(i + 1);
+            Point pointC = points.getValue(i + 2);
 
             double a = pointC.distance(pointB);
             double b = pointA.distance(pointC);
@@ -152,9 +155,7 @@ public class ConditionsMetVector {
             pointOne = points.getValue(i);
             pointTwo = points.getValue(i + 1);
             pointThree = points.getValue(i + 2);
-            area = Math.abs((pointOne.getX() * (pointTwo.getY() - pointThree.getY()) +
-                    pointTwo.getX() * (pointThree.getY() - pointOne.getY()) +
-                    pointThree.getX() * (pointOne.getY() - pointTwo.getY())) / 2);
+            area = pointOne.triangleArea(pointTwo, pointThree);
             if (area > pm.getLICParameter().getArea1()) {
                 return Boolean.TRUE;
             }
@@ -308,9 +309,7 @@ public class ConditionsMetVector {
             pointOne = points.getValue(i);
             pointTwo = points.getValue(i + EPts + 1);
             pointThree = points.getValue(i + EPts + FPts + 2);
-            area = Math.abs((pointOne.getX() * (pointTwo.getY() - pointThree.getY()) +
-                    pointTwo.getX() * (pointThree.getY() - pointOne.getY()) +
-                    pointThree.getX() * (pointOne.getY() - pointTwo.getY())) / 2);
+            area = pointOne.triangleArea(pointTwo, pointThree);
             if (area > area1) {
                 greaterThanArea1 = true;
             }
