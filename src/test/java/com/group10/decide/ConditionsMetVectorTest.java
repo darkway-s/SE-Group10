@@ -578,6 +578,32 @@ public class ConditionsMetVectorTest {
 
     }
 
+
+    /**
+     * Test for LIC 11
+     * 
+     */
+    @Nested
+    @DisplayName("Negative and positive test cases for LIC 11.")
+    class TestLIC11 {
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector(15);
+        }
+
+        @Test
+        @DisplayName("LIC11 positive case")
+        public void LIC11true() {
+            int gPts = 1;
+            Point p1 = new Point(1, 3);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(0, 2);
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(true, cmv.LIC11(gPts, p), "Expected to be true.");
+        }
+    }
+
     /**
      * All test cases for LIC14.
      */
