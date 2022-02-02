@@ -23,12 +23,23 @@ public class ConditionsMetVectorTest {
         pathToTestFiles = "test-inputs/";
     }
 
+
     @Test
-    @DisplayName("LIC1 true case")
-    public void LIC1true() {
-        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC1true.txt");
+    @DisplayName("LIC0 true case")
+    public void LIC0true() {
+        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC0true.txt");
         cmv = new ConditionsMetVector(15, pm);
-        assertEquals(Boolean.TRUE, cmv.LIC1(), "LIC1 should be true, radius: 4, points: {{0, -5}, {-3, 4}, {3, 4}} minimal radius is 5");
+        assertEquals(Boolean.TRUE, cmv.LIC0(), "LIC0 should be true, length1 larger than one distance between adjacent points");
+    }
+
+
+
+    @Test
+    @DisplayName("LIC0 false case")
+    public void LIC1true() {
+        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC0false.txt");
+        cmv = new ConditionsMetVector(15, pm);
+        assertEquals(Boolean.FALSE, cmv.LIC0(), "LIC0 should be false, length1 smaller than any distance between adjacent points");
     }
 
     @Test
