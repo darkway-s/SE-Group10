@@ -319,6 +319,55 @@ public class ConditionsMetVectorTest {
     }
 
     /**
+     * Test for LIC 5
+     * */
+    @Nested
+    @DisplayName("Negative and positive test cases for LIC 5.")
+    class TestLIC5 {
+
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector();
+        }
+
+        /**
+         * Test if LIC5 returns true if exists i, s.t. X[i+1] - X[i] < 0
+         * */
+        @Test
+        @DisplayName("LIC5 true case, exists i, s.t. X[i+1] - X[i] < 0")
+        public void LIC5true() {
+
+            // 90 deg --> pi/2 rad ~ 1.6
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(0, 1);
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(true, cmv.LIC5(p), "Expected to be true.");
+        }
+
+        /**
+         * Test if LIC2 returns true if exists i, s.t. X[i+1] - X[i] < 0
+         * */
+        @Test
+        @DisplayName("LIC5 false case, any i, not satisfy X[i+1] - X[i] < 0")
+        public void LIC5false() {
+
+            // 90 deg --> pi/2 rad ~ 1.6
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(2, 1);
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(false, cmv.LIC5(p), "Expected to be false.");
+        }
+
+
+    }
+
+    /**
      * All test cases for LIC6
      */
     @Nested
@@ -585,6 +634,54 @@ public class ConditionsMetVectorTest {
     }
 
     /**
+     * Test for LIC 10
+     */
+    @Nested
+    @DisplayName("Negative and positive test cases for LIC 10.")
+    class TestLIC10 {
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector();
+        }
+
+        @Test
+        @DisplayName("LIC10 positive case, area of the triangle is greater than area1")
+        public void LIC10positiveAreaGreater() {
+            int ePts = 1;
+            int fPts = 1;
+            double area1 = 10.5;
+
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(0, 30);
+            Point p4 = new Point(1, 1);
+            Point p5 = new Point(30, 1);
+
+            Point[] vals = new Point[]{p1, p2, p3, p4, p5};
+            Vector<Point> p = new Vector<Point>(5, vals);
+            assertEquals(true, cmv.LIC10(p, ePts, fPts, area1), "Expected to be true.");
+        }
+        @Test
+        @DisplayName("LIC10 positive case, area of the triangle is less than area1")
+        public void LIC10positiveAreaLess() {
+            int ePts = 1;
+            int fPts = 1;
+            double area1 = 10.5;
+
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(0, 2);
+            Point p4 = new Point(1, 1);
+            Point p5 = new Point(2, 1);
+
+            Point[] vals = new Point[]{p1, p2, p3, p4, p5};
+            Vector<Point> p = new Vector<Point>(5, vals);
+            assertEquals(false, cmv.LIC10(p, ePts, fPts, area1), "Expected to be false.");
+        }
+
+    }
+
+    /**
      * All test cases for LIC12.
      */
     @Nested
@@ -705,6 +802,75 @@ public class ConditionsMetVectorTest {
     }
 
     /**
+     * All test cases for LIC13.
+     */
+    @Nested
+    @DisplayName("Negative and positive cases for LIC13.")
+    class TestLIC13 {
+        Point p1;
+        Point p2;
+        Point p3;
+        Point p4;
+        Point p5;
+        Point p6;
+        int aPts;
+        int bPts;
+        Point[] vals;
+        Vector<Point> p;
+
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector();
+            p1 = new Point(0, 0);
+            p2 = new Point(0, 1);
+            p3 = new Point(3, 4);
+            p4 = new Point(3, 1);
+            p5 = new Point(3, 1);
+            p6 = new Point(2, 3);
+            aPts = 2;
+            bPts = 1;
+            vals = new Point[]{ p1, p2, p3, p4, p5, p6 };
+            p = new Vector<Point>(6, vals);
+        }
+
+        /**
+         * Tests if both subconditions are met, and thus returns true
+         */
+        @Test
+        @DisplayName("LIC13 returns true, both subcondtions are met")
+        public void testRadius1SmallRadius2Big() {
+            double radius1 = 0.25;
+            double radius2 = 50;
+
+            assertEquals(true, cmv.LIC13(aPts, bPts, radius1, radius2, p), "Expected to be true");
+        }
+
+        /**
+         * Tests if only 1 subcondition is met, and thus returns false
+         */
+        @Test
+        @DisplayName("LIC13 returns false, only subcondition (1) is met")
+        public void testRadius1SmallRadius2Small() {
+            double radius1 = 0.25;
+            double radius2 = 0.25;
+
+            assertEquals(false, cmv.LIC13(aPts, bPts, radius1, radius2, p), "Expected to be false");
+        }
+
+        /**
+         * Tests if only 1 subcondition is met, and thus returns false
+         */
+        @Test
+        @DisplayName("LIC13 returns false, only subcondition (2) is met")
+        public void testRadius1BigRadius2Big() {
+            double radius1 = 50;
+            double radius2 = 50;
+
+            assertEquals(false, cmv.LIC13(aPts, bPts, radius1, radius2, p), "Expected to be false");
+        }
+    }
+
+    /**
      * All test cases for LIC14.
      */
     @Nested
@@ -752,5 +918,4 @@ public class ConditionsMetVectorTest {
             assertEquals(false, cmv.LIC14(area1, area2, ePts, fPts, p), "LIC14 should be false when at least one condition is false");
         }
     }
-
 }

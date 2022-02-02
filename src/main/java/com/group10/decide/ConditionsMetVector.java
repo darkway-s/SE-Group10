@@ -34,15 +34,15 @@ public class ConditionsMetVector {
                             this.LIC2(licp.getEpsilon(), points),
                             this.LIC3(licp.getArea1(), points),
                             this.LIC4(licp.getQPts(), licp.getQuads(), points),
-                            this.LIC5(),
+                            this.LIC5(points),
                             this.LIC6(licp.getNPts(), licp.getDist(), points),
                             this.LIC7(licp.getLength1(), licp.getKPts(), points),
                             this.LIC8(licp.getAPts(), licp.getBPts(), licp.getRadius1(), points),
                             this.LIC9(licp.getEpsilon(), licp.getCPts(), licp.getDPts(), points),
-                            this.LIC10(),
+                            this.LIC10(points, licp.getEPts(), licp.getFPts(), licp.getArea1()),
                             this.LIC11(),
                             this.LIC12(licp.getKPts(), licp.getLength1(), licp.getLength2(), points),
-                            this.LIC13(),
+                            this.LIC13(licp.getAPts(), licp.getBPts(), licp.getRadius1(), licp.getRadius2(), points),
                             this.LIC14(licp.getArea1(), licp.getArea2(), licp.getEPts(), licp.getFPts(), points)
                         };
         this.conditionsMetVector = new Vector<>(15, cmv);
@@ -85,20 +85,7 @@ public class ConditionsMetVector {
             return Boolean.FALSE;
         }
         for (int i = 0; i < size - 2; i++) {
-            Point pointA = points.getValue(i);
-            Point pointB = points.getValue(i + 1);
-            Point pointC = points.getValue(i + 2);
-
-            double a = pointC.distance(pointB);
-            double b = pointA.distance(pointC);
-            double c = pointA.distance(pointB);
-
-            // using the formula of circumscribed circle's radius
-            double lengthProduct = a * b * c;
-            double s = (a + b + c) / 2;
-            double diffLengthProduct = s * (s - a) * (s - b) * (s - c);
-            double minimalRadius = lengthProduct / (4 * Math.sqrt(diffLengthProduct));
-
+            double minimalRadius = points.getValue(i).minimalRadiusFromThreePoints(points.getValue(i + 1), points.getValue(i + 2));
             // if these three points cannot be contained in a circle of radius radius1,
             if (radius1 < minimalRadius) {
                 return Boolean.TRUE;
@@ -194,9 +181,18 @@ public class ConditionsMetVector {
 
     
     /** 
-     * @return Boolean
+     * There exists at least one set of two consecutive data points, (X[i],Y[i]) and (X[j],Y[j]), 
+     * such that X[j] - X[i] < 0. (where i = j-1)
+     * @param points    the points
+     * @return Boolean  if such a set exists.
      */
-    public Boolean LIC5() {
+    public Boolean LIC5(Vector<Point> points) {
+        int siz = points.length();
+        for(int i = 0; i < siz - 1; i++)
+        {
+            if(points.getValue(i+1).getX() - points.getValue(i).getX() < 0)
+                return Boolean.TRUE;
+        }
         return Boolean.FALSE;
     }
 
@@ -307,10 +303,29 @@ public class ConditionsMetVector {
 
     
     /** 
-     * @return Boolean
+     * There exists at least one set of three data points separated by exactly
+     * E_PTS and F_PTS consecutive intervening points, respectively, that are 
+     * the vertices of a triangle with area greater than AREA1. The condition 
+     * is not met when NUMPOINTS < 5
+     * @return Boolean If condition is met or not.
      */
-    public Boolean LIC10() {
-        return Boolean.FALSE;
+    public Boolean LIC10(Vector<Point> points, int ePts, int fPts, double area1) {
+        if (points.length() < 5) return false;
+        //Iterate through all the points
+        for (int i = 0; i < points.length() - (ePts + fPts + 2); i++) {
+            //Get the three points
+            Point p1 = points.getValue(i);
+            Point p2 = points.getValue(i + ePts + 1);
+            Point p3 = points.getValue(i + ePts + fPts + 2);
+           
+            //Checking the area of the triangle
+            double area = p1.triangleArea(p2, p3);
+            if (area > area1) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     
@@ -358,11 +373,37 @@ public class ConditionsMetVector {
     }
 
     
-    /** 
-     * @return Boolean
+    /**
+     * Computes the 13th Launch Interceptor Condition
+     * This condition has two subcondition
+     *      (1) three points separated by aPts and bPts cannot be contained within or on a circle with radius radius1
+     *      (2) three points separated by aPts and bPts can be contained within or on a circle with radius2
+     * If both are true, the condition is satisfied.
+     * @param aPts      no. of. consecutive points between point 1 and point 2
+     * @param bPts      no. of. consecutive points between point 2 and point 3
+     * @param radius1   radius of the circle for the first subcondition
+     * @param radius2   radius of the circle for the second subcondition
+     * @param points    the points
+     * @return          If condition is satisfied or not.
      */
-    public Boolean LIC13() {
-        return Boolean.FALSE;
+    public boolean LIC13(int aPts, int bPts, double radius1, double radius2, Vector<Point> points) {
+        if (radius1 < 0 || radius2 < 0 || points.length() < 5 || (aPts + bPts + 2) > points.length() ) return false;
+
+        boolean conditionNotOnRadius1 = false;
+        boolean conditionOnRadius2 = false;
+
+        for (int i = 0; i < (points.length() - (aPts + bPts + 2)); i++) {
+            Point a = points.getValue(i);
+            Point b = points.getValue(i + aPts + 1);
+            Point c = points.getValue(i + aPts + bPts + 2);
+
+            double minimalRadius = a.minimalRadiusFromThreePoints(b, c);
+
+            if(minimalRadius > radius1) conditionNotOnRadius1 = true;
+            if(minimalRadius <= radius2) conditionOnRadius2 = true;
+        }
+
+        return conditionNotOnRadius1 && conditionOnRadius2;
     }
 
     
