@@ -51,6 +51,15 @@ public class Point {
     public double distance(Point p) {
         return Math.sqrt(Math.pow(p.getX() - this.getX(), 2) + Math.pow(p.getY() - this.getY(), 2));
     }
-    
+
+    /**
+     * Method to return determine if two point are on the same location.
+     * @param p The point to compare to.
+     * @return  If they are on the same location.
+     */
+    public boolean hasSameLocation(Point p){
+        if (p.getY() == this.getY() && p.getX() == this.getX()) return true;
+        return false;
+    }
 
 }

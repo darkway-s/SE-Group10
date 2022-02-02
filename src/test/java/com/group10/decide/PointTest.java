@@ -42,4 +42,20 @@ public class PointTest {
         Point p2 = new Point(1, 1);
         assertEquals(Math.sqrt(2), p1.distance(p2), "Expected sqrt(2)");
     }
+
+    @Test
+    @DisplayName("Two points have the same x and y coordinate.")
+    public void testTwoPointsWithSameLocation() {
+        Point p1 = new Point(2, 3);
+        Point p2 = new Point(2, 3);
+        assertEquals(true, p1.hasSameLocation(p2), "Expected to be true.");
+    }
+
+    @Test
+    @DisplayName("Two points do not have the same x and y coordinate.")
+    public void testTwoPointsWithNotSameLocation() {
+        Point p1 = new Point(2, 4);
+        Point p2 = new Point(2, 3);
+        assertEquals(false, p1.hasSameLocation(p2), "Expected to be false.");
+    }
 }
