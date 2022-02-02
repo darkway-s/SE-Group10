@@ -64,6 +64,14 @@ public class Point {
                 p3.getX()*(this.getY() - p2.getY())) / 2);
     }
 
-    
+    /**
+     * Method to return determine if two point are on the same location.
+     * @param p The point to compare to.
+     * @return  If they are on the same location.
+     */
+    public boolean hasSameLocation(Point p){
+        if (p.getY() == this.getY() && p.getX() == this.getX()) return true;
+        return false;
+    }
 
 }

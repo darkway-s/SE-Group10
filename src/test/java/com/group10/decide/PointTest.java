@@ -50,4 +50,20 @@ public class PointTest {
         Point p3 = new Point(0, 1);
         assertEquals(0.5, p1.triangleArea(p2, p3), "Expected 0.5");
     }
+
+    @Test
+    @DisplayName("Two points have the same x and y coordinate.")
+    public void testTwoPointsWithSameLocation() {
+        Point p1 = new Point(2, 3);
+        Point p2 = new Point(2, 3);
+        assertEquals(true, p1.hasSameLocation(p2), "Expected to be true.");
+    }
+
+    @Test
+    @DisplayName("Two points do not have the same x and y coordinate.")
+    public void testTwoPointsWithNotSameLocation() {
+        Point p1 = new Point(2, 4);
+        Point p2 = new Point(2, 3);
+        assertEquals(false, p1.hasSameLocation(p2), "Expected to be false.");
+    }
 }
