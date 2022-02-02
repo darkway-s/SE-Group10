@@ -326,11 +326,22 @@ public class ConditionsMetVector {
     }
 
     
-    /** 
+    /**
+     * There exists at least one set of two data points, (X[i],Y[i]) and (X[j],Y[j]), 
+     * separated by exactly G_PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j )
+     *  The condition is not met when NUMPOINTS < 3.
+     * 1 <= G_PTS <= NUMPOINTS - 3
      * @return Boolean
      */
-    public Boolean LIC11() {
-        return Boolean.FALSE;
+    public Boolean LIC11(int gPts, Vector<Point> points) {
+        int length = points.length();
+        if (length < 3) return false;
+        for(int i = 0, j = gPts + 1; j < length; i++, j++)
+        {
+            if(points.getValue(j).getX() - points.getValue(i).getX() < 0)
+                return true;
+        }
+        return false;
     }
 
     
