@@ -61,7 +61,15 @@ public class Vector<T> {
         return this.vector;
     }
 
-    /***
+    /**
+     * Get the length of the vector
+     * @return      The length of the vector
+     */
+    public int length(){
+        return this.length;
+    }
+
+    /**
      * Convert the vector to a string
      * @return      The vector as a string
      */
