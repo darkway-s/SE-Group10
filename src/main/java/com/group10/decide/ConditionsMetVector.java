@@ -43,7 +43,34 @@ public class ConditionsMetVector {
      * @return Boolean
      */
     public Boolean LIC1() {
-        return Boolean.FALSE;
+        int size - this.pm.getNumPoints();
+        // We need to compare 3 consecutive points, so if we have 2, return FALSE
+        if (size < 3) {
+            return Boolean.FALSE;
+        }
+        Vector<Point> pointsArray = this.pm.getPoints();
+        double radius1 = this.pm.getLICParameter().getRadius1();
+        for (int i = 0; i < size - 2; i++) {
+            Point pointA = pointsArray.getValue(i);
+            Point pointB = pointsArray.getValue(i + 1);
+            Point pointC = pointsArray.getValue(i + 2);
+
+            // we need sums to calculate centroid
+            double sumX = pointA.getX() + pointB.getX() + pointC.getX();
+            double sumY = pointA.getY() + pointB.getY() + pointC.getY();
+
+            // centroid is the weighed sums, divide by 3
+            Point centroid = new Point(sumX / 3, sumY / 3);
+            // minimal radius is the distance from centroid to any point
+            double minimalRadius = centroid.distance(pointA);
+
+            // if these three points cannot be contained in a circle of radius radius1,
+            if (radius1 < minimalRadius) {
+                return Boolean.TRUE;
+            }
+        }
+
+        return Boolean.False;
     }
 
     
