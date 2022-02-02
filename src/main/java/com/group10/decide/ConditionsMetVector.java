@@ -173,10 +173,43 @@ public class ConditionsMetVector {
     }
 
     
-    /** 
+    /**
+     * <h3>Computes the 14th Launch Interceptor Condition</h3>
+     *
+     * <b>True</b> if there exists three points separated by EPts and FPts intervening points that form the vertices of
+     * a triangle with an area greater than area1 and three more points that are separated by the same conditions
+     * but could be the same which form the vertices of a triangle with an area less than area2. <b>False</b> otherwise.
+     *
      * @return Boolean
      */
     public Boolean LIC14() {
+        if (pm.getNumPoints() < 5) {
+            return Boolean.FALSE;
+        }
+
+        Point pointOne, pointTwo, pointThree;
+        Vector<Point> points = pm.getPoints();
+        LICParameter lic = pm.getLICParameter();
+        double  area,
+                area1 = lic.getArea1(),
+                area2 = lic.getArea2();
+        int     EPts = lic.getEPts(),
+                FPts = lic.getFPts();
+        boolean greaterThanArea1 = false,
+                lesserThanArea2 = false;
+        for (int i = 0; i < pm.getNumPoints() - EPts - FPts - 2; i++) {
+            pointOne = points.getValue(i);
+            pointTwo = points.getValue(i + EPts + 1);
+            pointThree = points.getValue(i + EPts + FPts + 2);
+            area = Math.abs((pointOne.getX()*(pointTwo.getY() - pointThree.getY()) +
+                    pointTwo.getX()*(pointThree.getY() - pointOne.getY()) +
+                    pointThree.getX()*(pointOne.getY() - pointTwo.getY())) / 2);
+            if (area > area1) { greaterThanArea1 = true; }
+            if (area < area2) { lesserThanArea2 = true; }
+            if (greaterThanArea1 && lesserThanArea2) {
+                return Boolean.TRUE;
+            }
+        }
         return Boolean.FALSE;
     }
 
