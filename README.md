@@ -20,8 +20,9 @@ Some standards are set to make everything clear.
 Branch-naming: issue/nr
 
 ## How to run
+Compile all files and run with:
 ```
-$ mvn run......
+$ java ConditionsMetVector.java
 ```
 
 ## How to run tests
