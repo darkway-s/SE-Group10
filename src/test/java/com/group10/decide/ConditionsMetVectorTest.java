@@ -268,26 +268,56 @@ public class ConditionsMetVectorTest {
     /**
      * All test cases for LIC4.
      */
-    /*
     @Nested
     @DisplayName("Negative and positive cases for LIC4.")
     class TestLIC4 {
+
+        Point p1;
+        Point p2;
+        Point p3;
+        Point p4;
+
+        Point[] vals;
+        Vector<Point> p;
+
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector();
+        }
+
         @Test
         @DisplayName("LIC4 true case")
         public void LIC4True() {
-            pm = new ParameterManager(pathToTestFiles + "test-3p-LIC4true.txt");
-            cmv = new ConditionsMetVector(15, pm);
-            assertEquals(Boolean.TRUE, cmv.LIC4(), "LIC4 should be true when there exist qPts nr of consecutive points in more than quads quadrants");
+            p1 = new Point(0, 0);   // edge case, Q1
+            p2 = new Point(1, 0);   // edge case, Q1
+            p3 = new Point(2, 1);   // Q1
+            p4 = new Point(-3, 1);  // Q2
+
+            vals = new Point[]{p1, p2, p3, p4};
+            p = new Vector<Point>(4, vals);
+
+            int qPts = 4;
+            int quads = 1;
+            assertEquals(true, cmv.LIC4(qPts, quads, p), "LIC4 should be true when there exist qPts nr of consecutive points in more than quads quadrants");
         }
         @Test
         @DisplayName("LIC4 false case")
         public void LIC4False() {
-            pm = new ParameterManager(pathToTestFiles + "test-3p-LIC4false.txt");
-            cmv = new ConditionsMetVector(15, pm);
-            assertEquals(Boolean.FALSE, cmv.LIC4(), "LIC4 should be false when there does not exist qPts nr of consecutive points in more than quads quadrants");
+            p1 = new Point(0, 0);   // edge case, Q1
+            p2 = new Point(1, 0);   // edge case, Q1
+            p3 = new Point(2, 1);   // Q1
+            p4 = new Point(-3, 1);  // Q2
+
+            vals = new Point[]{p1, p2, p3, p4};
+            p = new Vector<Point>(4, vals);
+
+            int qPts = 4;
+            int quads = 3;
+
+            assertEquals(false, cmv.LIC4(qPts, quads, p), "LIC4 should be false when there does not exist qPts nr of consecutive points in more than quads quadrants");
         }
     }
-    */
+
     /**
      * All test cases for LIC6
      */
