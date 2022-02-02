@@ -23,6 +23,7 @@ public class ConditionsMetVectorTest {
     @BeforeAll
     public static void setUp() {
         pathToTestFiles = "test-inputs/";
+
     }
 
     /**
@@ -31,12 +32,40 @@ public class ConditionsMetVectorTest {
     @Nested
     @DisplayName("Negative and positive cases for LIC0.")
     class TestLIC0 {
+
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector();
+        }
+
+
         @Test
         @DisplayName("LIC0 true case")
         public void LIC0true() {
-            pm = new ParameterManager(pathToTestFiles + "test-3p-LIC0true.txt");
-            cmv = new ConditionsMetVector(15, pm);
-            assertEquals(Boolean.TRUE, cmv.LIC0(), "LIC0 should be true, length1 larger than one distance between adjacent points");
+            // distance between each adjacent points is 1 and 0.3
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(1.3, 0);
+            // p1->p2 = 1 length = 0.5
+            double length = 0.5;
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(Boolean.TRUE, cmv.LIC0(length, p), "LIC0 should be true,  one distance between adjacent points larger than length1");
+        }
+
+        @Test
+        @DisplayName("LIC0 false case")
+        public void LIC0false() {
+            // distance between each adjacent points is 1 and 0.3
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(1.3, 0);
+            // p1->p2 = 1 < length = 2 and p2->p3 = 0.3 < length = 2
+            double length = 2;
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+
+            assertEquals(Boolean.FALSE, cmv.LIC0(length, p), "LIC0 should be false,  no distance between adjacent points larger than length1");
         }
 
     }
@@ -49,7 +78,7 @@ public class ConditionsMetVectorTest {
 
         @BeforeEach
         void setUp(){
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
         }
 
         /**
@@ -116,7 +145,7 @@ public class ConditionsMetVectorTest {
 
         @BeforeEach
         void setUp(){
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
         }
 
         /**
@@ -181,7 +210,7 @@ public class ConditionsMetVectorTest {
         @Test
         @DisplayName("LIC2 negative case, if nr of points is < 3")
         public void LIC2negativeNoOfPoints() {
-            cmv = new ConditionsMetVector(15);
+            //cmv = new ConditionsMetVector(15);
             Point p1 = new Point(0, 0);
             Point p2 = new Point(1, 0);
 
@@ -195,26 +224,46 @@ public class ConditionsMetVectorTest {
     /**
      * All test cases for LIC3.
      */
+
     @Nested
     @DisplayName("Negative and positive cases for LIC3.")
     class TestLIC3 {
+        Point p1;
+        Point p2;
+        Point p3;
+        Point p4;
+
+        Point[] vals;
+        Vector<Point> p;
+
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector();
+            // area = 0.5
+            p1 = new Point(0, 0);
+            p2 = new Point(1, 0);
+            p3 = new Point(0, 1);
+            p4 = new Point(1, 1);
+
+            vals = new Point[]{p1, p2, p3, p4};
+            p= new Vector<Point>(4, vals);
+        }
+        
         @Test
         @DisplayName("LIC3 true case")
         public void LIC3True() {
-            pm = new ParameterManager(pathToTestFiles + "test-3p-LIC3true.txt");
-            cmv = new ConditionsMetVector(15, pm);
-            assertEquals(Boolean.TRUE, cmv.LIC3(), "LIC3 should be true when the triangle's area is greater than Area1");
+            double area1 = 0.4;
+            assertEquals(true, cmv.LIC3(area1, p), "LIC3 should be true when the triangle's area is greater than Area1");
         }
-    
+
         @Test
         @DisplayName("LIC3 false case")
         public void LIC3False() {
-            pm = new ParameterManager(pathToTestFiles + "test-3p-LIC3false.txt");
-            cmv = new ConditionsMetVector(15, pm);
-            assertEquals(Boolean.FALSE, cmv.LIC3(), "LIC3 should be false when the triangle's area is less than Area1");
+            double area1 = 0.6;
+            assertEquals(false, cmv.LIC3(area1, p), "LIC3 should be false when the triangle's area is less than Area1");
         }
-
     }
+
     
     /**
      * All test cases for LIC4.
@@ -222,10 +271,12 @@ public class ConditionsMetVectorTest {
     @Nested
     @DisplayName("Negative and positive cases for LIC4.")
     class TestLIC4 {
+
         @BeforeEach
         void setUp(){
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
         }
+
         @Test
         @DisplayName("LIC4 true case")
         public void LIC4True() {
@@ -239,6 +290,7 @@ public class ConditionsMetVectorTest {
             Vector<Point> points = new Vector<Point>(3, vals);
             assertEquals(true, cmv.LIC4(points, qPts, quads), "LIC4 should be true when there exist qPts nr of consecutive points in more than quads quadrants");
         }
+
         @Test
         @DisplayName("LIC4 false case")
         public void LIC4False() {
@@ -252,6 +304,7 @@ public class ConditionsMetVectorTest {
             Vector<Point> points = new Vector<Point>(3, vals);
             assertEquals(false, cmv.LIC4(points, qPts, quads), "LIC4 should be false when there dont exist qPts nr of consecutive points in more than quads quadrants");
         }
+
         @Test
         @DisplayName("LIC4 true case, edge case")
         public void LIC4TrueEdge() {
@@ -276,7 +329,7 @@ public class ConditionsMetVectorTest {
 
         @BeforeEach
         void setUp(){
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
         }
 
         /**
@@ -324,7 +377,7 @@ public class ConditionsMetVectorTest {
     class TestLIC6 {
         @BeforeEach
         void setUp(){
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
         }
 
         @Test
@@ -335,7 +388,7 @@ public class ConditionsMetVectorTest {
             double dist = 0.1;
             Point[] pts = new Point[]{ new Point(0, 1), new Point(0, 0), new Point(1, 0), new Point(2, 0), new Point(3, 0), new Point(3, 1) };
             Vector<Point> points = new Vector<Point>(numPts, pts);
-            assertEquals(true, cmv.LIC6(nPts, numPts, dist, points), "Expected to be true");
+            assertEquals(true, cmv.LIC6(nPts, dist, points), "Expected to be true");
         }
 
         @Test
@@ -346,7 +399,7 @@ public class ConditionsMetVectorTest {
             double dist = 50;
             Point[] pts = new Point[]{ new Point(0, 1), new Point(0, 0), new Point(1, 0), new Point(2, 0), new Point(3, 0), new Point(3, 1) };
             Vector<Point> points = new Vector<Point>(numPts, pts);
-            assertEquals(false, cmv.LIC6(nPts, numPts, dist, points), "Expected to be false");
+            assertEquals(false, cmv.LIC6(nPts, dist, points), "Expected to be false");
         }
 
         @Test
@@ -357,7 +410,7 @@ public class ConditionsMetVectorTest {
             double dist = 0.1;
             Point[] pts = new Point[]{ new Point(0, 1), new Point(0, 0), new Point(0, 1) };
             Vector<Point> points = new Vector<Point>(numPts, pts);
-            assertEquals(true, cmv.LIC6(nPts, numPts, dist, points), "Expected to be true");
+            assertEquals(true, cmv.LIC6(nPts, dist, points), "Expected to be true");
         }
 
         @Test
@@ -368,7 +421,7 @@ public class ConditionsMetVectorTest {
             double dist = 2;
             Point[] pts = new Point[]{ new Point(0, 1), new Point(0, 0), new Point(1, 1), new Point(0, 1) };
             Vector<Point> points = new Vector<Point>(numPts, pts);
-            assertEquals(false, cmv.LIC6(nPts, numPts, dist, points), "Expected to be false");
+            assertEquals(false, cmv.LIC6(nPts, dist, points), "Expected to be false");
         }
     }
 
@@ -379,22 +432,46 @@ public class ConditionsMetVectorTest {
     @Nested
     @DisplayName("Negative and positive cases for LIC7.")
     class TestLIC7 {
+        Point p1;
+        Point p2;
+        Point p3;
+        Point p4;
+
+        Point[] vals;
+        Vector<Point> p;
+
+        @BeforeEach
+        void setUp(){
+            p1 = new Point(0, 0);   // edge case, Q1
+            p2 = new Point(1, 0);   // edge case, Q1
+            p3 = new Point(2, 0);   // Q1
+            p4 = new Point(3, 0);  // Q2
+
+            vals = new Point[]{p1, p2, p3, p4};
+            p = new Vector<Point>(4, vals);
+
+            cmv = new ConditionsMetVector();
+        }
+
         @Test
         @DisplayName("LIC7 true case")
         public void LIC7True() {
-            pm = new ParameterManager(pathToTestFiles + "test-10p-LIC7true.txt");
-            cmv = new ConditionsMetVector(pm);
-            assertEquals(Boolean.TRUE, cmv.LIC7(), "LIC7 should be true when the distance is greater than length1");
+            double length1 = 1;
+            int kPts = 2;
+
+            assertEquals(true, cmv.LIC7(length1, kPts, p), "LIC7 should be true when the distance is greater than length1");
         }
     
         @Test
         @DisplayName("LIC7 false case")
         public void LIC7False() {
-            pm = new ParameterManager(pathToTestFiles + "test-10p-LIC7false.txt");
-            cmv = new ConditionsMetVector(pm);
-            assertEquals(Boolean.FALSE, cmv.LIC7(), "LIC7 should be true when the distance is less than length1");
+            double length1 = 10;
+            int kPts = 2;
+
+            assertEquals(false, cmv.LIC7(length1, kPts, p), "LIC7 should be true when the distance is less than length1");
         }
     }
+
     /**
      * All test cases for LIC8.
      */
@@ -403,7 +480,7 @@ public class ConditionsMetVectorTest {
     class TestLIC8 {
         @BeforeEach
         void setUp(){
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
         }
         @Test
         @DisplayName("LIC8 true case")
@@ -420,7 +497,7 @@ public class ConditionsMetVectorTest {
             Point p6 = new Point(1, 2);
 
             Vector<Point> points = new Vector<Point>(6, new Point[]{p1, p2, p3, p4, p5, p6});
-            assertEquals(true, cmv.LIC8(points, aPts, bPts, radius), "Expected to be true");
+            assertEquals(true, cmv.LIC8(aPts, bPts, radius, points), "Expected to be true");
             
         }
     
@@ -439,7 +516,7 @@ public class ConditionsMetVectorTest {
             Point p6 = new Point(1, 2);
 
             Vector<Point> points = new Vector<Point>(6, new Point[]{p1, p2, p3, p4, p5, p6});
-            assertEquals(false, cmv.LIC8(points, aPts, bPts, radius), "Expected to be false");
+            assertEquals(false, cmv.LIC8(aPts, bPts, radius, points), "Expected to be false");
         }
         @Test
         @DisplayName("LIC8 false case, fewer than 5 points")
@@ -454,7 +531,7 @@ public class ConditionsMetVectorTest {
             Point p4 = new Point(2, 1);
 
             Vector<Point> points = new Vector<Point>(4, new Point[]{p1, p2, p3, p4});
-            assertEquals(false, cmv.LIC8(points, aPts, bPts, radius), "Expected to be false");
+            assertEquals(false, cmv.LIC8(aPts, bPts, radius, points), "Expected to be false");
         }
     }
 
@@ -469,7 +546,7 @@ public class ConditionsMetVectorTest {
 
         @BeforeEach
         void setUp(){
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
         }
 
         /**
@@ -546,7 +623,7 @@ public class ConditionsMetVectorTest {
         @Test
         @DisplayName("LIC9 negative case, if nr of points is < 5")
         public void LIC9negativeNoOfPoints() {
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
             Point p1 = new Point(0, 0);
             Point p2 = new Point(1, 0);
             Point p3 = new Point(1, 0);
@@ -560,14 +637,13 @@ public class ConditionsMetVectorTest {
 
     /**
      * Test for LIC 10
-     * 
      */
     @Nested
     @DisplayName("Negative and positive test cases for LIC 10.")
     class TestLIC10 {
         @BeforeEach
         void setUp(){
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
         }
 
         @Test
@@ -617,7 +693,7 @@ public class ConditionsMetVectorTest {
     class TestLIC11 {
         @BeforeEach
         void setUp(){
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
         }
 
         @Test
@@ -657,29 +733,6 @@ public class ConditionsMetVectorTest {
     }
 
     /**
-     * All test cases for LIC14.
-     */
-    @Nested
-    @DisplayName("Negative and positive cases for LIC14.")
-    class TestLIC14 {
-        @Test
-        @DisplayName("LIC14 true case")
-        public void LIC14True() {
-            pm = new ParameterManager(pathToTestFiles + "test-10p-LIC14true.txt");
-            cmv = new ConditionsMetVector(pm);
-            assertEquals(Boolean.TRUE, cmv.LIC14(), "LIC14 should be true when both conditions are true");
-        }
-    
-        @Test
-        @DisplayName("LIC14 false case")
-        public void LIC14False() {
-            pm = new ParameterManager(pathToTestFiles + "test-10p-LIC14false.txt");
-            cmv = new ConditionsMetVector(pm);
-            assertEquals(Boolean.FALSE, cmv.LIC14(), "LIC14 should be false when at least one condition is false");
-        }
-    }
-
-    /**
      * All test cases for LIC12.
      */
     @Nested
@@ -688,7 +741,7 @@ public class ConditionsMetVectorTest {
 
         @BeforeEach
         void setUp(){
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
         }
 
         /**
@@ -818,7 +871,7 @@ public class ConditionsMetVectorTest {
 
         @BeforeEach
         void setUp(){
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
             p1 = new Point(0, 0);
             p2 = new Point(0, 1);
             p3 = new Point(3, 4);
@@ -865,6 +918,55 @@ public class ConditionsMetVectorTest {
             double radius2 = 50;
 
             assertEquals(false, cmv.LIC13(aPts, bPts, radius1, radius2, p), "Expected to be false");
+        }
+    }
+
+    /**
+     * All test cases for LIC14.
+     */
+    @Nested
+    @DisplayName("Negative and positive cases for LIC14.")
+    class TestLIC14 {
+        Point p1;
+        Point p2;
+        Point p3;
+        Point p4;
+        Point p5;
+
+        Point[] vals;
+        Vector<Point> p;
+
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector();
+            p1 = new Point(0, 0);
+            p2 = new Point(2, 0);
+            p3 = new Point(2, 2);
+            p4 = new Point(0, 2);
+            p5 = new Point(0, 2);
+
+            vals = new Point[]{p1, p2, p3, p4, p5};
+            p = new Vector<Point>(5, vals);
+        }
+
+        @Test
+        @DisplayName("LIC14 true case")
+        public void LIC14True() {
+            double area1 = 1;
+            double area2 = 5;
+            int ePts = 1;
+            int fPts = 1;
+            assertEquals(true, cmv.LIC14(area1, area2, ePts, fPts, p), "LIC14 should be true when both conditions are true");
+        }
+
+        @Test
+        @DisplayName("LIC14 false case")
+        public void LIC14False() {
+            double area1 = 10;
+            double area2 = 2;
+            int ePts = 1;
+            int fPts = 1;
+            assertEquals(false, cmv.LIC14(area1, area2, ePts, fPts, p), "LIC14 should be false when at least one condition is false");
         }
     }
 }
