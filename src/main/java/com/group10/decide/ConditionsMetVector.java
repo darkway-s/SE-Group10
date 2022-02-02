@@ -102,10 +102,25 @@ public class ConditionsMetVector {
     }
 
     
-    /** 
+    /**
+     * Computes the 7th Launch Interceptor Condition
+     * True if there exists two points, separated by KPts intervening points, that are LENGTH1 distance apart
+     *
      * @return Boolean
      */
     public Boolean LIC7() {
+        if (pm.getNumPoints() < 3) {
+            return Boolean.FALSE;
+        }
+
+        Vector<Point> points = pm.getPoints();
+        int KPts = pm.getLICParameter().getKPts();
+        double Length1 = pm.getLICParameter().getLength1();
+        for (int i = 0; i < pm.getNumPoints() - KPts - 1; i++) {
+            if (points.getValue(i).distance(points.getValue(i + KPts + 1)) > Length1) {
+                return Boolean.TRUE;
+            }
+        }
         return Boolean.FALSE;
     }
 
