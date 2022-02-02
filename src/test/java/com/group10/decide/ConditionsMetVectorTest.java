@@ -304,7 +304,6 @@ public class ConditionsMetVectorTest {
             Vector<Point> points = new Vector<Point>(3, vals);
             assertEquals(false, cmv.LIC4(points, qPts, quads), "LIC4 should be false when there dont exist qPts nr of consecutive points in more than quads quadrants");
         }
-
         @Test
         @DisplayName("LIC4 true case, edge case")
         public void LIC4TrueEdge() {
