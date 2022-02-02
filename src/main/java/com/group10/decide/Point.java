@@ -53,6 +53,18 @@ public class Point {
     }
 
     /**
+     * Method calculating the distance to the line created by two points.
+     * Formula from https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line (Line defined by two points)
+     * @param p1    the starting point of the line
+     * @param p2    the ending point of the line
+     * @return      the distance
+     * */
+    public double distanceToLine(Point p1, Point p2){
+        return Math.abs(((p2.getX() - p1.getX()) * (p1.getY() - this.getY()))
+                - ((p1.getX() - this.getX()) * (p2.getY() - p1.getY()))) / p1.distance(p2);
+    }
+
+    /**
      * Method calculating the area of a triangle from three points.
      * @param p2 The second point.
      * @param p3 The third point.
