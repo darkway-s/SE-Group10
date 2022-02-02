@@ -10,6 +10,10 @@ import java.util.Locale; //Used to handle dots in decimal format scanning
 >>>>>>> 9401620... Changed Scanner to use dot format for decimals, fix #53
 import java.util.Scanner; // Import the Scanner class to read text files
 
+/**
+ * Manages initialization, mutation and I/O of all input
+ * @author Sefik-Palazoglu
+ */
 public class ParameterManager {
     private int numPoints;
     private Vector<Point> points;
@@ -18,6 +22,7 @@ public class ParameterManager {
     private Vector<Boolean> preliminaryUnlockingVector;
 
     /**
+<<<<<<< HEAD
      * Consturctor
      * TODO
      */
@@ -33,6 +38,10 @@ public class ParameterManager {
 
     /**
      * @param scanner
+=======
+     * Read the NUMPOINTS and POINT input from file
+     * @param scanner   Scanner object linked to the input file
+>>>>>>> 1bc645c... doc: ParameterManager class
      */
     private void readPoints(Scanner scanner) {
         // Get the number of points in this input
@@ -49,6 +58,10 @@ public class ParameterManager {
         }
     }
 
+    /**
+     * Read the 19 LIC Parameters input from file
+     * @param scanner   Scanner object linked to the input file
+     */
     private void readParameters(Scanner scanner) {
         double length1 = scanner.nextDouble();
         double radius1 = scanner.nextDouble();
@@ -75,6 +88,10 @@ public class ParameterManager {
                                         c_pts, d_pts, e_pts, f_pts, g_pts);
     }
 
+    /**
+     * Parses integer input into Connector enum
+     * @param input the integer input
+     */
     private Connector parseConnectorInput(int input) {
         if (input == 0) {
             return Connector.ANDD;
@@ -85,6 +102,11 @@ public class ParameterManager {
         }
     }
 
+
+    /**
+     * Read the Logical Connector Matrix input from file
+     * @param scanner   Scanner object linked to the input file
+     */
     private void readLCM(Scanner scanner) {
         int LCMRowSize = 15;
         int LCMColSize = 15;
@@ -97,6 +119,10 @@ public class ParameterManager {
         }
     }
 
+    /**
+     * Read the Preliminary Unlocking Vector input from file
+     * @param scanner   Scanner object linked to the input file
+     */
     private void readPUV(Scanner scanner) {
         int PUVSize = 15;
         preliminaryUnlockingVector = new Vector<Boolean>(PUVSize);
@@ -108,7 +134,12 @@ public class ParameterManager {
     }
 
     /**
+<<<<<<< HEAD
      * @param inputFilePath
+=======
+     * Initializes all fields of Parameter Manager from given input field
+     * @param inputFilePath absolute path to the input file
+>>>>>>> 1bc645c... doc: ParameterManager class
      */
     private void initFromFile(String inputFilePath) {
         try {
@@ -124,10 +155,17 @@ public class ParameterManager {
         }
     }
 
+    /**
+     * Default constructor
+     */
     public ParameterManager() {
 
     }
 
+    /**
+     * This constructor initializes the fields with the input from an input file
+     * @param inputFilePath absolute path to the input file
+     */
     public ParameterManager(String inputFilePath) {
         initFromFile(inputFilePath);
     }
@@ -139,6 +177,10 @@ public class ParameterManager {
         return this.numPoints;
     }
 
+    /**
+     * Setter for numPoints field
+     * @param value number of points in the input
+     */
     public void setNumPoints(int value) {
         this.numPoints = value;
     }
@@ -150,7 +192,11 @@ public class ParameterManager {
         return this.points;
     }
 
-    public void getPoints(Vector<Point> value) {
+    /**
+     * Setter for points field
+     * @param value vector of points 
+     */
+    public void setPoints(Vector<Point> value) {
         this.points = value;
     }
 
@@ -161,6 +207,10 @@ public class ParameterManager {
         return this.licParameter;
     }
 
+    /**
+     * Setter for LIC Parameter field
+     * @param value given LIC Parameters
+     */
     public void setLICParameter(LICParameter value) {
         this.licParameter = value;
     }
@@ -172,6 +222,10 @@ public class ParameterManager {
         return this.logicalConnectorMatrix;
     }
 
+    /**
+     * Setter for logicalConnectorMatrix field
+     * @param value given LCM
+     */
     public void setLogicalConnectorMatrix(Matrix<Connector> value) {
         this.logicalConnectorMatrix = value;
     }
@@ -183,7 +237,11 @@ public class ParameterManager {
         return this.preliminaryUnlockingVector;
     }
 
-    public void SetPreliminaryUnlockingVector(Vector<Boolean> value) {
+    /**
+     * Setter for preliminaryUnlockingVector field
+     * @param value given PUV
+     */
+    public void setPreliminaryUnlockingVector(Vector<Boolean> value) {
         this.preliminaryUnlockingVector = value;
     }
 }

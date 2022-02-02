@@ -1,5 +1,6 @@
 package com.group10.decide;
 
+import java.lang.Math;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -8,17 +9,42 @@ public class ConditionsMetVector {
     int length;
     Vector<Boolean> conditionsMetVector;
 
-    public ConditionsMetVector(ParameterManager pm) {
-        this.length = 15;
-        this.pm = pm;
-    }
-
+    /**
+     * Constructor that sets both length of the vector and the parameter manager
+     * holding all the relevant parameters
+     * 
+     * @param length length of the vector
+     * @param pm     Parameter manager
+     */
     public ConditionsMetVector(int length, ParameterManager pm) {
         this.length = length;
         this.pm = pm;
     }
 
-    public void setConditionsVector(ParameterManager pm) {
+    /**
+     * Constructor that only sets the length of the vector
+     * 
+     * @param length length of the vector
+     */
+    public ConditionsMetVector(int length) {
+        this.length = length;
+    }
+
+    /**
+     * Constructor that only sets the parameter manager
+     * 
+     * @param pm length of the vector
+     */
+    public ConditionsMetVector(ParameterManager pm) {
+        this.pm = pm;
+    }
+
+    /**
+     * Sets the parameter manager
+     * 
+     * @param pm ParameterManager that manages all parameters
+     */
+    public void setParameterManager(ParameterManager pm) {
         this.pm = pm;
     }
 
@@ -76,10 +102,39 @@ public class ConditionsMetVector {
     }
 
     /**
+     * Computes the 2nd Launch Interceptor Condition
+     * True if there exists 3 consecutive points that form an angle such that:
+     * angle < PI - EPSILON
+     * angle > PI + EPSILON
+     * where the second point is the vertex of the angle. The angle is calculated
+     * using the law of cosines.
+     *
+     * If either the first point or the last point (or both) coincides with the
+     * vertex, the angle is undefined
+     *
      * @return Boolean
      */
-    public Boolean LIC2() {
-        return Boolean.FALSE;
+    public boolean LIC2(double epsilon, Vector<Point> points) {
+        if (epsilon < 0 || epsilon > Math.PI || points.length() < 3)
+            return false;
+
+        for (int i = 1; i < points.length() - 1; i++) {
+            Point p1 = points.getValue(i - 1);
+            Point p2 = points.getValue(i);
+            Point p3 = points.getValue(i + 1);
+            if (!p1.hasSameLocation(p2) || !p3.hasSameLocation(p2)) {
+                double a = p2.distance(p1);
+                double b = p2.distance(p3);
+                double c = p1.distance(p3);
+                double angle = Math
+                        .acos(Math.toRadians(Math.pow(a, 2) + Math.pow(b, 2) - Math.pow(c, 2) / (2 * a * b)));
+
+                if (angle < (Math.PI - epsilon) || angle > (Math.PI + epsilon))
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     /**
