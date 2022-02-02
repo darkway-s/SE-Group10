@@ -239,6 +239,63 @@ public class ConditionsMetVectorTest {
     }
 
     /**
+     * All test cases for LIC6
+     */
+    @Nested
+    @DisplayName("Negative and positive cases for LIC6")
+    class TestLIC6 {
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector(15);
+        }
+
+        @Test
+        @DisplayName("Tes to see if LIC6 returns true if dist < distance between line and point.")
+        public void testIfDistIsSmaller() {
+            int nPts = 4;
+            int numPts = 6;
+            double dist = 0.1;
+            Point[] pts = new Point[]{ new Point(0, 1), new Point(0, 0), new Point(1, 0), new Point(2, 0), new Point(3, 0), new Point(3, 1) };
+            Vector<Point> points = new Vector<Point>(numPts, pts);
+            assertEquals(true, cmv.LIC6(nPts, numPts, dist, points), "Expected to be true");
+        }
+
+        @Test
+        @DisplayName("Test to see if LIC6 returns false if dist > distance between line and point.")
+        public void testIfDistIsLarger() {
+            int nPts = 4;
+            int numPts = 6;
+            double dist = 50;
+            Point[] pts = new Point[]{ new Point(0, 1), new Point(0, 0), new Point(1, 0), new Point(2, 0), new Point(3, 0), new Point(3, 1) };
+            Vector<Point> points = new Vector<Point>(numPts, pts);
+            assertEquals(false, cmv.LIC6(nPts, numPts, dist, points), "Expected to be false");
+        }
+
+        @Test
+        @DisplayName("Test to see if LIC6 returns true if dist < distance between line and point & last point == first point")
+        public void testIfDistIsSmallerAndLastIsFirst() {
+            int nPts = 3;
+            int numPts = 3;
+            double dist = 0.1;
+            Point[] pts = new Point[]{ new Point(0, 1), new Point(0, 0), new Point(0, 1) };
+            Vector<Point> points = new Vector<Point>(numPts, pts);
+            assertEquals(true, cmv.LIC6(nPts, numPts, dist, points), "Expected to be true");
+        }
+
+        @Test
+        @DisplayName("Test to see if LIC6 returns false if dist > distance between line and point & last point == first point")
+        public void testIfDistIsLargerAndLastIsFirst() {
+            int nPts = 4;
+            int numPts = 4;
+            double dist = 2;
+            Point[] pts = new Point[]{ new Point(0, 1), new Point(0, 0), new Point(1, 1), new Point(0, 1) };
+            Vector<Point> points = new Vector<Point>(numPts, pts);
+            assertEquals(false, cmv.LIC6(nPts, numPts, dist, points), "Expected to be false");
+        }
+    }
+
+
+    /**
      * All test cases for LIC7.
      */
     @Nested

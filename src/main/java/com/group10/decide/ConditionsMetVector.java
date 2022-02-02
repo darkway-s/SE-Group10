@@ -3,6 +3,8 @@ package com.group10.decide;
 import java.lang.Math;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.InputMismatchException;
+import java.util.Arrays;
 
 public class ConditionsMetVector {
     ParameterManager pm;
@@ -195,11 +197,37 @@ public class ConditionsMetVector {
     }
 
     
-    /** 
-     * @return Boolean
+    /**
+     * Computes the 6th Launch Interceptor Condition
+     * True if there, amongst nPts (p_i, p_i+1, pi+2, p_i+3) consecutive points, exist a distance from
+     * p_i+1, p_i+2 to the line formed by p_i and p_i+3 such that the distance > dist
+     * @param dist      the distance to compare to
+     * @param nPts      number of consecutive points
+     * @param numPts    number of points in total
+     * @param points    the points
+     * @return Boolean  if such a distance exists.
      */
-    public Boolean LIC6() {
-        return Boolean.FALSE;
+    public boolean LIC6(int nPts, int numPts, double dist, Vector<Point> points) {
+        if (numPts < 3) return false;
+        if (nPts < 3 || nPts > numPts || dist < 0) throw new InputMismatchException("N_PTS must greater or equal to 3 and less or equal to NUM_POINTS. DIST cannot be less than 0.");
+
+        int max = nPts == numPts ? points.length() - nPts + 1 : points.length() - nPts;
+
+        for (int i = 0; i < max; i++) {
+            Point[] nConsecutivePoints = Arrays.copyOfRange(points.getValues(), i, i + nPts);
+            for (int j = 0; j < nConsecutivePoints.length; j++) {
+                Point first = nConsecutivePoints[0];
+                Point last = nConsecutivePoints[nConsecutivePoints.length - 1];
+
+                if (first.hasSameLocation(last)) {
+                    for (int k = j + 1; k < (i + nPts - 1); k++) if (nConsecutivePoints[k].distance(first) > dist) return true;
+                } else {
+                    for (int k = j + 1; k < (i + nPts - 1); k++) if (nConsecutivePoints[k].distanceToLine(first, last) > dist) return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     
