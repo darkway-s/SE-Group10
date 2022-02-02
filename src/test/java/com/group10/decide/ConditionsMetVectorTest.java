@@ -239,6 +239,55 @@ public class ConditionsMetVectorTest {
     }
 
     /**
+     * Test for LIC 5
+     * */
+    @Nested
+    @DisplayName("Negative and positive test cases for LIC 5.")
+    class TestLIC5 {
+
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector(15);
+        }
+
+        /**
+         * Test if LIC5 returns true if exists i, s.t. X[i+1] - X[i] < 0
+         * */
+        @Test
+        @DisplayName("LIC5 true case, exists i, s.t. X[i+1] - X[i] < 0")
+        public void LIC5true() {
+
+            // 90 deg --> pi/2 rad ~ 1.6
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(0, 1);
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(true, cmv.LIC5(p), "Expected to be true.");
+        }
+
+        /**
+         * Test if LIC2 returns true if exists i, s.t. X[i+1] - X[i] < 0
+         * */
+        @Test
+        @DisplayName("LIC5 false case, any i, not satisfy X[i+1] - X[i] < 0")
+        public void LIC5false() {
+
+            // 90 deg --> pi/2 rad ~ 1.6
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(2, 1);
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> p = new Vector<Point>(3, vals);
+            assertEquals(false, cmv.LIC5(p), "Expected to be false.");
+        }
+
+
+    }
+
+    /**
      * All test cases for LIC6
      */
     @Nested
