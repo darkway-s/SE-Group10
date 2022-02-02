@@ -2,11 +2,13 @@ package com.group10.decide;
 
 public class FinalUnlockingVector {
     ParameterManager pm;
-    int length;
     Matrix<Boolean> preliminaryUnlockingMatrix;
     Vector<Boolean> finalUnlockingVector;
 
-    public FinalUnlockingVector(ParameterManager pm, int length, Matrix<Boolean> preliminaryUnlockingMatrix) {}
+    public FinalUnlockingVector(ParameterManager pm, Matrix<Boolean> preliminaryUnlockingMatrix) {
+        this.pm = pm;
+        this.preliminaryUnlockingMatrix = preliminaryUnlockingMatrix;
+    }
 
     public void setFUV() {}
     
