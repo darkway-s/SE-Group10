@@ -307,10 +307,29 @@ public class ConditionsMetVector {
 
     
     /** 
-     * @return Boolean
+     * There exists at least one set of three data points separated by exactly
+     * E_PTS and F_PTS consecutive intervening points, respectively, that are 
+     * the vertices of a triangle with area greater than AREA1. The condition 
+     * is not met when NUMPOINTS < 5
+     * @return Boolean If condition is met or not.
      */
-    public Boolean LIC10() {
-        return Boolean.FALSE;
+    public Boolean LIC10(Vector<Point> points, int ePts, int fPts, double area1) {
+        if (points.length() < 5) return false;
+        //Iterate through all the points
+        for (int i = 0; i < points.length() - (ePts + fPts + 2); i++) {
+            //Get the three points
+            Point p1 = points.getValue(i);
+            Point p2 = points.getValue(i + ePts + 1);
+            Point p3 = points.getValue(i + ePts + fPts + 2);
+           
+            //Checking the area of the triangle
+            double area = p1.triangleArea(p2, p3);
+            if (area > area1) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     

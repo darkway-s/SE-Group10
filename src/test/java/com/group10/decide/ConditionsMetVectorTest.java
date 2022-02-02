@@ -481,6 +481,55 @@ public class ConditionsMetVectorTest {
     }
 
     /**
+     * Test for LIC 10
+     * 
+     */
+    @Nested
+    @DisplayName("Negative and positive test cases for LIC 10.")
+    class TestLIC10 {
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector(15);
+        }
+
+        @Test
+        @DisplayName("LIC10 positive case, area of the triangle is greater than area1")
+        public void LIC10positiveAreaGreater() {
+            int ePts = 1;
+            int fPts = 1;
+            double area1 = 10.5;
+
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(0, 30);
+            Point p4 = new Point(1, 1);
+            Point p5 = new Point(30, 1);
+
+            Point[] vals = new Point[]{p1, p2, p3, p4, p5};
+            Vector<Point> p = new Vector<Point>(5, vals);
+            assertEquals(true, cmv.LIC10(p, ePts, fPts, area1), "Expected to be true.");
+        }
+        @Test
+        @DisplayName("LIC10 positive case, area of the triangle is less than area1")
+        public void LIC10positiveAreaLess() {
+            int ePts = 1;
+            int fPts = 1;
+            double area1 = 10.5;
+
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(1, 0);
+            Point p3 = new Point(0, 2);
+            Point p4 = new Point(1, 1);
+            Point p5 = new Point(2, 1);
+
+            Point[] vals = new Point[]{p1, p2, p3, p4, p5};
+            Vector<Point> p = new Vector<Point>(5, vals);
+            assertEquals(false, cmv.LIC10(p, ePts, fPts, area1), "Expected to be false.");
+        }
+
+    }
+
+    /**
      * All test cases for LIC14.
      */
     @Nested
