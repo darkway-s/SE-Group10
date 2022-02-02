@@ -317,6 +317,69 @@ public class ConditionsMetVectorTest {
             assertEquals(Boolean.FALSE, cmv.LIC7(), "LIC7 should be true when the distance is less than length1");
         }
     }
+    /**
+     * All test cases for LIC8.
+     */
+    @Nested
+    @DisplayName("Negative and positive cases for LIC8.")
+    class TestLIC8 {
+        @BeforeEach
+        void setUp(){
+            cmv = new ConditionsMetVector(15);
+        }
+        @Test
+        @DisplayName("LIC8 true case")
+        public void LIC8True() {
+            double radius = 1.0;
+            int aPts = 1;
+            int bPts = 1;
+            //These points are not within the circle
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(0, 1);
+            Point p3 = new Point(2, 0);
+            Point p4 = new Point(2, 1);
+            Point p5 = new Point(2, 2);
+            Point p6 = new Point(1, 2);
+
+            Vector<Point> points = new Vector<Point>(6, new Point[]{p1, p2, p3, p4, p5, p6});
+            assertEquals(true, cmv.LIC8(points, aPts, bPts, radius), "Expected to be true");
+            
+        }
+    
+        @Test
+        @DisplayName("LIC8 false case")
+        public void LIC8False() {
+            double radius = 5.0;
+            int aPts = 1;
+            int bPts = 1;
+            //These points are within the circle
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(0, 1);
+            Point p3 = new Point(2, 0);
+            Point p4 = new Point(2, 1);
+            Point p5 = new Point(2, 2);
+            Point p6 = new Point(1, 2);
+
+            Vector<Point> points = new Vector<Point>(6, new Point[]{p1, p2, p3, p4, p5, p6});
+            assertEquals(false, cmv.LIC8(points, aPts, bPts, radius), "Expected to be false");
+        }
+        @Test
+        @DisplayName("LIC8 false case, fewer than 5 points")
+        public void LIC8FalseFewerThan5() {
+            double radius = 1.0;
+            int aPts = 1;
+            int bPts = 1;
+            //These points are within the circle
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(0, 1);
+            Point p3 = new Point(2, 0);
+            Point p4 = new Point(2, 1);
+
+            Vector<Point> points = new Vector<Point>(4, new Point[]{p1, p2, p3, p4});
+            assertEquals(false, cmv.LIC8(points, aPts, bPts, radius), "Expected to be false");
+        }
+    }
+
 
 
     /**
