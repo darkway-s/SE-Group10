@@ -237,7 +237,24 @@ public class ConditionsMetVector {
     /** 
      * @return Boolean
      */
-    public Boolean LIC9() {
+    public Boolean LIC9(double epsilon, int cPts, int dPts, Vector<Point> points) {
+        if (epsilon < 0 || epsilon > Math.PI || cPts < 1 || dPts < 1 || cPts + dPts > points.length() - 3 || points.length() < 5) return false;
+
+        for (int i = 0; i < points.length() - (cPts + dPts + 2); i++) {
+            Point p1 = points.getValue(i);
+            Point p2 = points.getValue(i + cPts + 1);
+            Point p3 = points.getValue(i + cPts + dPts + 2);
+            if (!p1.hasSameLocation(p2) || !p3.hasSameLocation(p2)) {
+                double a = p2.distance(p1);
+                double b = p2.distance(p3);
+                double c = p1.distance(p3);
+                double angle = Math.acos(Math.toRadians(Math.pow(a, 2) + Math.pow(b, 2) - Math.pow(c, 2) / (2 * a * b)));
+
+                if(angle < (Math.PI - epsilon) || angle > (Math.PI + epsilon)) 
+                    return Boolean.TRUE;
+            }
+        }
+
         return Boolean.FALSE;
     }
 
