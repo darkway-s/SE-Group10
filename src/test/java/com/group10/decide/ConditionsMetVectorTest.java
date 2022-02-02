@@ -24,6 +24,30 @@ public class ConditionsMetVectorTest {
     }
 
     @Test
+    @DisplayName("LIC1 true case")
+    public void LIC1true() {
+        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC1true.txt");
+        cmv = new ConditionsMetVector(15, pm);
+        assertEquals(Boolean.TRUE, cmv.LIC1(), "LIC1 should be true, radius: 4, points: {{0, -5}, {-3, 4}, {3, 4}} minimal radius is 5");
+    }
+
+    @Test
+    @DisplayName("LIC1 edge false case")
+    public void LIC1EdgeFalse() {
+        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC1edgefalse.txt");
+        cmv = new ConditionsMetVector(15, pm);
+        assertEquals(Boolean.FALSE, cmv.LIC1(), "LIC1 should be false, radius: 5, points: {{0, -5}, {-3, 4}, {3, 4}} minimal radius is 5, points are ON the circle");
+    }
+
+    @Test
+    @DisplayName("LIC1 false case")
+    public void LIC1false() {
+        pm = new ParameterManager(pathToTestFiles + "test-3p-LIC1false.txt");
+        cmv = new ConditionsMetVector(15, pm);
+        assertEquals(Boolean.FALSE, cmv.LIC1(), "LIC1 should be false, radius: 6, points: {{0, -5}, {-3, 4}, {3, 4}} minimal radius is 5");
+    }
+
+    @Test
     @DisplayName("LIC3 true case")
     public void LIC3True() {
         pm = new ParameterManager(pathToTestFiles + "test-3p-LIC3true.txt");
