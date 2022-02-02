@@ -693,7 +693,7 @@ public class ConditionsMetVectorTest {
     class TestLIC11 {
         @BeforeEach
         void setUp(){
-            cmv = new ConditionsMetVector(15);
+            cmv = new ConditionsMetVector();
         }
 
         @Test

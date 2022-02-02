@@ -40,7 +40,7 @@ public class ConditionsMetVector {
                             this.LIC8(licp.getAPts(), licp.getBPts(), licp.getRadius1(), points),
                             this.LIC9(licp.getEpsilon(), licp.getCPts(), licp.getDPts(), points),
                             this.LIC10(points, licp.getEPts(), licp.getFPts(), licp.getArea1()),
-                            this.LIC11(),
+                            this.LIC11(licp.getGPts(), points),
                             this.LIC12(licp.getKPts(), licp.getLength1(), licp.getLength2(), points),
                             this.LIC13(licp.getAPts(), licp.getBPts(), licp.getRadius1(), licp.getRadius2(), points),
                             this.LIC14(licp.getArea1(), licp.getArea2(), licp.getEPts(), licp.getFPts(), points)
