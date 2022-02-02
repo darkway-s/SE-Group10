@@ -61,4 +61,18 @@ public class PreliminaryUnlockingMatrix {
         return this.pum;
     }
 
+    /**
+     * checks if all elements in the given row are true or not
+     * @param row   row index
+     * @return  if all elements in the row true or not */
+    public Boolean isRowAllTrue(int row) {
+        Boolean result = Boolean.TRUE;
+        for (int i = 0; i < N; i++) {
+            if (pum.getValue(row, i) == Boolean.FALSE) {
+                result = Boolean.FALSE;
+            }
+        }
+        return result;
+    }
+
 }
