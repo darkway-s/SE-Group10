@@ -272,14 +272,6 @@ public class ConditionsMetVectorTest {
     @DisplayName("Negative and positive cases for LIC4.")
     class TestLIC4 {
 
-        Point p1;
-        Point p2;
-        Point p3;
-        Point p4;
-
-        Point[] vals;
-        Vector<Point> p;
-
         @BeforeEach
         void setUp(){
             cmv = new ConditionsMetVector();
@@ -288,33 +280,43 @@ public class ConditionsMetVectorTest {
         @Test
         @DisplayName("LIC4 true case")
         public void LIC4True() {
-            p1 = new Point(0, 0);   // edge case, Q1
-            p2 = new Point(1, 0);   // edge case, Q1
-            p3 = new Point(2, 1);   // Q1
-            p4 = new Point(-3, 1);  // Q2
-
-            vals = new Point[]{p1, p2, p3, p4};
-            p = new Vector<Point>(4, vals);
-
-            int qPts = 4;
+            int qPts = 2;
             int quads = 1;
-            assertEquals(true, cmv.LIC4(qPts, quads, p), "LIC4 should be true when there exist qPts nr of consecutive points in more than quads quadrants");
+            Point p1 = new Point(1, 1);
+            Point p2 = new Point(-1, -1);
+            Point p3 = new Point(2, 1);
+
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> points = new Vector<Point>(3, vals);
+            assertEquals(true, cmv.LIC4(points, qPts, quads), "LIC4 should be true when there exist qPts nr of consecutive points in more than quads quadrants");
         }
+
         @Test
         @DisplayName("LIC4 false case")
         public void LIC4False() {
-            p1 = new Point(0, 0);   // edge case, Q1
-            p2 = new Point(1, 0);   // edge case, Q1
-            p3 = new Point(2, 1);   // Q1
-            p4 = new Point(-3, 1);  // Q2
+            int qPts = 2;
+            int quads = 2;
+            Point p1 = new Point(1, 1);
+            Point p2 = new Point(-1, 0);
+            Point p3 = new Point(2, 1);
 
-            vals = new Point[]{p1, p2, p3, p4};
-            p = new Vector<Point>(4, vals);
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> points = new Vector<Point>(3, vals);
+            assertEquals(false, cmv.LIC4(points, qPts, quads), "LIC4 should be false when there dont exist qPts nr of consecutive points in more than quads quadrants");
+        }
 
-            int qPts = 4;
-            int quads = 3;
+        @Test
+        @DisplayName("LIC4 true case, edge case")
+        public void LIC4TrueEdge() {
+            int qPts = 3;
+            int quads = 2;
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(-1, 0);
+            Point p3 = new Point(0, -1);
 
-            assertEquals(false, cmv.LIC4(qPts, quads, p), "LIC4 should be false when there does not exist qPts nr of consecutive points in more than quads quadrants");
+            Point[] vals = new Point[]{p1, p2, p3};
+            Vector<Point> points = new Vector<Point>(3, vals);
+            assertEquals(true, cmv.LIC4(points, qPts, quads), "LIC4 should be true when there exist qPts nr of consecutive points in more than quads quadrants");
         }
     }
 
