@@ -9,9 +9,16 @@ import java.util.Arrays;
 public class ConditionsMetVector {
     Vector<Boolean> conditionsMetVector;
 
+
+    /**
+     * Constructor that sets nothing
+     * */
+    public ConditionsMetVector() {
+    }
+
     /**
      * Constructor that only sets the parameter manager
-     * @param pm    length of the vector
+     * @param pm    the parameter manager
      * */
     public ConditionsMetVector(ParameterManager pm) {
         this(pm.getPoints(), pm.getLICParameter());
@@ -19,7 +26,7 @@ public class ConditionsMetVector {
 
     /**
      * Constructor that only sets the parameter manager
-     * @param pm    length of the vector
+     * @param pm    the parameter manager
      * */
     public ConditionsMetVector(Vector<Point> points, LICParameter licp) {
         Boolean[] cmv = {   this.LIC0(licp.getLength1(), points), 
