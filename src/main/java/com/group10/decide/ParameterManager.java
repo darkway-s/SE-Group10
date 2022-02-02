@@ -46,10 +46,8 @@ public class ParameterManager {
     private void readPoints(Scanner scanner) {
         // Get the number of points in this input
         this.numPoints = scanner.nextInt();
-        System.out.println("TESTTT" + numPoints);
         this.points = new Vector<Point>(numPoints);
         // Get the points data
-        //System.out.println("TESTTT" + this.points.getValue(0).getX());
         for (int i = 0; i < this.numPoints; i++) {
             double X = scanner.nextDouble();
             double Y = scanner.nextDouble();
