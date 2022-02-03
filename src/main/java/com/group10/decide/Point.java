@@ -1,5 +1,8 @@
 package com.group10.decide;
 
+/**
+ *
+ * */
 public class Point {
     double x, y;
 

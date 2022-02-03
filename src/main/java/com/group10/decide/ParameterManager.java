@@ -129,9 +129,7 @@ public class ParameterManager {
     /**
      * Default constructor
      */
-    public ParameterManager() {
-
-    }
+    public ParameterManager() { }
 
     /**
      * This constructor initializes the fields with the input from an input file

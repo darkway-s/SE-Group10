@@ -21,6 +21,8 @@ public class Matrix<T> {
         this.cols = cols;
         this.matrix = values;
     }
+
+
     /**
      * Matrix constructor with size.
      * @param rows number of rows
@@ -32,16 +34,21 @@ public class Matrix<T> {
         this.matrix = (T[][]) new Object[rows][cols];
     }
 
+
     /**
      * Get a specific row from the matrix by index.
-     * @return list of values in the row
+     * @param rowIndex  the index of the row to be retrieved
+     * @return          list of values in the row
      */
     public T[] getRow(int rowIndex) {
         return matrix[rowIndex];
     }
+
+
     /**
      * Get a specific column from the matrix by index.
-     * @return list of values in the column
+     * @param colIndex  the index of the column to be retrieved
+     * @return          list of values in the column
      */
     public T[] getCol(int colIndex) {
         T[] col = (T[]) new Object[rows];
@@ -58,6 +65,8 @@ public class Matrix<T> {
     public int getRowLength() {
         return rows;
     }
+
+
     /**
      * Get number of columns.
      * @return number of columns
@@ -65,6 +74,8 @@ public class Matrix<T> {
     public int getColLength() {
         return cols;
     }
+
+
     /**
      * Get matrix
      * @return matrix
@@ -72,6 +83,8 @@ public class Matrix<T> {
     public T[][] getMatrix() {
         return matrix;
     }
+
+
     /**
      * Set matrix value.
      * @param value value to be set
@@ -79,6 +92,8 @@ public class Matrix<T> {
     public void setMatrix(T[][] matrix) {
         this.matrix = matrix;
     }
+
+
     /**
      * Get matrix value at specified row and column.
      * @param row row index
@@ -88,6 +103,8 @@ public class Matrix<T> {
     public T getValue(int row, int col) {
         return matrix[row][col];
     }
+
+
     /**
      * Set matrix value at specified row and column.
      * @param row row index
