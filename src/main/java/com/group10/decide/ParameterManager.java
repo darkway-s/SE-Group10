@@ -1,13 +1,13 @@
 package com.group10.decide;
 
-import java.io.File; // Import the File class
-import java.io.FileNotFoundException; // Import this class to handle errors
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Locale; //Used to handle dots in decimal format scanning
 import java.util.Scanner; // Import the Scanner class to read text files
 
 /**
  * Manages initialization, mutation and I/O of all input
- * 
+
  * @author Sefik-Palazoglu
  */
 public class ParameterManager {
@@ -19,8 +19,7 @@ public class ParameterManager {
 
     /**
      * Read the NUMPOINTS and POINT input from file
-     * 
-     * @param scanner Scanner object linked to the input file
+     * @param scanner   Scanner object linked to the input file
      */
     private void readPoints(Scanner scanner) {
         // Get the number of points in this input
@@ -37,8 +36,7 @@ public class ParameterManager {
 
     /**
      * Read the 19 LIC Parameters input from file
-     * 
-     * @param scanner Scanner object linked to the input file
+     * @param scanner   Scanner object linked to the input file
      */
     private void readParameters(Scanner scanner) {
         double length1 = scanner.nextDouble();
@@ -60,15 +58,14 @@ public class ParameterManager {
         double length2 = scanner.nextDouble();
         double radius2 = scanner.nextDouble();
         double area2 = scanner.nextDouble();
-        this.licParameter = new LICParameter(length1, radius1, epsilon, area1,
-                dist, length2, radius2, area2, q_pts,
-                quads, n_pts, k_pts, a_pts, b_pts,
-                c_pts, d_pts, e_pts, f_pts, g_pts);
+        this.licParameter = new LICParameter(length1, radius1, epsilon, area1, 
+                                        dist, length2, radius2, area2, q_pts, 
+                                        quads, n_pts, k_pts, a_pts, b_pts, 
+                                        c_pts, d_pts, e_pts, f_pts, g_pts);
     }
 
     /**
      * Parses integer input into Connector enum
-     * 
      * @param input the integer input
      */
     private Connector parseConnectorInput(int input) {
@@ -81,10 +78,10 @@ public class ParameterManager {
         }
     }
 
+
     /**
      * Read the Logical Connector Matrix input from file
-     * 
-     * @param scanner Scanner object linked to the input file
+     * @param scanner   Scanner object linked to the input file
      */
     private void readLCM(Scanner scanner) {
         int LCMRowSize = 15;
@@ -100,8 +97,7 @@ public class ParameterManager {
 
     /**
      * Read the Preliminary Unlocking Vector input from file
-     * 
-     * @param scanner Scanner object linked to the input file
+     * @param scanner   Scanner object linked to the input file
      */
     private void readPUV(Scanner scanner) {
         int PUVSize = 15;
@@ -115,14 +111,12 @@ public class ParameterManager {
 
     /**
      * Initializes all fields of Parameter Manager from given input field
-     * 
      * @param inputFilePath absolute path to the input file
      */
     private void initFromFile(String inputFilePath) {
         try {
             File inputFile = new File(inputFilePath);
-            Scanner inputReader = new Scanner(inputFile).useLocale(Locale.US);
-            ;
+            Scanner inputReader = new Scanner(inputFile).useLocale(Locale.US);;
             readPoints(inputReader);
             readParameters(inputReader);
             readLCM(inputReader);
@@ -136,12 +130,10 @@ public class ParameterManager {
     /**
      * Default constructor
      */
-    public ParameterManager() {
-    }
+    public ParameterManager() { }
 
     /**
      * This constructor initializes the fields with the input from an input file
-     * 
      * @param inputFilePath absolute path to the input file
      */
     public ParameterManager(String inputFilePath) {
@@ -150,14 +142,13 @@ public class ParameterManager {
 
     /**
      * @return the numPoints
-     */
-    public int getNumPoints() {
+     * */
+    public int getNumPoints(){
         return this.numPoints;
     }
 
     /**
      * Setter for numPoints field
-     * 
      * @param value number of points in the input
      */
     public void setNumPoints(int value) {
@@ -166,15 +157,14 @@ public class ParameterManager {
 
     /**
      * @return the points
-     */
-    public Vector<Point> getPoints() {
+     * */
+    public Vector<Point> getPoints(){
         return this.points;
     }
 
     /**
      * Setter for points field
-     * 
-     * @param value vector of points
+     * @param value vector of points 
      */
     public void setPoints(Vector<Point> value) {
         this.points = value;
@@ -182,14 +172,13 @@ public class ParameterManager {
 
     /**
      * @return the LIC parameters
-     */
-    public LICParameter getLICParameter() {
+     * */
+    public LICParameter getLICParameter(){
         return this.licParameter;
     }
 
     /**
      * Setter for LIC Parameter field
-     * 
      * @param value given LIC Parameters
      */
     public void setLICParameter(LICParameter value) {
@@ -198,14 +187,13 @@ public class ParameterManager {
 
     /**
      * @return the LCM
-     */
-    public Matrix<Connector> getLogicalConnectorMatrix() {
+     * */
+    public Matrix<Connector> getLogicalConnectorMatrix(){
         return this.logicalConnectorMatrix;
     }
 
     /**
      * Setter for logicalConnectorMatrix field
-     * 
      * @param value given LCM
      */
     public void setLogicalConnectorMatrix(Matrix<Connector> value) {
@@ -214,14 +202,13 @@ public class ParameterManager {
 
     /**
      * @return the PUV
-     */
-    public Vector<Boolean> getPreliminaryUnlockingVector() {
+     * */
+    public Vector<Boolean> getPreliminaryUnlockingVector(){
         return this.preliminaryUnlockingVector;
     }
 
     /**
      * Setter for preliminaryUnlockingVector field
-     * 
      * @param value given PUV
      */
     public void setPreliminaryUnlockingVector(Vector<Boolean> value) {
