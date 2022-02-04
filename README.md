@@ -22,7 +22,7 @@ Branch-naming: issue/nr
 ## How to run
 Compile all files and run with:
 ```
-$ java ConditionsMetVector.java
+$ mvn exec:java -D"exec.mainClass"="com.group10.decide.LaunchInterceptorProgram" 
 ```
 
 ## How to run tests
@@ -38,11 +38,11 @@ We decided that the LIC requirements was a good way to split the work between us
 On top of that, we also needed some other part for the program to work well which are listed bellow. 
 | Name | Tasks |
 | --- | --- |
-| Amanda |  |
-| Chiyi | |
-| Ludwig | |
-| Sebastian | |
-| Şefik | |
+| Amanda | LIC2 #4, LIC6 #10, LIC13 #19, Vector class #40, LICParameter class #23, <br />Some additional methods in the Point class<br />Unit test to all methods and classes that I implemented<br />Some refactoring and documentation<br />Class diagram, slack-bot that notifies whenever a PR is created/updated. |
+| Chiyi | Implement LIC0 #2, LIC5 #8, LIC11 #17 and their unit tests<br />Implement input functions of LICParameter class #23, <br />Implement launchInterceptorProgram #25<br />Refractor Condition Met Vector class and the unit tests of all LICs to make them uniform #73<br />Fix edge errors of some unit tests #81 |
+| Ludwig | LIC4 #6, LIC8 #12, LIC10 #15, <br />Point Class #24, <br />LaunchInterceptorProgram #25, <br />Matrix class #39, <br />some refactoring. |
+| Sebastian | LIC3 #5, LIC7 #11, LIC14 #20 <br />PreliminaryUnlockingMatrix #7 #75<br />Decider #21<br />Refactoring and unit tests for PUM, CMV & Decider class<br />Cleaned commit history |
+| Şefik | ParameterManager Class and its tests. #22 and #52<br />LIC1 #3, LIC9 #14, LIC12 #18<br />Python script to generate test cases #94<br />Test inputs #13 |
 
 ## Essence
 We have had a discussion of our state of work. The conclusion of our discussion can be found [here.](https://docs.google.com/document/d/1F2XvOlAA5KcxmcbASf5P0KabFuRd7MKCWuzxflHKIb8/edit)

@@ -473,7 +473,6 @@ public class ConditionsMetVectorTest {
         }
 
         /**
-         * Test to see if LIC6 returns false if dist > distance between line and point.
          * The points are arranged as follows: (0,1) (0,0) (1,0) (2,0) (3,0) (3,1)
          *      *        *
          *      *  *  *  *
@@ -844,7 +843,7 @@ public class ConditionsMetVectorTest {
         void setUp(){
             cmv = new ConditionsMetVector();
         }
-        /*
+        /**
          * input 3 points with G_pts = 1,
          * the set consists of the first point and the third point, separated by 1 intervening point,
          * such that X[0] - x[2] = -1 < 0
@@ -862,7 +861,7 @@ public class ConditionsMetVectorTest {
             assertEquals(true, cmv.LIC11(gPts, p), "Expected to be true.");
         }
 
-        /*
+        /**
          * input 3 points with G_pts = 1,
          * the only set which can be separated by 1 intervening point is
          * the set consisting of the first point and the third point,
@@ -881,7 +880,7 @@ public class ConditionsMetVectorTest {
             assertEquals(false, cmv.LIC11(gPts, p), "Expected to be false.");
         }
 
-        /*
+        /**
          * input 2 points,
          * NUMPOINTS = 2 < 3, condition is not met
          * so LIC11() should return false.
