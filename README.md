@@ -39,7 +39,7 @@ On top of that, we also needed some other part for the program to work well whic
 | Name | Tasks |
 | --- | --- |
 | Amanda |  |
-| Chiyi | |
+| Chiyi | Implement LIC 0, 5, 11 and their unit tests.<br />Implement the input functions of LIC parameter class. <br />Implement the Implemented Launch Interceptor Program.<br />Refractor the Condition Met Vector class. <br />Refractor the unit tests of all LICs to make them uniform. <br />Fix some edge test errors of LICs. |
 | Ludwig | |
 | Sebastian | |
 | Şefik | |
