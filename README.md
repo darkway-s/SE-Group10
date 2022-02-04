@@ -22,7 +22,7 @@ Branch-naming: issue/nr
 ## How to run
 Compile all files and run with:
 ```
-$ java ConditionsMetVector.java
+$ mvn exec:java -D"exec.mainClass"="com.group10.decide.LaunchInterceptorProgram" 
 ```
 
 ## How to run tests
