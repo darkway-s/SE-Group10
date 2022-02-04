@@ -685,7 +685,9 @@ public class ConditionsMetVectorTest {
     }
 
     /**
-     * Test for LIC 10
+     * Test for LIC 10. Checking there exist at least one set of three points separated
+     * by exakt ePts and fPts points that has a triangular area greater than Area1. The 
+     * nr of points in the set is at least 5.
      */
     @Nested
     @DisplayName("Negative and positive test cases for LIC 10.")
@@ -695,6 +697,9 @@ public class ConditionsMetVectorTest {
             cmv = new ConditionsMetVector();
         }
 
+        /**
+         * The area of points p1, p3 and p5 is greater than Area1.
+         */
         @Test
         @DisplayName("LIC10 positive case, area of the triangle is greater than area1")
         public void LIC10positiveAreaGreater() {
@@ -712,6 +717,10 @@ public class ConditionsMetVectorTest {
             Vector<Point> p = new Vector<Point>(5, vals);
             assertEquals(true, cmv.LIC10(p, ePts, fPts, area1), "Expected to be true.");
         }
+
+        /**
+         * There is no compination where every other point forms a triangle with area greater than Area1.
+         */
         @Test
         @DisplayName("LIC10 positive case, area of the triangle is less than area1")
         public void LIC10positiveAreaLess() {
