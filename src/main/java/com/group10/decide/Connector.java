@@ -1,7 +1,7 @@
 package com.group10.decide;
 
 /**
- * Logical connector that can be used
+ * Logical connector that represents different logical combinations
  * */
 enum Connector {
     ANDD,
