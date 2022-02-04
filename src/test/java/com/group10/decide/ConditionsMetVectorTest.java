@@ -29,7 +29,6 @@ public class ConditionsMetVectorTest {
 
     /**
      * All test cases for LIC0.
-     * LIC0:
      * There exists at least one set of two consecutive data points
      * that are a distance greater than LENGTH1. (0 ≤ LENGTH1)
      */
@@ -84,6 +83,9 @@ public class ConditionsMetVectorTest {
     }
     /**
      * All test cases for LIC1.
+     * There exists at least one set of three consecutive data points that cannot
+     * all be contained
+     * within or on a circle of radius RADIUS1.
      */
     @Nested
     @DisplayName("Negative and positive cases for LIC1.")
@@ -151,6 +153,14 @@ public class ConditionsMetVectorTest {
 
     /**
      * Test for LIC 2
+     * True if there exists 3 consecutive points that form an angle such that:
+     * angle < PI - EPSILON
+     * angle > PI + EPSILON
+     * where the second point is the vertex of the angle. The angle is calculated
+     * using the law of cosines.
+     *
+     * If either the first point or the last point (or both) coincides with the
+     * vertex, the angle is undefined
      * */
     @Nested
     @DisplayName("Negative and positive test cases for LIC 2.")
@@ -236,8 +246,6 @@ public class ConditionsMetVectorTest {
 
     /**
      * All test cases for LIC3.
-     * 
-     * Formal contract of LIC3:
      * There exists at least one set of three consecutive data points that are the vertices of a triangle
      * with area greater than AREA1.
      * (0 ≤ AREA1)
@@ -377,7 +385,6 @@ public class ConditionsMetVectorTest {
 
     /**
      * Test for LIC 5
-     * LIC5:
      * There exists at least one set of two consecutive data points, (X[i],Y[i]) and
      * (X[j],Y[j]),
      * such that X[j] - X[i] < 0. (where i = j-1)
@@ -432,6 +439,9 @@ public class ConditionsMetVectorTest {
 
     /**
      * All test cases for LIC6
+     * True if there, amongst nPts (p_i, p_i+1, pi+2, p_i+3) consecutive points,
+     * exist a distance from
+     * p_i+1, p_i+2 to the line formed by p_i and p_i+3 such that the distance > dist
      */
     @Nested
     @DisplayName("Negative and positive cases for LIC6")
@@ -441,8 +451,11 @@ public class ConditionsMetVectorTest {
             cmv = new ConditionsMetVector();
         }
 
+        /**
+         * Test to see if LIC6 returns true if dist < distance between line and point.
+         */
         @Test
-        @DisplayName("Tes to see if LIC6 returns true if dist < distance between line and point.")
+        @DisplayName("Test to see if LIC6 returns true if dist < distance between line and point.")
         public void testIfDistIsSmaller() {
             int nPts = 4;
             int numPts = 6;
@@ -452,6 +465,9 @@ public class ConditionsMetVectorTest {
             assertEquals(true, cmv.LIC6(nPts, dist, points), "Expected to be true");
         }
 
+        /**
+         * Test to see if LIC6 returns false if dist > distance between line and point.
+         */
         @Test
         @DisplayName("Test to see if LIC6 returns false if dist > distance between line and point.")
         public void testIfDistIsLarger() {
@@ -463,6 +479,9 @@ public class ConditionsMetVectorTest {
             assertEquals(false, cmv.LIC6(nPts, dist, points), "Expected to be false");
         }
 
+        /**
+         * "Test to see if LIC6 returns true if dist < distance between line and point & last point == first point
+         */
         @Test
         @DisplayName("Test to see if LIC6 returns true if dist < distance between line and point & last point == first point")
         public void testIfDistIsSmallerAndLastIsFirst() {
@@ -474,6 +493,9 @@ public class ConditionsMetVectorTest {
             assertEquals(true, cmv.LIC6(nPts, dist, points), "Expected to be true");
         }
 
+        /**
+         * "Test to see if LIC6 returns false if dist > distance between line and point & last point == first point
+         */
         @Test
         @DisplayName("Test to see if LIC6 returns false if dist > distance between line and point & last point == first point")
         public void testIfDistIsLargerAndLastIsFirst() {
@@ -489,6 +511,8 @@ public class ConditionsMetVectorTest {
 
     /**
      * All test cases for LIC7.
+     * True if there exists two points, separated by KPts intervening points, that
+     * are LENGTH1 distance apart
      */
     @Nested
     @DisplayName("Negative and positive cases for LIC7.")
@@ -514,6 +538,9 @@ public class ConditionsMetVectorTest {
             cmv = new ConditionsMetVector();
         }
 
+        /**
+         * LIC7 should be true when the distance is greater than length1
+         */
         @Test
         @DisplayName("LIC7 true case")
         public void LIC7True() {
@@ -522,14 +549,17 @@ public class ConditionsMetVectorTest {
 
             assertEquals(true, cmv.LIC7(length1, kPts, p), "LIC7 should be true when the distance is greater than length1");
         }
-    
+        
+        /**
+         * LIC7 should be false when the distance is less than length1
+         */
         @Test
         @DisplayName("LIC7 false case")
         public void LIC7False() {
             double length1 = 10;
             int kPts = 2;
 
-            assertEquals(false, cmv.LIC7(length1, kPts, p), "LIC7 should be true when the distance is less than length1");
+            assertEquals(false, cmv.LIC7(length1, kPts, p), "LIC7 should be false when the distance is less than length1");
         }
     }
 
@@ -615,6 +645,12 @@ public class ConditionsMetVectorTest {
 
     /**
      * Test for LIC 9
+     * There exists at least one set of three data points separated by exactly C_PTS
+     * and D_PTS
+     * consecutive intervening points, respectively, that form an angle such that:
+     * angle < (PI − EPSILON)
+     * or
+     * angle > (PI + EPSILON)
      * */
     @Nested
     @DisplayName("Negative and positive test cases for LIC 9.")
@@ -712,7 +748,8 @@ public class ConditionsMetVectorTest {
     }
 
     /**
-     * Test for LIC 10. Checking there exist at least one set of three points separated
+     * Test for LIC 10. 
+     * Checking there exist at least one set of three points separated
      * by exakt ePts and fPts points that has a triangular area greater than Area1. The 
      * nr of points in the set is at least 5.
      */
@@ -771,7 +808,6 @@ public class ConditionsMetVectorTest {
 
     /**
      * Test for LIC 11
-     * LIC11:
      * There exists at least one set of two data points, (X[i],Y[i]) and
      * (X[j],Y[j]),
      * separated by exactly G_PTS consecutive intervening points, such that X[j] -
@@ -842,6 +878,19 @@ public class ConditionsMetVectorTest {
 
     /**
      * All test cases for LIC12.
+     * There exists at least one set of two data points, separated by exactly K PTS
+     * consecutive
+     * intervening points, which are a distance greater than the length, LENGTH1,
+     * apart. In addi-
+     * tion, there exists at least one set of two data points (which can be the same
+     * or different from
+     * the two data points just mentioned), separated by exactly K PTS consecutive
+     * intervening
+     * points, that are a distance less than the length, LENGTH2, apart. Both parts
+     * must be true
+     * for the LIC to be true.
+     * 
+     * The condition is not met when NUMPOINTS < 3.
      */
     @Nested
     @DisplayName("Negative and positive cases for LIC12.")
@@ -962,6 +1011,12 @@ public class ConditionsMetVectorTest {
 
     /**
      * All test cases for LIC13.
+     * This condition has two subcondition
+     * (1) three points separated by aPts and bPts cannot be contained within or on
+     * a circle with radius radius1
+     * (2) three points separated by aPts and bPts can be contained within or on a
+     * circle with radius2
+     * If both are true, the condition is satisfied.
      */
     @Nested
     @DisplayName("Negative and positive cases for LIC13.")
@@ -1031,6 +1086,12 @@ public class ConditionsMetVectorTest {
 
     /**
      * All test cases for LIC14.
+     * <b>True</b> if there exists three points separated by EPts and FPts
+     * intervening points that form the vertices of
+     * a triangle with an area greater than area1 and three more points that are
+     * separated by the same conditions
+     * but could be the same which form the vertices of a triangle with an area less
+     * than area2. <b>False</b> otherwise.
      */
     @Nested
     @DisplayName("Negative and positive cases for LIC14.")
