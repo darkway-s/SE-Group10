@@ -744,7 +744,13 @@ public class ConditionsMetVectorTest {
 
     /**
      * Test for LIC 11
-     * 
+     * LIC11:
+     * There exists at least one set of two data points, (X[i],Y[i]) and
+     * (X[j],Y[j]),
+     * separated by exactly G_PTS consecutive intervening points, such that X[j] -
+     * X[i] < 0. (where i < j )
+     * The condition is not met when NUMPOINTS < 3.
+     * 1 <= G_PTS <= NUMPOINTS - 3
      */
     @Nested
     @DisplayName("Negative and positive test cases for LIC 11.")
@@ -753,7 +759,12 @@ public class ConditionsMetVectorTest {
         void setUp(){
             cmv = new ConditionsMetVector();
         }
-
+        /*
+         * input 3 points with G_pts = 1,
+         * the set consists of the first point and the third point, separated by 1 intervening point,
+         * such that X[0] - x[2] = -1 < 0
+         * so LIC11() should return true.
+         */
         @Test
         @DisplayName("LIC11 positive case")
         public void LIC11true() {
@@ -766,6 +777,13 @@ public class ConditionsMetVectorTest {
             assertEquals(true, cmv.LIC11(gPts, p), "Expected to be true.");
         }
 
+        /*
+         * input 3 points with G_pts = 1,
+         * the only set which can be separated by 1 intervening point is
+         * the set consisting of the first point and the third point,
+         * X[0] - x[2] = 4 > 0
+         * so LIC11() should return false.
+         */
         @Test
         @DisplayName("LIC11 negative case")
         public void LIC11false() {
@@ -778,8 +796,13 @@ public class ConditionsMetVectorTest {
             assertEquals(false, cmv.LIC11(gPts, p), "Expected to be false.");
         }
 
+        /*
+         * input 2 points,
+         * NUMPOINTS = 2 < 3, condition is not met
+         * so LIC11() should return false.
+         */
         @Test
-        @DisplayName("LIC11 condition not met, NUMPOINTS < 3")
+        @DisplayName("LIC11 edge test")
         public void LIC11ShortOfNum() {
             int gPts = 1;
             Point p1 = new Point(1, 3);
