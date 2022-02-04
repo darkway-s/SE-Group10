@@ -280,6 +280,8 @@ public class ConditionsMetVectorTest {
     
     /**
      * All test cases for LIC4.
+     * Checking that at least one set of qPts number of consecutive points lies 
+     * in more quads number of quadrants.
      */
     @Nested
     @DisplayName("Negative and positive cases for LIC4.")
@@ -290,6 +292,10 @@ public class ConditionsMetVectorTest {
             cmv = new ConditionsMetVector();
         }
 
+        /**
+         * Test where 2 consecutive points lie in more than 1 quadrant.
+         * The added points are in 2 different quadrants.
+         */
         @Test
         @DisplayName("LIC4 true case")
         public void LIC4True() {
@@ -304,6 +310,10 @@ public class ConditionsMetVectorTest {
             assertEquals(true, cmv.LIC4(points, qPts, quads), "LIC4 should be true when there exist qPts nr of consecutive points in more than quads quadrants");
         }
 
+        /**
+         * Test where 2 consecutive points lie in more than 2 quadrant.
+         * The added points are in 2 different quadrants which is not more than 2.
+         */
         @Test
         @DisplayName("LIC4 false case")
         public void LIC4False() {
@@ -317,6 +327,12 @@ public class ConditionsMetVectorTest {
             Vector<Point> points = new Vector<Point>(3, vals);
             assertEquals(false, cmv.LIC4(points, qPts, quads), "LIC4 should be false when there dont exist qPts nr of consecutive points in more than quads quadrants");
         }
+
+        /**
+         * Test where 3 consecutive points lie in more than 2 quadrant.
+         * The added points are in 3 different quadrants which is more than 2.
+         * This specific case is using edge case coordinates with origo.
+         */
         @Test
         @DisplayName("LIC4 true case, edge case")
         public void LIC4TrueEdge() {
