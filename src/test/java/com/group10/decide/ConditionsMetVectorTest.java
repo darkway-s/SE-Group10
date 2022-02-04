@@ -19,7 +19,7 @@ public class ConditionsMetVectorTest {
     ParameterManager pm;
 
     /**
-     * Instantiate a new ParameterManager object used for testing.
+     * Set up path to all test inputs before all tests.
      * */
     @BeforeAll
     public static void setUp() {
@@ -173,16 +173,16 @@ public class ConditionsMetVectorTest {
 
         /**
          * Test if LIC2 returns true if angle < (pi - epsilon)
+         * Points are arranged in a triangle with 90 deg (pi/2 rad) angle
+         * and epsilon is set to 1, so angle < (pi - epsilon) <=> pi/2 < (3.14 - 1)
+         * which is true.
          * */
         @Test
         @DisplayName("LIC2 positive case, angle < (pi - epsilon)")
         public void LIC2positiveAngleLess() {
-
-            // 90 deg --> pi/2 rad ~ 1.6
             Point p1 = new Point(0, 0);
             Point p2 = new Point(1, 0);
             Point p3 = new Point(2, 1);
-            // epsilon = 1 --> pi - eps = 2.14, => angle < pi - eps
             double eps = 1.0;
 
             Point[] vals = new Point[]{p1, p2, p3};
@@ -192,15 +192,16 @@ public class ConditionsMetVectorTest {
 
         /**
          * Test if LIC2 returns true if angle > (pi + epsilon)
+         * Points are arranged in a triangle with 180 deg (3*pi/2 rad) angle
+         * and epsilon is set to 0.01, so angle > (pi + epsilon) <=> 3*pi/2 < (3.14 - 0.01)
+         * which is true.
          * */
         @Test
         @DisplayName("LIC2 positive case, angle > (pi + epsilon)")
         public void LIC2positiveAngleGreater() {
-            // 180 deg --> 3/2*pi rad ~ 4.7
             Point p1 = new Point(0, 0);
             Point p2 = new Point(1, 0);
             Point p3 = new Point(2, -1);
-            // epsilon = 1 --> pi + eps = 3.15, => angle > pi + eps
             double eps = 0.01;
 
             Point[] vals = new Point[]{p1, p2, p3};
@@ -210,16 +211,17 @@ public class ConditionsMetVectorTest {
 
         /**
          * Test if LIC2 returns false if angle < (pi + epsilon)
+         * The points are arranged in a triangle with 90 deg (pi/2 rad) angle
+         * and epsilon is set to 3, so angle < (pi + epsilon) <=> pi/2 < (3.14 + 3)
+         * which is true.
          * */
         @Test
-        @DisplayName("LIC2 negative case, angle < (pi + epsilon)")
-        public void LIC2negativeLess() {
-            // 90 deg --> pi/2 rad ~ 1.6
+        @DisplayName("LIC2 false case, angle < (pi + epsilon)")
+        public void LIC2falseAngleLess() {
             Point p1 = new Point(0, 0);
             Point p2 = new Point(1, 0);
             Point p3 = new Point(2, 1);
-            // epsilon = 3, (pi - eps = 0.14, pi + eps = 6.14)
-            // => (angle > (pi + epsilon)) && (angle < (pi - epsilon)) (should return false)
+
             double eps = 3;
 
             Point[] vals = new Point[]{p1, p2, p3};
@@ -229,11 +231,11 @@ public class ConditionsMetVectorTest {
 
         /**
          * Test if LIC2 returns false if nr of points < 3
+         * Expected to return false if number of points is less than 3.
          * */
         @Test
-        @DisplayName("LIC2 negative case, if nr of points is < 3")
-        public void LIC2negativeNoOfPoints() {
-            //cmv = new ConditionsMetVector(15);
+        @DisplayName("LIC2 false case, if nr of points is < 3")
+        public void LIC2falseNoOfPoints() {
             Point p1 = new Point(0, 0);
             Point p2 = new Point(1, 0);
 
@@ -440,8 +442,8 @@ public class ConditionsMetVectorTest {
     /**
      * All test cases for LIC6
      * True if there, amongst nPts (p_i, p_i+1, pi+2, p_i+3) consecutive points,
-     * exist a distance from
-     * p_i+1, p_i+2 to the line formed by p_i and p_i+3 such that the distance > dist
+     * exist a distance from p_i+1, p_i+2 to the line formed by p_i and p_i+3
+     * such that the distance > dist
      */
     @Nested
     @DisplayName("Negative and positive cases for LIC6")
@@ -453,9 +455,14 @@ public class ConditionsMetVectorTest {
 
         /**
          * Test to see if LIC6 returns true if dist < distance between line and point.
+         * The points are arranged as follows: (0,1) (0,0) (1,0) (2,0) (3,0) (3,1)
+         *      *        *
+         *      *  *  *  *
+         * And nPts is set to 4, so the smallest distance to the line will be 0
+         * (when the slice includes (0,0), (1,0), (2,0), (3,0)). Since dist = 0.1 > 0, the method is expected to return true.
          */
         @Test
-        @DisplayName("Test to see if LIC6 returns true if dist < distance between line and point.")
+        @DisplayName("LIC6 returns true if dist < distance between line and point.")
         public void testIfDistIsSmaller() {
             int nPts = 4;
             int numPts = 6;
@@ -467,9 +474,14 @@ public class ConditionsMetVectorTest {
 
         /**
          * Test to see if LIC6 returns false if dist > distance between line and point.
+         * The points are arranged as follows: (0,1) (0,0) (1,0) (2,0) (3,0) (3,1)
+         *      *        *
+         *      *  *  *  *
+         * And nPts is set to 4, so the smallest distance to the line will be 0 (when the slice includes
+         * (0,0), (1,0), (2,0), (3,0)). Since dist = 50 > 0, the method is expected to return false.
          */
         @Test
-        @DisplayName("Test to see if LIC6 returns false if dist > distance between line and point.")
+        @DisplayName("LIC6 returns false if dist > distance between line and point.")
         public void testIfDistIsLarger() {
             int nPts = 4;
             int numPts = 6;
@@ -480,10 +492,15 @@ public class ConditionsMetVectorTest {
         }
 
         /**
-         * "Test to see if LIC6 returns true if dist < distance between line and point & last point == first point
+         * Test to see if LIC6 returns true if dist < distance between line and point & last point == first point
+         * The points are arranged as follows: (0,1) (0,0) (1,0)
+         *      *
+         *      *  *
+         * And nPts is set to 3, so the smallest distance to the line will be 0 sqrt(2).
+         * Since dist = 0.1 > sqrt(2), the method is expected to return true.
          */
         @Test
-        @DisplayName("Test to see if LIC6 returns true if dist < distance between line and point & last point == first point")
+        @DisplayName("LIC6 returns true if dist < distance between line and point & last point == first point")
         public void testIfDistIsSmallerAndLastIsFirst() {
             int nPts = 3;
             int numPts = 3;
@@ -494,10 +511,15 @@ public class ConditionsMetVectorTest {
         }
 
         /**
-         * "Test to see if LIC6 returns false if dist > distance between line and point & last point == first point
+         * Test to see if LIC6 returns false if dist > distance between line and point & last point == first point
+         * The points are arranged as follows: (0,1) (0,0) (1,0) (1,1)
+         *      *  *
+         *      *  *
+         * And nPts is set to 4, so the smallest distance to the line will be 1.
+         * Since dist = 2 > 1, the method is expected to return false.
          */
         @Test
-        @DisplayName("Test to see if LIC6 returns false if dist > distance between line and point & last point == first point")
+        @DisplayName("LIC6 returns false if dist > distance between line and point & last point == first point")
         public void testIfDistIsLargerAndLastIsFirst() {
             int nPts = 4;
             int numPts = 4;
@@ -879,16 +901,11 @@ public class ConditionsMetVectorTest {
     /**
      * All test cases for LIC12.
      * There exists at least one set of two data points, separated by exactly K PTS
-     * consecutive
-     * intervening points, which are a distance greater than the length, LENGTH1,
-     * apart. In addi-
-     * tion, there exists at least one set of two data points (which can be the same
-     * or different from
-     * the two data points just mentioned), separated by exactly K PTS consecutive
-     * intervening
-     * points, that are a distance less than the length, LENGTH2, apart. Both parts
-     * must be true
-     * for the LIC to be true.
+     * consecutive intervening points, which are a distance greater than the length, LENGTH1,
+     * apart. In addition, there exists at least one set of two data points (which can be the same
+     * or different from the two data points just mentioned), separated by exactly K PTS consecutive
+     * intervening points, that are a distance less than the length, LENGTH2, apart. Both parts
+     * must be true for the LIC to be true.
      * 
      * The condition is not met when NUMPOINTS < 3.
      */
@@ -1012,10 +1029,8 @@ public class ConditionsMetVectorTest {
     /**
      * All test cases for LIC13.
      * This condition has two subcondition
-     * (1) three points separated by aPts and bPts cannot be contained within or on
-     * a circle with radius radius1
-     * (2) three points separated by aPts and bPts can be contained within or on a
-     * circle with radius2
+     *      (1) three points separated by aPts and bPts cannot be contained within or on a circle with radius radius1
+     *      (2) three points separated by aPts and bPts can be contained within or on a circle with radius2
      * If both are true, the condition is satisfied.
      */
     @Nested
@@ -1048,7 +1063,10 @@ public class ConditionsMetVectorTest {
         }
 
         /**
-         * Tests if both subconditions are met, and thus returns true
+         * Tests if both subconditions are met, and thus returns true.
+         * Radius1 is set to 0.25, Radius2 to 50. The points that form a circle are
+         * (0,0) (3,1) (2,3) which has a radius of r=1.82; thus r is not within Radius1,
+         * but within Raduis2, and the function should return true.
          */
         @Test
         @DisplayName("LIC13 returns true, both subcondtions are met")
@@ -1061,6 +1079,9 @@ public class ConditionsMetVectorTest {
 
         /**
          * Tests if only 1 subcondition is met, and thus returns false
+         * Radius1 is set to 0.25, Radius2 to 0.25. The points that form a circle are
+         * (0,0) (3,1) (2,3) which has a radius of r=1.82; thus r is not within Radius1,
+         * nor within Raduis2, and the function should return false.
          */
         @Test
         @DisplayName("LIC13 returns false, only subcondition (1) is met")
@@ -1073,6 +1094,10 @@ public class ConditionsMetVectorTest {
 
         /**
          * Tests if only 1 subcondition is met, and thus returns false
+         * Tests if both subconditions are met, and thus returns true.
+         * Radius1 is set to 50, Radius2 to 50. The points that form a circle are
+         * (0,0) (3,1) (2,3) which has a radius of r=1.82; thus r is within Radius1,
+         * and within Raduis2, and the function should return false.
          */
         @Test
         @DisplayName("LIC13 returns false, only subcondition (2) is met")

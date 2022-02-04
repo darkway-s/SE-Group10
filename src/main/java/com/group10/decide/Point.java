@@ -1,7 +1,8 @@
 package com.group10.decide;
 
 /**
- *
+ * Class for a Point.
+ * A point represents a location (x, y) in the plane.
  * */
 public class Point {
     double x, y;

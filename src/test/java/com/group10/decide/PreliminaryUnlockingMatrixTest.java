@@ -20,11 +20,10 @@ public class PreliminaryUnlockingMatrixTest {
 
 
     /**
-     * Initializes all LCMs and CMVs used by the tests
+     * Initializes all LCMs and CMVs used by the tests.
      */
     @BeforeAll
     public static void setUp() {
-
         Connector[][] allANDDVals = new Connector[][] {
                 {Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD },
                 {Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD },
@@ -92,6 +91,10 @@ public class PreliminaryUnlockingMatrixTest {
         cmvOneTrue = new Vector<>(15, oneTrue);
     }
 
+    /**
+     * Test if PUM created from LCM with only NOTUSED values and a CMV is not affected by the values in the CMV.
+     * Since no value in the CMV is used (as specified by the LCM) all values in the PUM should be true.
+     * */
     @Test
     @DisplayName("PUM with NOTUSED filled LCM shouldn't be affected by CMV")
     public void testPUMWithNOTUSEDLCM() {
@@ -110,6 +113,11 @@ public class PreliminaryUnlockingMatrixTest {
         }
     }
 
+    /**
+     * Test if PUM created from LCM with only ANDD values and a CMV is affected by the values in the CMV.
+     * The PUM is created with 1 true LIC and 13 false LICs and only ANDDs, thus only 1 element in the PUM should be true.
+     * The rest of the elements should be false.
+     * */
     @Test
     @DisplayName("PUM with ANDD filled LCM should be affected by CMV")
     public void testPUMWithANDDLCM() {
@@ -143,6 +151,11 @@ public class PreliminaryUnlockingMatrixTest {
         }
     }
 
+    /**
+     * Test if PUM created from LCM with only ORR values and a CMV is affected by the values in the CMV.
+     * The PUM is created froma CMV with 1 true LIC and 13 false LICs, and a LCM with only ORR values. All
+     * elements in PUM connected to the true LIC value should result in a true value in the PUM.
+     * */
     @Test
     @DisplayName("PUM with ORR filled LCM should be affected by CMV")
     public void testPUMWithORRLCM() {
@@ -176,6 +189,9 @@ public class PreliminaryUnlockingMatrixTest {
         }
     }
 
+    /**
+     * Test if isRowAllTrue() returns true if all elements in the row is true.
+     * */
     @Test
     @DisplayName("An all true PUM, should return true from isRowAllTrue")
     public void testIsRowAllTrue() {
