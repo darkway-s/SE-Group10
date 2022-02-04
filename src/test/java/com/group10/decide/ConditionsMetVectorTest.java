@@ -1126,6 +1126,7 @@ public class ConditionsMetVectorTest {
         Point p3;
         Point p4;
         Point p5;
+        Point p6;
 
         Point[] vals;
         Vector<Point> p;
@@ -1138,14 +1139,21 @@ public class ConditionsMetVectorTest {
             p3 = new Point(2, 2);
             p4 = new Point(0, 2);
             p5 = new Point(0, 2);
+            p6 = new Point(2, 1);
 
             vals = new Point[]{p1, p2, p3, p4, p5};
             p = new Vector<Point>(5, vals);
         }
 
+
+        /**
+         * LIC14 should be true when both conditions are fulfilled. In this case points (0,0), (2,2), and (0,2) '
+         * should be used as they form a triangle with an area of 2. 
+         * When area1 = 1 and area2 = 5, the conditions are true as 1 < 2 < 5.
+         */
         @Test
-        @DisplayName("LIC14 true case")
-        public void LIC14True() {
+        @DisplayName("LIC14 positive case, same points")
+        public void LIC14PositiveSamePoints() {
             double area1 = 1;
             double area2 = 5;
             int ePts = 1;
@@ -1153,14 +1161,66 @@ public class ConditionsMetVectorTest {
             assertEquals(true, cmv.LIC14(area1, area2, ePts, fPts, p), "LIC14 should be true when both conditions are true");
         }
 
+        /**
+         * LIC14 should be true when both conditions are fulfilled. In this case points (0,0), (2,2), and (0,2)
+         * should be used as they form a triangle with an area of 2. As well as points (2,0), (0,2) and (2,1) 
+         * which form a triangle with an area of 1.
+         * When area1 = 1 and area2 = 2, the conditions are true as 1 (area1) < 2 (triangle 1) and 1 (triangle 2) < 2 (area2).
+         */
         @Test
-        @DisplayName("LIC14 false case")
-        public void LIC14False() {
+        @DisplayName("LIC14 positive case, Different points fulfill conditions")
+        public void LIC14PositiveDifferentPoints() {
+            Point[] valsSixPoints = new Point[]{p1, p2, p3, p4, p5};
+            Vector<Point> pSix = new Vector<Point>(5, valsSixPoints);
+
+            double area1 = 1;
+            double area2 = 5;
+            int ePts = 1;
+            int fPts = 1;
+            assertEquals(true, cmv.LIC14(area1, area2, ePts, fPts, pSix), "LIC14 should be true when both conditions are true but fulfilled by different points");
+        }
+
+
+        /**
+         * LIC14 should be false when both conditions are false. In this case (0,0), (2,2), and (0,2) form a triangle
+         * with an area of 2. When area1 = 10 and area2 = 2, none of the conditions are true
+         */
+        @Test
+        @DisplayName("LIC14 negative case, when both conditions fail")
+        public void LIC14NegativeBothFalse() {
             double area1 = 10;
             double area2 = 2;
             int ePts = 1;
             int fPts = 1;
-            assertEquals(false, cmv.LIC14(area1, area2, ePts, fPts, p), "LIC14 should be false when at least one condition is false");
+            assertEquals(false, cmv.LIC14(area1, area2, ePts, fPts, p), "LIC14 should be false when both conditions are false");
+        }
+
+        /**
+         * LIC14 should be false when atleast one condition is false. In this case (0,0), (2,2), and (0,2) form a triangle
+         * with an area of 2. When area1 = 1 and area2 = 2, the first condition holds but not the second one
+         */
+        @Test
+        @DisplayName("LIC14 negative case, when first condition fail")
+        public void LIC14NegativeFirstFalse() {
+            double area1 = 1;
+            double area2 = 2;
+            int ePts = 1;
+            int fPts = 1;
+            assertEquals(false, cmv.LIC14(area1, area2, ePts, fPts, p), "LIC14 should be false when first condition is false");
+        }
+
+        /**
+         * LIC14 should be false when atleast one condition is false. In this case (0,0), (2,2), and (0,2) form a triangle
+         * with an area of 2. When area1 = 2 and area2 = 10, the second condition holds but not the first one
+         */
+        @Test
+        @DisplayName("LIC14 negative case, when second condition fail")
+        public void LIC14NegativeSecondFalse() {
+            double area1 = 2;
+            double area2 = 10;
+            int ePts = 1;
+            int fPts = 1;
+            assertEquals(false, cmv.LIC14(area1, area2, ePts, fPts, p), "LIC14 should be false when second condition is false");
         }
     }
 }
