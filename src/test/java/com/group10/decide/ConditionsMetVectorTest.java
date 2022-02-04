@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test for ConditionsMetVector.
+ * In this test, we separately test every LIC function with positive, negative and edge cases.
  */
 public class ConditionsMetVectorTest {
 
@@ -28,6 +29,9 @@ public class ConditionsMetVectorTest {
 
     /**
      * All test cases for LIC0.
+     * LIC0:
+     * There exists at least one set of two consecutive data points
+     * that are a distance greater than LENGTH1. (0 ≤ LENGTH1)
      */
     @Nested
     @DisplayName("Negative and positive cases for LIC0.")
@@ -38,7 +42,11 @@ public class ConditionsMetVectorTest {
             cmv = new ConditionsMetVector();
         }
 
-
+        /**
+         * Input is three points{(0, 0),(1, 0),(1.3, 0)}, with LENGTH1 = 0.5
+         * there exists the distance between the first two points which is bigger than LENGTH1,
+         * so LIC0() should return true.
+         */
         @Test
         @DisplayName("LIC0 true case")
         public void LIC0true() {
@@ -46,13 +54,18 @@ public class ConditionsMetVectorTest {
             Point p1 = new Point(0, 0);
             Point p2 = new Point(1, 0);
             Point p3 = new Point(1.3, 0);
-            // p1->p2 = 1 length = 0.5
+            // p1->p2 = 1 > length = 0.5
             double length = 0.5;
             Point[] vals = new Point[]{p1, p2, p3};
             Vector<Point> p = new Vector<Point>(3, vals);
             assertEquals(Boolean.TRUE, cmv.LIC0(length, p), "LIC0 should be true,  one distance between adjacent points larger than length1");
         }
 
+        /**
+         * Input is three points{(0, 0),(1, 0),(1.3, 0)}, with LENGTH1 = 2
+         * all the distance between two consecutive data points are less than LENGTH1,
+         * so LIC0() should return false.
+         */
         @Test
         @DisplayName("LIC0 false case")
         public void LIC0false() {
