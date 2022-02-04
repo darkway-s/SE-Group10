@@ -334,6 +334,10 @@ public class ConditionsMetVectorTest {
 
     /**
      * Test for LIC 5
+     * LIC5:
+     * There exists at least one set of two consecutive data points, (X[i],Y[i]) and
+     * (X[j],Y[j]),
+     * such that X[j] - X[i] < 0. (where i = j-1)
      * */
     @Nested
     @DisplayName("Negative and positive test cases for LIC 5.")
@@ -345,7 +349,9 @@ public class ConditionsMetVectorTest {
         }
 
         /**
-         * Test if LIC5 returns true if exists i, s.t. X[i+1] - X[i] < 0
+         * Input is three points{(0, 0),(1, 0),(0, 1)}
+         * there exists i = 1, j = 2, s.t. X[2] - X[1] =  -1 < 0
+         * so LIC5() should return true.
          * */
         @Test
         @DisplayName("LIC5 true case, exists i, s.t. X[i+1] - X[i] < 0")
@@ -362,7 +368,9 @@ public class ConditionsMetVectorTest {
         }
 
         /**
-         * Test if LIC2 returns true if exists i, s.t. X[i+1] - X[i] < 0
+         * Input is three points{(0, 0),(1, 0),(2, 1)}
+         * for every i from 0 to 2, X[i+1] - X[i] =  1 > 0
+         * so LIC5() should return false.
          * */
         @Test
         @DisplayName("LIC5 false case, any i, not satisfy X[i+1] - X[i] < 0")
@@ -377,8 +385,6 @@ public class ConditionsMetVectorTest {
             Vector<Point> p = new Vector<Point>(3, vals);
             assertEquals(false, cmv.LIC5(p), "Expected to be false.");
         }
-
-
     }
 
     /**
