@@ -1,12 +1,12 @@
 package com.group10.decide;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Nested;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for ConditionsMetVector.
@@ -236,8 +236,12 @@ public class ConditionsMetVectorTest {
 
     /**
      * All test cases for LIC3.
+     * 
+     * Formal contract of LIC3:
+     * There exists at least one set of three consecutive data points that are the vertices of a triangle
+     * with area greater than AREA1.
+     * (0 ≤ AREA1)
      */
-
     @Nested
     @DisplayName("Negative and positive cases for LIC3.")
     class TestLIC3 {
@@ -252,7 +256,7 @@ public class ConditionsMetVectorTest {
         @BeforeEach
         void setUp(){
             cmv = new ConditionsMetVector();
-            // area = 0.5
+            // area = 1 * 1 / 2 = 0.5
             p1 = new Point(0, 0);
             p2 = new Point(1, 0);
             p3 = new Point(0, 1);
@@ -262,17 +266,40 @@ public class ConditionsMetVectorTest {
             p= new Vector<Point>(4, vals);
         }
         
+        /**
+         * Test LIC3 when area is greater than area1
+         */
         @Test
-        @DisplayName("LIC3 true case")
-        public void LIC3True() {
+        @DisplayName("LIC3 positive case")
+        public void LIC3Positive() {
             double area1 = 0.4;
+
+            // The points form a triangle with area = 0.5 and area1 = 0.4 therefore area > area1, LIC3 should be true
             assertEquals(true, cmv.LIC3(area1, p), "LIC3 should be true when the triangle's area is greater than Area1");
         }
 
+         /**
+         * Test LIC3 when area is equal to area1
+         */
         @Test
-        @DisplayName("LIC3 false case")
-        public void LIC3False() {
+        @DisplayName("LIC3 negative edge case")
+        public void LIC3NegativeEdge() {
+            double area1 = 0.5;
+
+            // The points form a triangle with area = 0.5 and area1 = 0.5 therefore area = area1, LIC3 should be false
+            assertEquals(false, cmv.LIC3(area1, p), "LIC3 should be false when the triangle's area is less than Area1");
+        }
+        
+
+        /**
+         * Test LIC3 when area is less than area1
+         */
+        @Test
+        @DisplayName("LIC3 negative case")
+        public void LIC3Negative() {
             double area1 = 0.6;
+
+            // The points form a triangle with area = 0.5 and area1 = 0.6 therefore area < area1, LIC3 should be false
             assertEquals(false, cmv.LIC3(area1, p), "LIC3 should be false when the triangle's area is less than Area1");
         }
     }
