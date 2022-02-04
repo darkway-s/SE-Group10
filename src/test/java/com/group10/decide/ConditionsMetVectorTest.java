@@ -508,6 +508,9 @@ public class ConditionsMetVectorTest {
 
     /**
      * All test cases for LIC8.
+     * Checking that three consecutive points separated by at exaktly aPts and bPts
+     * points are not within a circle of radius1. The number of points must also be
+     * at least 5.
      */
     @Nested
     @DisplayName("Negative and positive cases for LIC8.")
@@ -516,6 +519,10 @@ public class ConditionsMetVectorTest {
         void setUp(){
             cmv = new ConditionsMetVector();
         }
+        /**
+         * 6 points where we have three points separated by 1 which are 
+         * outside a circle of radius1 = 1.
+         */
         @Test
         @DisplayName("LIC8 true case")
         public void LIC8True() {
@@ -534,7 +541,11 @@ public class ConditionsMetVectorTest {
             assertEquals(true, cmv.LIC8(aPts, bPts, radius, points), "Expected to be true");
             
         }
-    
+        
+        /**
+         * 6 points where we have three points separated by 1 which are 
+         * within a circle of radius1 = 5.
+         */
         @Test
         @DisplayName("LIC8 false case")
         public void LIC8False() {
@@ -552,6 +563,10 @@ public class ConditionsMetVectorTest {
             Vector<Point> points = new Vector<Point>(6, new Point[]{p1, p2, p3, p4, p5, p6});
             assertEquals(false, cmv.LIC8(aPts, bPts, radius, points), "Expected to be false");
         }
+
+        /**
+         * Test that should false since we have less than 5 points.
+         */
         @Test
         @DisplayName("LIC8 false case, fewer than 5 points")
         public void LIC8FalseFewerThan5() {
